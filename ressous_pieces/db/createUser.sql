@@ -1,0 +1,1 @@
+INSERT INTO users_rp (username, email, imageUrl, password) VALUES ($1, $2, $3, $4);

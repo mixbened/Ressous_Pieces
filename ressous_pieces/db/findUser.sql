@@ -1,0 +1,1 @@
+SELECT * FROM users_rp WHERE username = $1;

@@ -16,7 +16,7 @@ checkLogin(){
 
   render() {
     return (
-      <div>
+      <div className='app'>
         {this.checkLogin()}
         {routes}
       </div>

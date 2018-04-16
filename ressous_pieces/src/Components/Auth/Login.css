@@ -1,0 +1,67 @@
+body {
+    background: #f2f2f2;
+}
+
+.loginContainer {
+    margin-top: 20%;
+    padding: 5%;
+    text-align: center;
+    color: #337ab7;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+h1 {
+    padding: 10%;
+    font-weight: 800;
+    color: #444;
+}
+
+.authInput {
+    padding: 8%;
+}
+
+nav {
+    height: 10%;
+    width: 100%;
+    background: #444;
+    color: #444;
+}
+
+.backContainer {
+    position: absolute;
+    bottom: 0;
+    width: 98%;
+    margin: 1%;
+}
+
+.backButton {
+    width: 100%;
+    font-size: 1.5em;
+}
+
+@media (min-width: 578px){
+    .loginContainer {
+        margin-top: 0;
+        padding: 5%;
+        text-align: center;
+        color: #337ab7;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+    }
+    .authInput {
+        padding: 1%;
+        width: 50%;
+        margin: 0 auto;
+    }
+    h1 {
+        padding: 2%;
+    }
+    .backButton {
+        width: 10%;
+        font-size: 1em;
+    }
+    .backContainer {
+        text-align: center;
+    }
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Login.css';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -10,9 +12,11 @@ class Login extends Component {
             failMessage: ''
         }
         this.login = this.login.bind(this);
+        this.showFail = this.showFail.bind(this);
     }
 
     login(){
+        console.log('run Login')
         const { username, password } = this.state;
         const user = {
             username,
@@ -31,6 +35,7 @@ class Login extends Component {
     }
 
     showFail(val){
+        console.log('show Fail')
         if(val === 'p'){
         this.setState({failMessage: <div>Wrong Password Dude. Try again!</div>});
         } else if (val === 'u') {
@@ -41,11 +46,23 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <h1>Hello from the Login Component</h1>
-                <input placeholder='Username' value={this.state.username} onChange={e => this.setState({username: e.target.value})}/>
-                <input placeholder='Password' value={this.state.password} onChange={e => this.setState({password: e.target.value})}/>
-                <button onClick={this.login}>Login</button>
-                {this.state.failMessage}
+                <nav>Nav</nav>
+                <div className='container loginContainer'>
+                        <h1>Login</h1>
+                        <div className="form-group">
+                            <label>Username</label>
+                            <input type="text" className="form-control authInput" placeholder="Username" onChange={e => this.setState({username: e.target.value})}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input type="text" className="form-control authInput" placeholder="Password" onChange={e => this.setState({password: e.target.value})}/>
+                        </div>
+                        {this.state.failMessage}
+                        <button className="btn btn-primary" onClick={() => this.login()}>Sign in</button>
+                </div>
+                <div className='backContainer'>
+                <Link to='/dashboard'><button className='btn backButton'>back</button></Link>
+                </div>
             </div>
         );
     }

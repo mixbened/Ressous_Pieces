@@ -34,14 +34,21 @@ class Workspace extends Component {
             description: this.state.descr,
             workspace_id: this.state.workspace_id
         }
+        console.log(issue)
         axios.post('/api/issue', issue).then( data => {
+            this.setState({issues: data.data, title: '', description: ''})
+        })
+    }
+
+    deleteIssue(id){
+        axios.delete(`/api/issue/${id}`).then(data => {
             this.setState({issues: data.data, title: '', description: ''})
         })
     }
 
     render() {
         const { wsTitle, wsDescr } = this.state;
-        const IssueList = this.state.issues.map(el =>  <div><h6>{el.title}</h6><p>{el.description}</p><Link to={`/issue/${el.issue_id}`}>Plus</Link></div> )
+        const IssueList = this.state.issues.map(el =>  <div><h6>{el.title}</h6><p>{el.description}</p><Link to={`/issue/${el.issue_id}`}>Plus</Link><button onClick={() => this.deleteIssue(el.issue_id)}>X</button></div> )
         return (
             <div className='container'>
                 <div>

@@ -1,0 +1,1 @@
+SELECT * FROM practices_rp WHERE issue_id = $1;

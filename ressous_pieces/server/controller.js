@@ -70,7 +70,7 @@ module.exports = {
         })
     },
     createIssue: (req, res) => {
-        req.app.get('db').createIssue([req.body.title, req.body.descr, req.body.workspace_id, req.session.user.user_id]).then(data => {
+        req.app.get('db').createIssue([req.body.title, req.body.description, req.body.workspace_id, req.session.user.user_id]).then(data => {
             res.status(200).send(data)
         })
     },
@@ -78,5 +78,30 @@ module.exports = {
         req.app.get('db').getIssues(req.params.id).then(data => {
             res.status(200).send(data)
         })
-    }
+    },
+    getIssue: (req, res) => {
+        req.app.get('db').getIssue(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    deleteIssue: (req, res) => {
+        req.app.get('db').deleteIssue(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    createPractice: (req, res) => {
+        req.app.get('db').createPractice([req.body.title, req.body.link,req.body.origin, req.body.issue_id, req.body.workspace_id, req.session.user.user_id]).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    getPractices: (req, res) => {
+        req.app.get('db').getPractices(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    deletePractice: (req, res) => {
+        req.app.get('db').deletePractice(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
 }

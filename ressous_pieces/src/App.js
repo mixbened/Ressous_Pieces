@@ -7,7 +7,7 @@ class App extends Component {
 
 checkLogin(){
   console.log(window.location.pathname)
-  if(window.location.pathname === '/login'){
+  if(window.location.pathname === '/login' || window.location.pathname === '/register'){
     console.log('Check failed')
   } else {
     return <Nav />

@@ -1,0 +1,54 @@
+.off {
+    opacity: 0;
+    z-index: -1;
+}
+
+.on {
+    opacity: 1;
+}
+
+.background {
+    opacity: 0.1;
+}
+
+.inputContainer {
+    transition: 1s;
+    position: fixed;
+    top: 100px;
+}
+
+.wsPreview {
+    border: 1px solid black;
+    width: 20%;
+    margin: 5%;
+    padding: 1em;
+}
+
+.wsContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mainContainer {
+    display: flex;
+}
+
+main {
+    flex: 1;
+}
+
+.sidebar {
+    width: 15%;
+    height: 100px;
+    background: #444;
+    display: block;
+}
+
+@media (max-width: 768px){
+    .wsPreview {
+        border: 1px solid black;
+        width: 100%;
+        margin: 10%;
+    }
+}

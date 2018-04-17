@@ -1,0 +1,1 @@
+DELETE FROM users_rp WHERE user_id = $1;

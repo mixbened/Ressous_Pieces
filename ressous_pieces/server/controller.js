@@ -30,16 +30,53 @@ module.exports = {
     },
     createUser: (req, res) => {
         const { username, email, imageUrl, password } = req.body;
+        console.log(username);
         const dbInstance = req.app.get('db');
         bcrypt.hash( password, saltRounds).then( hashedPassword => {
             dbInstance.createUser([username, email, imageUrl, hashedPassword]).then( data => {
                 console.log('Created User')
-                res.status(200).send(data);
+                res.status(200).send('registered');
             })
         })
     },
     logout: (req, res) => {
         req.session.destroy();
         res.status(200).send('Session ended');
+    },
+    deleteUser: (req, res) => {
+        req.app.get('db').deleteUser(req.params.id).then(data => {
+            res.status(200).send('deleted User')
+        })
+    },
+    getWorkspace: (req, res) => {
+        req.app.get('db').getWorkspace(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    createWorkspace: (req,res) => {
+        req.app.get('db').createWorkspace([req.body.title, req.body.descr, req.session.user.user_id]).then(data => {
+            console.log(data)
+            res.status(200).send(data)
+        })
+    },
+    deleteWorkspace: (req, res) => {
+        req.app.get('db').deleteWorkspace(req.params.id).then( data => {
+            res.status(200).send(data)
+        })
+    },
+    getAllWorkspacesForUser: (req, res) => {
+        req.app.get('db').getAllWorkspaces(req.session.user.user_id).then(data => {
+            res.status(200).send(data);
+        })
+    },
+    createIssue: (req, res) => {
+        req.app.get('db').createIssue([req.body.title, req.body.descr, req.body.workspace_id, req.session.user.user_id]).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    getIssues: (req, res) => {
+        req.app.get('db').getIssues(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
     }
 }

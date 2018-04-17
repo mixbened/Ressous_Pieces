@@ -21,5 +21,12 @@ app.get('/api/checkSession', c.checkSession);
 app.post('/api/login', c.login);
 app.post('/api/logout', c.logout);
 app.post('/api/register', c.createUser);
+app.delete('/api/deleteUser/:id', c.deleteUser);
+app.get('/api/workspace/:id', c.getWorkspace);
+app.post('/api/workspace/', c.createWorkspace);
+app.get('/api/dashboard/', c.getAllWorkspacesForUser);
+app.delete('/api/workspace/:id', c.deleteWorkspace);
+app.post('/api/issue', c.createIssue)
+app.get('/api/issues/:id', c.getIssues)
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

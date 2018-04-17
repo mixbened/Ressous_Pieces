@@ -1,0 +1,46 @@
+nav {
+    background: #444;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav > h2 {
+    font-size: 1.5em;
+    padding: 0 1%;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+}
+
+nav > div > ul > li {
+    padding: 15px;
+}
+
+nav > div > ul > div {
+    display: flex;
+}
+
+nav > div > ul > div > li {
+    padding: 20px;
+}
+
+.navButton {
+    background: #ffffff;
+    font-size: 1em;
+}
+
+@media (max-width: 578px) {
+    .navButton {
+        font-size: 1.2em;
+    }
+    nav > div > ul > li {
+        padding: 30px 5px;
+    }
+    nav > div > ul > div > li {
+        padding: 20px 5px;
+    }
+}

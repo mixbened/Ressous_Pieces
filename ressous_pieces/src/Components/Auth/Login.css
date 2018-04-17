@@ -3,7 +3,7 @@ body {
 }
 
 .loginContainer {
-    margin-top: 20%;
+    margin-top: 5%;
     padding: 5%;
     text-align: center;
     color: #337ab7;
@@ -21,7 +21,7 @@ h1 {
     padding: 8%;
 }
 
-nav {
+.loginNav {
     height: 10%;
     width: 100%;
     background: #444;
@@ -38,6 +38,7 @@ nav {
 .backButton {
     width: 100%;
     font-size: 1.5em;
+    margin: 1%;
 }
 
 @media (min-width: 578px){

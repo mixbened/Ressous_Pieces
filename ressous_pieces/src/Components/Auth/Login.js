@@ -46,21 +46,22 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <nav>Nav</nav>
+                <nav className='loginNav'>Nav</nav>
                 <div className='container loginContainer'>
-                        <h1>Login</h1>
+                        <h1>login</h1>
                         <div className="form-group">
-                            <label>Username</label>
-                            <input type="text" className="form-control authInput" placeholder="Username" onChange={e => this.setState({username: e.target.value})}/>
+                            <label>username</label>
+                            <input type="text" className="form-control authInput" placeholder="username" onChange={e => this.setState({username: e.target.value})}/>
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
-                            <input type="text" className="form-control authInput" placeholder="Password" onChange={e => this.setState({password: e.target.value})}/>
+                            <label>password</label>
+                            <input type="text" className="form-control authInput" placeholder="password" onChange={e => this.setState({password: e.target.value})}/>
                         </div>
                         {this.state.failMessage}
-                        <button className="btn btn-primary" onClick={() => this.login()}>Sign in</button>
+                        <button className="btn btn-primary" onClick={() => this.login()}>sign in</button>
                 </div>
                 <div className='backContainer'>
+                <Link to='/register'><button className='btn backButton'>register</button></Link>
                 <Link to='/dashboard'><button className='btn backButton'>back</button></Link>
                 </div>
             </div>

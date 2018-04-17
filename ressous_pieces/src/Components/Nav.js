@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './main.css';
 
 class Nav extends Component {
     constructor(){
@@ -26,10 +27,13 @@ class Nav extends Component {
     }
 
     checkButton(){
-        if(this.state.isLoggedIn){
-            return <button onClick={() => this.logout()}>Logout</button>
+        if(this.state.isLoggedIn){ 
+            return  (
+            <div><li><Link className='btn navButton' to='/dashboard'>dashboard</Link></li>
+            <li><a className='btn navButton' onClick={() => this.logout()}>logout</a></li></div>
+            )
         } else {
-            return <Link to='/login'><button>Login</button></Link>
+            return <li><Link className='btn navButton' to='/login'>login</Link></li>
         }
     }
 
@@ -37,10 +41,9 @@ class Nav extends Component {
         return (
             <div>
                 <nav>
-                    <h2>Navigation</h2>
+                    <h2>Ressous Pieces</h2>
                     <div>
-                        <Link to='/dashboard'>Dashboard</Link>
-                        {this.checkButton()}
+                            <ul>{this.checkButton()}</ul>
                     </div>
                 </nav>
             </div>

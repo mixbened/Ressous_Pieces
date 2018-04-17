@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Workspace extends Component {
     constructor(){
@@ -40,7 +41,7 @@ class Workspace extends Component {
 
     render() {
         const { wsTitle, wsDescr } = this.state;
-        const IssueList = this.state.issues.map(el => <li><h6>el.title</h6></li>)
+        const IssueList = this.state.issues.map(el =>  <div><h6>{el.title}</h6><p>{el.description}</p><Link to={`/issue/${el.issue_id}`}>Plus</Link></div> )
         return (
             <div className='container'>
                 <div>
@@ -53,7 +54,7 @@ class Workspace extends Component {
                     <div>
                         <input placeholder='Issue Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
                         <textarea placeholder='Issue Description'  value={this.state.descr} onChange={e => this.setState({descr: e.target.value})}/>
-                    <button onClick={e => this.creatIssue()}>New</button>
+                        <button onClick={e => this.creatIssue()}>New</button>
                     </div>
                 </div>
             </div>

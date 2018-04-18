@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import Sidebar from '../Sidebar/Sidebar';
 
 class Issue extends Component {
     constructor(){
@@ -27,6 +27,12 @@ class Issue extends Component {
         })
     }
 
+    handleKeyPress(event) {
+        if(event.key === 'Enter'){
+            this.createPractice();
+        }
+      }
+
     createPractice(){
         const practice = {
             title: this.state.title,
@@ -39,7 +45,7 @@ class Issue extends Component {
     }
 
     deletePractice(id){
-        axios.delete(`/api/practices/${id}`).then(data => {
+        axios.delete(`/api/practices/${id}/${this.state.issue_id}`).then(data => {
             console.log(data)
             this.setState({practices: data.data, title: '', description: ''})
         })
@@ -50,15 +56,17 @@ class Issue extends Component {
         const PracticeList = this.state.practices.map(el =>  <div><h6>{el.title}</h6><a>{el.url}</a><button onClick={() => this.deletePractice(el.practice_id)}>X</button></div> )
         return (
             <div>
-                <h1>{this.state.isTitle}</h1>
-                <p>{this.state.isDescr}</p>
-                <div>
-                    <h2>Issues</h2>
-                    {PracticeList}
+                <div className='main'>
+                    <h1>{this.state.isTitle}</h1>
+                    <p>{this.state.isDescr}</p>
                     <div>
-                        <input placeholder='Practice Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                        <input placeholder='Practice Link'  value={this.state.link} onChange={e => this.setState({link: e.target.value})}/>
-                        <button onClick={() => this.createPractice()}>New</button>
+                        <h2>Issues</h2>
+                        {PracticeList}
+                        <div>
+                            <input placeholder='Practice Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                            <input placeholder='Practice Link'  value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
+                            <button onClick={() => this.createPractice()}>New</button>
+                        </div>
                     </div>
                 </div>
             </div>

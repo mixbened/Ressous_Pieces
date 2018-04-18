@@ -15,6 +15,12 @@ class Login extends Component {
         this.showFail = this.showFail.bind(this);
     }
 
+    handleKeyPress(event) {
+        if(event.key === 'Enter'){
+            this.login();
+        }
+      }
+
     login(){
         console.log('run Login')
         const { username, password } = this.state;
@@ -55,7 +61,7 @@ class Login extends Component {
                         </div>
                         <div className="form-group">
                             <label>password</label>
-                            <input type="text" className="form-control authInput" placeholder="password" onChange={e => this.setState({password: e.target.value})}/>
+                            <input type="text" className="form-control authInput" placeholder="password" onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({password: e.target.value})}/>
                         </div>
                         {this.state.failMessage}
                         <button className="btn btn-primary" onClick={() => this.login()}>sign in</button>

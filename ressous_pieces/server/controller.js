@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 12;
+const cloudinary = require('cloudinary');
 
 module.exports = {
     login: (req, res) => {
@@ -30,7 +31,7 @@ module.exports = {
     },
     createUser: (req, res) => {
         const { username, email, imageUrl, password } = req.body;
-        console.log(username);
+        console.log(imageUrl);
         const dbInstance = req.app.get('db');
         bcrypt.hash( password, saltRounds).then( hashedPassword => {
             dbInstance.createUser([username, email, imageUrl, hashedPassword]).then( data => {
@@ -85,7 +86,7 @@ module.exports = {
         })
     },
     deleteIssue: (req, res) => {
-        req.app.get('db').deleteIssue(req.params.id).then(data => {
+        req.app.get('db').deleteIssue([req.params.iid, req.params.wid]).then(data => {
             res.status(200).send(data)
         })
     },
@@ -100,8 +101,18 @@ module.exports = {
         })
     },
     deletePractice: (req, res) => {
-        req.app.get('db').deletePractice(req.params.id).then(data => {
+        req.app.get('db').deletePractice([req.params.pid, req.params.iid]).then(data => {
             res.status(200).send(data)
         })
     },
+    imageUpload: (req, res) => {
+        const timestamp = Math.round((new Date()).getTime() / 1000);
+        const api_secret = process.env.CLOUDINARY_API_SECRET;
+        const signature = cloudinary.utils.api_sign_request({ timestamp: timestamp }, api_secret);
+        const payload = {
+            signature: signature,
+            timestamp: timestamp
+        };
+        res.json(payload);
+    }
 }

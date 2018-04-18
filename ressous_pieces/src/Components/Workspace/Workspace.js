@@ -28,7 +28,13 @@ class Workspace extends Component {
         })
     }
 
-    creatIssue(){
+    handleKeyPress(event) {
+        if(event.key === 'Enter'){
+            this.createIssue();
+        }
+      }
+
+    createIssue(){
         const issue = {
             title: this.state.title,
             description: this.state.descr,
@@ -36,12 +42,12 @@ class Workspace extends Component {
         }
         console.log(issue)
         axios.post('/api/issue', issue).then( data => {
-            this.setState({issues: data.data, title: '', description: ''})
+            this.setState({issues: data.data, title: '', descr: ''})
         })
     }
 
     deleteIssue(id){
-        axios.delete(`/api/issue/${id}`).then(data => {
+        axios.delete(`/api/issue/${id}/${this.state.workspace_id}`).then(data => {
             this.setState({issues: data.data, title: '', description: ''})
         })
     }
@@ -60,8 +66,8 @@ class Workspace extends Component {
                     {IssueList}
                     <div>
                         <input placeholder='Issue Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                        <textarea placeholder='Issue Description'  value={this.state.descr} onChange={e => this.setState({descr: e.target.value})}/>
-                        <button onClick={e => this.creatIssue()}>New</button>
+                        <textarea placeholder='Issue Description'  value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
+                        <button onClick={e => this.createIssue()}>New</button>
                     </div>
                 </div>
             </div>

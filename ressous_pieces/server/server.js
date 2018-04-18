@@ -4,8 +4,7 @@ const massive = require('massive');
 const bodyParser = require('body-parser');
 const PORT = 3050;
 const session = require('express-session');
-const c = require('./controller')
-
+const c = require('./controller');
 const app = express();
 app.use(bodyParser.json());
 massive(process.env.CONNECTION_STRING).then(database => {
@@ -29,9 +28,10 @@ app.delete('/api/workspace/:id', c.deleteWorkspace);
 app.post('/api/issue', c.createIssue);
 app.get('/api/issues/:id', c.getIssues);
 app.get('/api/issue/:id', c.getIssue);
-app.delete('/api/issue/:id', c.deleteIssue);
+app.delete('/api/issue/:iid/:wid', c.deleteIssue);
 app.get('/api/practices/:id', c.getPractices);
 app.post('/api/practices/', c.createPractice);
-app.delete('/api/practices/:id', c.deletePractice)
+app.delete('/api/practices/:pid/:iid', c.deletePractice);
+app.get('/api/upload', c.imageUpload)
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

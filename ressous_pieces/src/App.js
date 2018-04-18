@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import routes from './routes.js';
 import Nav from './Components/Nav';
+import Sidebar from './Components/Sidebar/Sidebar'
 
 class App extends Component {
 
 checkLogin(){
   console.log(window.location.pathname)
   if(window.location.pathname === '/login' || window.location.pathname === '/register'){
-    console.log('Check failed')
+      <div>{routes}</div>
   } else {
-    return <Nav />
+    return <div><Nav /><div className='content'><div className='main'>{routes}</div><div><Sidebar /></div></div></div>
   }
 }
 

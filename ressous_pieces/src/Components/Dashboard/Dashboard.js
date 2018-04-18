@@ -41,11 +41,11 @@ class Dashboard extends Component {
             <div className='mainContainer'>
             <div className='container'>
                 <main className={this.state.createMode ? 'background row' : 'row'}>
-                    <div className='row'>
+                    <div>
                         <button onClick={e => this.setState({createMode: !this.state.createMode})}>New</button>
                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                     </div>
-                    <div className='wsContainer row'>
+                    <div className='wsContainer'>
                         {workspaceList}
                     </div>
                 </main>
@@ -65,7 +65,6 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 </div>
-                <Sidebar className='sidebar'/>
             </div>
         );
     }

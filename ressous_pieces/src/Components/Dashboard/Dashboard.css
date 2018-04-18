@@ -38,13 +38,6 @@ main {
     flex: 1;
 }
 
-.sidebar {
-    width: 15%;
-    height: 100px;
-    background: #444;
-    display: block;
-}
-
 @media (max-width: 768px){
     .wsPreview {
         border: 1px solid black;

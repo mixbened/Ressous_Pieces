@@ -1,0 +1,1 @@
+SELECT * FROM articles_rp WHERE workspace_id = $2;

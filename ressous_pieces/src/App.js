@@ -9,7 +9,6 @@ class App extends Component {
 checkLogin(){
   console.log(window.location.pathname)
   if(window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/'){
-      <div>{routes}</div>
   } else {
     return <div><Sidebar /></div>
   }

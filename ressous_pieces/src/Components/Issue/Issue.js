@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Sidebar from '../Sidebar/Sidebar';
+import './Issue.css';
 
 class Issue extends Component {
     constructor(){
@@ -57,8 +57,8 @@ class Issue extends Component {
         return (
             <div>
                 <div className='main'>
-                    <h1>{this.state.isTitle}</h1>
-                    <p>{this.state.isDescr}</p>
+                    <h1>{isTitle}</h1>
+                    <p>{isDescr}</p>
                     <div>
                         <h2>Issues</h2>
                         {PracticeList}

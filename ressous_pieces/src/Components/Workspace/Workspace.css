@@ -1,0 +1,45 @@
+.mainRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list {
+    border: 1px solid black;
+    margin: 2%;
+}
+
+.articles {
+    flex: 1;
+}
+
+.issues {
+    flex: 2;
+}
+
+.description {
+    flex: 1;
+}
+
+.projects {
+    border: 1px solid black;
+}
+
+h2 {
+    text-align: center;
+    padding: 3%;
+}
+
+h4 {
+    padding: 5%;
+}
+
+.creationBar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2%;
+    background: #444;
+    margin: 0;
+}

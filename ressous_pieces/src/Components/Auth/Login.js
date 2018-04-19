@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
 
 class Login extends Component {
     constructor(){
@@ -45,7 +44,7 @@ class Login extends Component {
                 window.location = '/login'
             }
         });   
-        }.bind(this);
+        };
 
         (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -93,9 +92,6 @@ class Login extends Component {
     }
 
     render() {
-        const responseFacebook = (response) => {
-            console.log('Facebook Response', response)
-        }
         return (
             <div>
                 <div className='container loginContainer'>
@@ -110,7 +106,7 @@ class Login extends Component {
                         </div>
                         {this.state.failMessage}
                         <div className='signButton'><button className="btn btn-primary" onClick={() => this.login()}>sign in</button></div>
-                        <div className="fb-login-button" data-width="100" data-max-rows="1" scope='public_profile' data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">Login with Facebook</div>
+                        <div className="fb-login-button" data-width="100" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">Login with Facebook</div>
 
                 </div>
                 <div className='backContainer'>

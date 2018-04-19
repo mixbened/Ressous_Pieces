@@ -126,5 +126,24 @@ module.exports = {
             timestamp: timestamp
         };
         res.json(payload);
+    },
+    createArticle: (req, res) => {
+            req.app.get('db').createArticle([req.body.title, req.body.link, req.body.origin, req.body.workspace_id,req.body.issue_id, req.session.user.user_id]).then(data => {
+                res.status(200).send(data)
+            })
+    },
+    deleteArticle: (req, res) => {
+        console.log(req.params.aid)
+        console.log(req.params.wid)
+        req.app.get('db').deleteArticle([req.params.aid, req.params.wid]).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    getArticles: (req, res) => {
+        console.log(req.params.id)
+        req.app.get('db').getArticles([req.body.type, req.params.id]).then(data => {
+            console.log(data)
+            res.status(200).send(data)
+        })
     }
 }

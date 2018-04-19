@@ -38,6 +38,9 @@ app.get('/api/practices/:id', c.getPractices);
 app.post('/api/practices/', c.createPractice);
 app.delete('/api/practices/:pid/:iid', c.deletePractice);
 app.get('/api/upload', c.imageUpload);
-app.post('/api/fblogin', c.fblogin)
+app.post('/api/fblogin', c.fblogin);
+app.post('/api/article', c.createArticle);
+app.delete('/api/article/:aid/:wid', c.deleteArticle);
+app.post('/api/articles/:id', c.getArticles)
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

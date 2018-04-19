@@ -8,18 +8,23 @@ class App extends Component {
 
 checkLogin(){
   console.log(window.location.pathname)
-  if(window.location.pathname === '/login' || window.location.pathname === '/register'){
+  if(window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/'){
       <div>{routes}</div>
   } else {
-    return <div><Nav /><div className='content'><div className='main'>{routes}</div><div><Sidebar /></div></div></div>
+    return <div><Sidebar /></div>
   }
 }
 
   render() {
     return (
       <div className='app'>
-        {this.checkLogin()}
-        {routes}
+      <Nav />
+      <div className='content'>
+        <div className='main'>
+          {routes}
+        </div>
+          {this.checkLogin()}
+      </div>
       </div>
     );
   }

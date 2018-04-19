@@ -61,7 +61,7 @@ class Dashboard extends Component {
                             <label>description</label>
                             <textarea className="form-control authInput" value={this.state.descr} rows='3' placeholder="description" onChange={e => this.setState({descr: e.target.value})}/>
                         </div>
-                        <button className="btn btn-primary" onClick={() => this.createSpace()}>sign up</button>
+                        <button className="btn btn-primary" onClick={() => this.createSpace()}>Create</button>
                     </div>
                 </div>
                 </div>

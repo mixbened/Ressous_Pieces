@@ -15,7 +15,12 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
   }));
+app.use(express.static('public'));
 
+
+
+
+app.get('/health-check', (req, res) => res.sendStatus(200));
 app.get('/api/checkSession', c.checkSession);
 app.post('/api/login', c.login);
 app.post('/api/logout', c.logout);

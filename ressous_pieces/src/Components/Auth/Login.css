@@ -12,13 +12,13 @@ body {
 }
 
 h1 {
-    padding: 10%;
+    padding: 1%;
     font-weight: 800;
     color: #444;
 }
 
 .authInput {
-    padding: 8%;
+    padding: 5%;
 }
 
 .loginNav {
@@ -35,23 +35,34 @@ h1 {
     margin: 1%;
 }
 
+.signButton {
+    margin-bottom: 10px;
+}
+
 .backButton {
     width: 100%;
     font-size: 1.5em;
     margin: 1%;
+    display: inline-block
+}
+
+.fileInput {
+    margin: 0 auto;
+    width: 200px;
+    padding: 5%;
 }
 
 @media (min-width: 578px){
     .loginContainer {
         margin-top: 0;
-        padding: 5%;
+        padding: 2%;
         text-align: center;
         color: #337ab7;
         letter-spacing: 0.1em;
         font-weight: 600;
     }
     .authInput {
-        padding: 1%;
+        padding: 2%;
         width: 50%;
         margin: 0 auto;
     }
@@ -64,5 +75,8 @@ h1 {
     }
     .backContainer {
         text-align: center;
+    }
+    .fileInput {
+        padding: 1%;
     }
 }

@@ -15,7 +15,7 @@ class Nav extends Component {
         axios.get('/api/checkSession').then(response => {
             if(response){
                 this.setState({isLoggedIn: true})
-            }
+            } 
         })
     }
 

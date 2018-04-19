@@ -13,7 +13,8 @@ class Nav extends Component {
 
     componentDidMount(){
         axios.get('/api/checkSession').then(response => {
-            if(response){
+            console.log(response)
+            if(!response.data === 'No Session found'){
                 this.setState({isLoggedIn: true})
             } 
         })

@@ -22,6 +22,18 @@ module.exports = {
             }
         })
     },
+    fblogin: (req, res) => {
+        req.app.get('db').findFBUser(req.body.fb_id).then(data => {
+            if(data.length) {
+                req.session.user = data[0];
+                res.redirect(200, 'http://localhost:3000/dashboard')
+            } else {
+                req.app.get('db').createFBUser(req.body.name, req.body.fb_id, req.body.imageUrl).then(data => {
+                req.session.user = data[0];
+                })
+            }
+        })
+    },
     checkSession: (req, res) => {
         if(req.session.user){
             res.status(200).send(req.session.user)

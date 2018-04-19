@@ -27,10 +27,22 @@ class Login extends Component {
             
         window.FB.Event.subscribe('auth.statusChange', (response) => {
             if(response.authResponse){
-                console.log(response)
+                console.log(response.authResponse.userID)
+                window.FB.api('/me?fields=picture,name', function(response) {
+                        console.log(response)
+                        const FBuser = {
+                            name: response.name,
+                            imageUrl: response.picture.data.url,
+                            fb_id: response.id
+                        }
+                        axios.post('/api/fblogin', FBuser).then(data => {
+                            console.log(data);
+                            window.location = '/dashboard'
+                        })
+                    });
             } else {
-                console.log('Second Condition')
-                this.updateLoggedInState()
+                console.log('Authentication failed')
+                window.location = '/login'
             }
         });   
         }.bind(this);
@@ -82,7 +94,7 @@ class Login extends Component {
 
     render() {
         const responseFacebook = (response) => {
-            console.log(response)
+            console.log('Facebook Response', response)
         }
         return (
             <div>
@@ -98,7 +110,7 @@ class Login extends Component {
                         </div>
                         {this.state.failMessage}
                         <div className='signButton'><button className="btn btn-primary" onClick={() => this.login()}>sign in</button></div>
-                        <div className="fb-login-button" data-width="100" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false">Login with FB</div>
+                        <div className="fb-login-button" data-width="100" data-max-rows="1" scope='public_profile' data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">Login with Facebook</div>
 
                 </div>
                 <div className='backContainer'>

@@ -1,0 +1,1 @@
+SELECT * FROM users_rp WHERE fb_id = $1;

@@ -128,9 +128,16 @@ module.exports = {
         res.json(payload);
     },
     createArticle: (req, res) => {
+            console.log(req.body.issue_id)
             req.app.get('db').createArticle([req.body.title, req.body.link, req.body.origin, req.body.workspace_id,req.body.issue_id, req.session.user.user_id]).then(data => {
+                console.log(data)
                 res.status(200).send(data)
             })
+    },
+    createArticleIssue: (req, res) => {
+        req.app.get('db').createArticleIssue([req.body.title , req.body.link , req.body.origin , req.body.issue_id, req.session.user.user_id]).then(data => {
+            res.status(200).send(data)
+        })
     },
     deleteArticle: (req, res) => {
         console.log(req.params.aid)
@@ -140,9 +147,32 @@ module.exports = {
         })
     },
     getArticles: (req, res) => {
-        console.log(req.params.id)
         req.app.get('db').getArticles([req.body.type, req.params.id]).then(data => {
             console.log(data)
+            res.status(200).send(data)
+        })
+    },
+    getProjects: (req, res) => {
+        console.log(req.params.id)
+        req.app.get('db').getProjects(req.params.id).then(data => {
+            console.log(data)
+            res.status(200).send(data)
+        })
+    },
+    createProject: (req, res) => {
+        req.app.get('db').createProject([req.body.title, req.body.link, req.body.origin, req.body.workspace_id, req.session.user.user_id]).then( data => {
+            res.status(200).send(data);
+        })
+    },
+    deleteProject: (req, res) => {
+        console.log(req.params.pid);
+        console.log(req.params.wid);
+        req.app.get('db').deleteProject([req.params.pid, req.params.wid]).then( data => {
+            res.status(200).send(data)
+        })
+    },
+    deleteArticleIssue: (req, res) => {
+        req.app.get('db').deleteArticleIssue([req.params.aid, req.params.iid]).then( data => {
             res.status(200).send(data)
         })
     }

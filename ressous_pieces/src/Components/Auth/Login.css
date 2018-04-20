@@ -17,10 +17,6 @@ h1 {
     color: #444;
 }
 
-.authInput {
-    padding: 5%;
-}
-
 .loginNav {
     height: 10%;
     width: 100%;
@@ -50,6 +46,12 @@ h1 {
     margin: 0 auto;
     width: 200px;
     padding: 5%;
+}
+
+.alert-warning {
+    width: 40%;
+    font-size: 1em;
+    margin: 1% auto;
 }
 
 @media (min-width: 578px){

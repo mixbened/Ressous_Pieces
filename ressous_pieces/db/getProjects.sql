@@ -1,0 +1,1 @@
+SELECT * FROM projects_rp WHERE  workspace_id = $1;

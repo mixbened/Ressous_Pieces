@@ -39,8 +39,13 @@ app.post('/api/practices/', c.createPractice);
 app.delete('/api/practices/:pid/:iid', c.deletePractice);
 app.get('/api/upload', c.imageUpload);
 app.post('/api/fblogin', c.fblogin);
+app.post('/api/articles/:id', c.getArticles);
 app.post('/api/article', c.createArticle);
 app.delete('/api/article/:aid/:wid', c.deleteArticle);
-app.post('/api/articles/:id', c.getArticles)
+app.delete('/api/articleis/:aid/:iid', c.deleteArticleIssue)
+app.post('/api/articleis', c.createArticleIssue)
+app.get('/api/projects/:id', c.getProjects);
+app.post('/api/project/', c.createProject);
+app.delete('/api/project/:pid/:wid', c.deleteProject),
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

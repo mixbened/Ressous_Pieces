@@ -36,10 +36,57 @@ h4 {
 .creationBar {
     display: block;
     position: fixed;
-    bottom: 0;
+    bottom: -100%;
     left: 0;
     width: 100%;
     padding: 2%;
     background: #444;
     margin: 0;
+    transition: 1s;
+}
+
+.slide {
+    bottom: 0;
+}
+
+.creationContainer > input,textarea {
+    margin: 0 2%;
+    padding: 1%;
+    height: 100%;
+}
+
+input.title {
+    width: 20%;
+}
+
+input.description {
+    width: 50%;
+}
+
+.creationContainer > .link {
+    width: 50%;
+}
+
+@media (max-width: 578px){
+    .mainRow{
+        display: block;
+    }
+    .list {
+        margin: 10% 5%;
+    }
+    .creationBar {
+        
+    }
+    .creationContainer > button {
+        display: block;
+        margin: 3% auto;
+        width: 80%;
+    }
+    .creationContainer > input {
+        display: block;
+        margin: 3% auto;
+        width: 80%;
+        padding: 5%;
+
+    }
 }

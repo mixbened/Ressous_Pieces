@@ -29,18 +29,23 @@ class Login extends Component {
                 console.log(response.authResponse.userID)
                 window.FB.api('/me?fields=picture,name', function(response) {
                         console.log(response)
-                        const FBuser = {
-                            name: response.name,
-                            imageUrl: response.picture.data.url,
-                            fb_id: response.id
+                        if(!response.error){
+                            const FBuser = {
+                                name: response.name,
+                                imageUrl: response.picture.data.url,
+                                fb_id: response.id
+                            }
+                            axios.post('/api/fblogin', FBuser).then(data => {
+                                console.log(data);
+                                window.location = '/dashboard'
+                            }).catch(error => console.log('Couldnt Login User'))
+                        } else {
+                            alert('Couldnt get User Information from Facebook. Sorry!')
                         }
-                        axios.post('/api/fblogin', FBuser).then(data => {
-                            console.log(data);
-                            window.location = '/dashboard'
-                        })
                     });
             } else {
                 console.log('Authentication failed')
+                alert('We are not able to log you into Facebook. Sorry!')
                 window.location = '/login'
             }
         });   
@@ -104,7 +109,7 @@ class Login extends Component {
                             <label>password</label>
                             <input type="text" className="form-control authInput" placeholder="password" onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({password: e.target.value})}/>
                         </div>
-                        {this.state.failMessage}
+                            {this.state.failMessage ? <div className='alert alert-warning'>{this.state.failMessage}</div> : <div></div>}
                         <div className='signButton'><button className="btn btn-primary" onClick={() => this.login()}>sign in</button></div>
                         <div className="fb-login-button" data-width="100" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">Login with Facebook</div>
 

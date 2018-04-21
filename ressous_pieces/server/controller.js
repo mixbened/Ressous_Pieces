@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 12;
 const cloudinary = require('cloudinary');
+const origin = require('./helper');
 
 module.exports = {
     login: (req, res) => {
@@ -103,7 +104,7 @@ module.exports = {
         })
     },
     createPractice: (req, res) => {
-        req.app.get('db').createPractice([req.body.title, req.body.link,req.body.origin, req.body.issue_id, req.body.workspace_id, req.session.user.user_id]).then(data => {
+        req.app.get('db').createPractice([req.body.title, req.body.link,origin(req.body.link), req.body.issue_id, req.body.workspace_id, req.session.user.user_id]).then(data => {
             res.status(200).send(data)
         })
     },
@@ -129,13 +130,13 @@ module.exports = {
     },
     createArticle: (req, res) => {
             console.log(req.body.issue_id)
-            req.app.get('db').createArticle([req.body.title, req.body.link, req.body.origin, req.body.workspace_id,req.body.issue_id, req.session.user.user_id]).then(data => {
+            req.app.get('db').createArticle([req.body.title, req.body.link, origin(req.body.link), req.body.workspace_id,req.body.issue_id, req.session.user.user_id]).then(data => {
                 console.log(data)
                 res.status(200).send(data)
             })
     },
     createArticleIssue: (req, res) => {
-        req.app.get('db').createArticleIssue([req.body.title , req.body.link , req.body.origin , req.body.issue_id, req.session.user.user_id]).then(data => {
+        req.app.get('db').createArticleIssue([req.body.title , req.body.link , origin(req.body.link) , req.body.issue_id, req.session.user.user_id]).then(data => {
             res.status(200).send(data)
         })
     },
@@ -160,7 +161,8 @@ module.exports = {
         })
     },
     createProject: (req, res) => {
-        req.app.get('db').createProject([req.body.title, req.body.link, req.body.origin, req.body.workspace_id, req.session.user.user_id]).then( data => {
+        console.log(origin(req.body.link))
+        req.app.get('db').createProject([req.body.title, req.body.link, origin(req.body.link), req.body.workspace_id, req.session.user.user_id]).then( data => {
             res.status(200).send(data);
         })
     },
@@ -173,6 +175,19 @@ module.exports = {
     },
     deleteArticleIssue: (req, res) => {
         req.app.get('db').deleteArticleIssue([req.params.aid, req.params.iid]).then( data => {
+            res.status(200).send(data)
+        })
+    },
+    checkIssue: (req, res) => {
+        console.log(req.params.id)
+        console.log(req.params.check)
+        req.app.get('db').checkIssue([req.params.id, req.params.check, req.params.wid]).then((data) => {
+            console.log(data)
+            res.status(200).send(data);
+        })
+    },
+    getAllIssues: (req, res) => {
+        req.app.get('db').getAllIssues().then(data => {
             res.status(200).send(data)
         })
     }

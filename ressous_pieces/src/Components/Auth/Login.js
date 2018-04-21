@@ -113,7 +113,7 @@ class Login extends Component {
                         <div className='signButton'><button className="btn btn-primary" onClick={() => this.login()}>sign in</button></div>
                         <div className="fb-login-button" data-width="100" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">Login with Facebook</div>
 
-                </div>
+            </div>
                 <div className='backContainer'>
                 <Link to='/register'><button className='btn backButton'>register</button></Link>
                 <Link to='/'><button className='btn backButton'>back</button></Link>

@@ -3,8 +3,34 @@
     flex-wrap: wrap;
 }
 
+a {
+    color: #444;
+}
+
+.checkbox {
+    width: 30px;
+    height: 30px;
+}
+
+.issue {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoBox {
+    flex: 1;
+}
+
+.breadcrump {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+.breadcrump:hover {
+    text-decoration: none;
+}
+
 .list {
-    border: 1px solid black;
     margin: 2%;
 }
 
@@ -16,12 +42,12 @@
     flex: 2;
 }
 
-.description {
-    flex: 1;
+.practices {
+    flex: 2;
 }
 
-.projects {
-    border: 1px solid black;
+.description {
+    flex: 1;
 }
 
 h2 {
@@ -65,6 +91,27 @@ input.description {
 
 .creationContainer > .link {
     width: 50%;
+}
+
+.list-group > ul {
+    padding: 0;
+    width: 100%;
+    display: inline-block;
+}
+
+.list-group-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.issueContainer {
+    display: inline-block;
+}
+
+img {
+    width: 20%;
+    float: right;
 }
 
 @media (max-width: 578px){

@@ -19,6 +19,7 @@
 
 .wsPreview {
     border: 1px solid black;
+    display: inline-block;
     width: 20%;
     margin: 5%;
     padding: 1em;

@@ -24,7 +24,7 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <div className='sidebarContainer'>
+            <div className='sidebar'>
                 <div className='personalInfo'>
                     <img className='thumbnail profileImage' src={this.state.image} alt={`of ${this.state.username}`} />
                     <h2>Whats up {this.state.username}!</h2>

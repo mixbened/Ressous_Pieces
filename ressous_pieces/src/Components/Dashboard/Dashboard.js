@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Dashboard.css';
 import '../Workspace/Workspace.css';
 import { Link } from 'react-router-dom';
+import Redirect from 'react-router-dom/Redirect';
 
 class Dashboard extends Component {
     constructor(){
@@ -46,14 +47,12 @@ class Dashboard extends Component {
 
 
     render() {
-        const workspaceList = this.state.workspaces.map((el,i) => <div key={i} className='wsPreview'><h2>{el.title}</h2><p>{el.description}</p><Link to={`/workspace/${el.workspace_id}`}>Plus</Link></div>)
+        const workspaceList = this.state.workspaces.map((el,i) => <div onClick={() => window.location = `/workspace/${el.workspace_id}`}key={i} className='wsPreview'><h2>{el.title}</h2><p>{el.description}</p></div>)
         return (
             <div className='mainContainer'>
-            <div className='container'>
-                <main className='row'>
+                <main>
                     <div>
                         <button onClick={e => this.setState({createMode: !this.state.createMode})}>New</button>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                     </div>
                     <div className='wsContainer'>
                         {workspaceList}
@@ -61,7 +60,6 @@ class Dashboard extends Component {
                 </main>
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}
-                </div>
                 </div>
             </div>
         );

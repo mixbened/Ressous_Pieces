@@ -1,1 +1,1 @@
-SELECT * FROM issues_rp WHERE workspace_id = $1;
+SELECT * FROM issues_rp WHERE workspace_id = $1 ORDER BY issue_id ASC;

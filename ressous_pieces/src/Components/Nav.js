@@ -44,7 +44,7 @@ class Nav extends Component {
                 <nav>
                     <h2>Ressous Pieces</h2>
                     <div>
-                            <ul>{this.checkButton()}</ul>
+                    <ul>{this.checkButton()}</ul>
                     </div>
                 </nav>
             </div>

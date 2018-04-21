@@ -6,6 +6,8 @@ const PORT = 3050;
 const session = require('express-session');
 const c = require('./controller');
 const app = express();
+
+// Middleware
 app.use(bodyParser.json());
 massive(process.env.CONNECTION_STRING).then(database => {
     app.set('db', database)
@@ -15,37 +17,51 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
   }));
-app.use(express.static('public'));
 
 
+// App Endpoints
 
-
-app.get('/health-check', (req, res) => res.sendStatus(200));
-app.get('/api/checkSession', c.checkSession);
+// Auth 
+app.post('/api/register', c.createUser);
 app.post('/api/login', c.login);
 app.post('/api/logout', c.logout);
-app.post('/api/register', c.createUser);
+app.get('/api/checkSession', c.checkSession);
 app.delete('/api/deleteUser/:id', c.deleteUser);
-app.get('/api/workspace/:id', c.getWorkspace);
+app.get('/api/upload', c.imageUpload);
+app.post('/api/fblogin', c.fblogin);
+
+// Workspace
 app.post('/api/workspace/', c.createWorkspace);
+app.get('/api/workspace/:id', c.getWorkspace);
 app.get('/api/dashboard/', c.getAllWorkspacesForUser);
 app.delete('/api/workspace/:id', c.deleteWorkspace);
+app.put('/api/issues/:id/:check/:wid', c.checkIssue);
+
+// Articles - Workspaces
+app.post('/api/articles/:id', c.getArticles);
+app.post('/api/article', c.createArticle);
+app.delete('/api/article/:aid/:wid', c.deleteArticle);
+
+// Projects - Workspace
+app.get('/api/projects/:id', c.getProjects);
+app.post('/api/project/', c.createProject);
+app.delete('/api/project/:pid/:wid', c.deleteProject),
+
+// Issue
 app.post('/api/issue', c.createIssue);
 app.get('/api/issues/:id', c.getIssues);
 app.get('/api/issue/:id', c.getIssue);
 app.delete('/api/issue/:iid/:wid', c.deleteIssue);
+app.get('/api/issues', c.getAllIssues);
+
+// Practices - Issue
 app.get('/api/practices/:id', c.getPractices);
 app.post('/api/practices/', c.createPractice);
 app.delete('/api/practices/:pid/:iid', c.deletePractice);
-app.get('/api/upload', c.imageUpload);
-app.post('/api/fblogin', c.fblogin);
-app.post('/api/articles/:id', c.getArticles);
-app.post('/api/article', c.createArticle);
-app.delete('/api/article/:aid/:wid', c.deleteArticle);
+
+// Article - Issue
 app.delete('/api/articleis/:aid/:iid', c.deleteArticleIssue)
 app.post('/api/articleis', c.createArticleIssue)
-app.get('/api/projects/:id', c.getProjects);
-app.post('/api/project/', c.createProject);
-app.delete('/api/project/:pid/:wid', c.deleteProject),
+
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

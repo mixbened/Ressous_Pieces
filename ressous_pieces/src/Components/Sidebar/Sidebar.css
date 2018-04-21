@@ -11,14 +11,8 @@
     margin: 0 auto;
 }
 
-.sidebarContainer {
-    width: 300px;
+.sidebar {
+    width: 100%;
     border: 1px solid #444;
     height: 100vh;
-}
-
-@media (max-width: 768px){
-    .sidebarContainer {
-        display: none;
-    }
 }

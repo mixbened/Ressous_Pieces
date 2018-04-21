@@ -3,6 +3,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Workspace.css';
 import { create } from 'domain';
+import Plus from 'react-icons/lib/md/control-point';
+import Remove from 'react-icons/lib/go/x';
+import Arrow from 'react-icons/lib/ti/arrow-left';
+import Logo from '../Logo';
+
+
+
 
 class Workspace extends Component {
     constructor(){
@@ -55,7 +62,6 @@ class Workspace extends Component {
             description: this.state.descr,
             workspace_id: this.state.workspace_id
         }
-        console.log(issue)
         axios.post('/api/issue', issue).then( data => {
             this.setState({issues: data.data, title: '', descr: '', createMode: false})
         })
@@ -105,7 +111,6 @@ class Workspace extends Component {
                 <button className='btn' onClick={() => this.createIssue()}>Add</button>
             </div>
         } else if(this.state.create === 'a') {
-
             return <div className='creationContainer'>
                 <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
                 <input className='title' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
@@ -128,34 +133,54 @@ class Workspace extends Component {
         })
     }
 
+    changeCheck(id, cf){
+        console.log(cf)
+        axios.put(`/api/issues/${id}/${cf}/${this.state.workspace_id}`).then(data => {
+            this.setState({issues: data.data})
+        })
+    }
+
     render() {
         const { wsTitle, wsDescr } = this.state;
-        const IssueList = this.state.issues.map((el,i) =>  <div key={i}><h6>{el.title}</h6><p>{el.description}</p><Link to={`/issue/${el.issue_id}`}>Plus</Link><button onClick={() => this.deleteIssue(el.issue_id)}>X</button></div> )
-        const ArticleList = this.state.articles.map((el,i)=>  <div key={i}><h6>{el.title}</h6><a>{el.url}</a><button onClick={() => this.deleteArticle(el.article_id)}>X</button></div> )
-        const ProjectsList = this.state.projects.map((el,i)=>  <div key={i}><h6>{el.title}</h6><a>{el.url}</a><button onClick={() => this.deleteProject(el.projects_id)}>X</button></div> )
+        const IssueList = this.state.issues.map((el,i) =>  <li className='list-group-item issue' key={i}><div className='infoBox'><Link to={`/issue/${el.issue_id}`}><p>{el.title}</p><p>{el.description}</p></Link></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteIssue(el.issue_id)}/><input value={el.check_field} onChange={() => this.changeCheck(el.issue_id, !el.check_field)} type='checkbox' className='checkbox'/></div></li> )
+        const ArticleList = this.state.articles.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/></div><Logo className='logo' origin={el.origin}/></div></li> )
+        const ProjectsList = this.state.projects.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteProject(el.projects_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
         return (
-            <div className='container'>
+            <div>
+                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link></div>
                     <h2>{wsTitle}</h2>
                 <div className='mainRow'>
                     <div className='description list'>
-                        <h4>Description</h4>
+                        <h4>description</h4>
                         <p>{wsDescr}</p>
                     </div>
-                    <div className='list-group issues'>
-                        <h4>Issues</h4>
-                        {IssueList}
-                        <button onClick={() => this.setState({createMode: !this.state.createMode, create: 'i'})}>X</button>
+                    <div className='list-group issues list'>
+                    <div className='titleContainer'>
+                        <h4>issues</h4>
+                        <Plus className='icon' onClick={() => this.setState({createMode: !this.state.createMode, create: 'i'})}/>
                     </div>
-                    <div className='list articles'>
-                        <h4>Articles</h4>
-                        {ArticleList}
-                        <button onClick={() => this.setState({createMode: !this.state.createMode, create: 'a'})}>X</button>
+                        <ul>
+                            {IssueList}
+                        </ul>
+                    </div>
+                    <div className='list-group articles list'>
+                    <div className='titleContainer'>
+                        <h4>articles</h4>
+                        <Plus className='icon' onClick={() => this.setState({createMode: !this.state.createMode, create: 'a'})}/>
+                    </div>
+                        <ul>
+                            {ArticleList}
+                        </ul>
                     </div>
                 </div>
-                    <div className='projects'>
-                        <h4>Projects</h4>
-                        {ProjectsList}
-                        <button onClick={() => this.setState({createMode: !this.state.createMode, create: 'p'})}>X</button>
+                    <div className='projects list-group list'>
+                        <div className='titleContainer'>
+                            <h4>projects</h4>
+                            <Plus className='icon' onClick={() => this.setState({createMode: !this.state.createMode, create: 'p'})}/>
+                        </div>
+                        <ul>
+                            {ProjectsList}
+                        </ul>
                     </div>
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}

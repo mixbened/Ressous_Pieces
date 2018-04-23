@@ -17,7 +17,7 @@ class Browser extends Component {
     
 
     render() {
-        const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6></li>)
+        const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6></li>)
         return (
             <div>
                 <ul className='issueContainer'>

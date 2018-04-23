@@ -143,7 +143,7 @@ class Workspace extends Component {
     render() {
         const { wsTitle, wsDescr } = this.state;
         const IssueList = this.state.issues.map((el,i) =>  <li className='list-group-item issue' key={i}><div className='infoBox'><Link to={`/issue/${el.issue_id}`}><p>{el.title}</p><p>{el.description}</p></Link></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteIssue(el.issue_id)}/><input value={el.check_field} onChange={() => this.changeCheck(el.issue_id, !el.check_field)} type='checkbox' className='checkbox'/></div></li> )
-        const ArticleList = this.state.articles.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/></div><Logo className='logo' origin={el.origin}/></div></li> )
+        const ArticleList = this.state.articles.map((el,i) =>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
         const ProjectsList = this.state.projects.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteProject(el.projects_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
         return (
             <div>

@@ -13,12 +13,11 @@ class App extends Component {
     }
   }
 
-checkLogin(){
+componentDidMount(){
   console.log(window.location.pathname)
   if(window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/'){
   } else {
-    this.activateSidebar();
-    return <Sidebar />
+    this.setState({sidebar: true})
   }
 }
 
@@ -35,7 +34,7 @@ activateSidebar(){
           {routes}
           </div>
           <div className={this.state.sidebar ? 'side' : ''}>
-          {this.checkLogin()}
+          {this.state.sidebar ? <Sidebar /> : <div></div> }
           </div>
         </div>
       </div>

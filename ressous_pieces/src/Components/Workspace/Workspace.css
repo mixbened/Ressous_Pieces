@@ -30,6 +30,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    display: inline;
+}
+
 .list {
     margin: 2%;
 }
@@ -107,6 +111,7 @@ input.description {
 
 .issueContainer {
     display: inline-block;
+    width: 100%;
 }
 
 img {

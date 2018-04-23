@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 12;
 const cloudinary = require('cloudinary');
 const origin = require('./helper');
+const reducer = require('./reducer');
 
 module.exports = {
     login: (req, res) => {
@@ -189,6 +190,19 @@ module.exports = {
     getAllIssues: (req, res) => {
         req.app.get('db').getAllIssues().then(data => {
             res.status(200).send(data)
+        })
+    },
+    getWorkspaceStats: (req, res) => {
+        req.app.get('db').getWorkspaceStats(req.session.user.user_id).then(data => {
+            let newArr = data.map(el => {
+            return {
+                workspace_id: el.workspace_id,
+                suc: (parseInt(el.true, 10)/parseInt(el.total, 10) || 0 ),
+                total: parseInt(el.total, 10 || 0),
+                true: (parseInt(el.true, 10) || 0)
+            }
+        })
+            res.status(200).send(reducer(newArr))
         })
     }
 }

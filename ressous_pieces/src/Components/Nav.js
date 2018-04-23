@@ -31,6 +31,7 @@ class Nav extends Component {
         if(this.state.isLoggedIn){ 
             return  (
             <div><li><Link className='btn navButton' to='/dashboard'>dashboard</Link></li>
+            <li><Link className='btn navButton' to='/browser'>browser</Link></li>
             <li><a className='btn navButton' onClick={() => this.logout()}>logout</a></li></div>
             )
         } else {

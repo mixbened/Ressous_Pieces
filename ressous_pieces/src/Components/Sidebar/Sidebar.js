@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Sidebar.css'
+import './Sidebar.css';
+import Chart from '../Profile/Chart';
 
 class Sidebar extends Component {
     constructor(){
@@ -26,8 +27,9 @@ class Sidebar extends Component {
         return (
             <div className='sidebar'>
                 <div className='personalInfo'>
-                    <img className='thumbnail profileImage' src={this.state.image} alt={`of ${this.state.username}`} />
+                    <div className='imageContainer'><img className='thumbnail profileImage' src={this.state.image} alt={`of ${this.state.username}`} /></div>  
                     <h2>Whats up {this.state.username}!</h2>
+                    <Chart />
                 </div>
             </div>
         );

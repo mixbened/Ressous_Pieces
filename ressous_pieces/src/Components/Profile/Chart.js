@@ -12,12 +12,7 @@ class Chart extends Component {
 
     componentDidMount(){
         axios.get(`/api/workspaces/`).then(data => {
-            console.log(data)
                 this.setState({chartData: {
-                    labels: [
-                        'Red',
-                        'Green'
-                    ],
                     datasets: [{
                         data: [data.data.unchecked, data.data.check],
                         backgroundColor: [
@@ -30,7 +25,6 @@ class Chart extends Component {
                         ]
                     }]
                 }})
-                console.log(this.state.chartData.datasets[0].data)
             })
     }
 

@@ -204,5 +204,17 @@ module.exports = {
         })
             res.status(200).send(reducer(newArr))
         })
+    },
+    getUserData: (req, res) => {
+        req.app.get('db').findUser(req.params.id).then( data => {
+            res.status(200).send(data)
+            console.log(data)
+        })
+    },
+    getIssuesUser: (req, res) => {
+        req.app.get('db').getIssuesUser(req.params.id).then(data => {
+            res.status(200).send(data)
+            console.log('answer')
+        })
     }
 }

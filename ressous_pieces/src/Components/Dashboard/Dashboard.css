@@ -25,6 +25,10 @@
     padding: 1em;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .wsContainer {
     display: flex;
     justify-content: center;

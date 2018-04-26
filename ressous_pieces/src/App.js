@@ -30,7 +30,7 @@ activateSidebar(){
       <div className='app'>
         <Nav />
         <div className='main'>
-          <div className='content'>
+          <div className='content container'>
           {routes}
           </div>
           <div className={this.state.sidebar ? 'side' : ''}>

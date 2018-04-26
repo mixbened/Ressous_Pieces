@@ -8,6 +8,7 @@ import Issue from './Components/Issue/Issue';
 import Home from './Components/Home';
 import Browser from './Components/Browser/Browser';
 import Chart from './Components/Profile/Chart';
+import Profile from './Components/Profile/Profile';
 
 const routes = 
 <div>
@@ -19,6 +20,7 @@ const routes =
         <Route path='/issue/:id' component={ Issue } />
         <Route path='/browser' component={ Browser } />
         <Route path='/chart' component={ Chart } />
+        <Route path='/profile/:id' component={ Profile } />
         <Route path='/' component={ Home } />
     </Switch>
 </div>

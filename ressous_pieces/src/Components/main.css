@@ -34,6 +34,22 @@ nav > div > ul > div > li {
     font-size: 1em;
 }
 
+.infoContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 2%;
+}
+
+.infoContainer > h1 {
+    padding: 0;
+    margin: 0;
+}
+
+.profileContainer > h3,h1 {
+    margin: 0;
+    padding: 0;
+}
+
 @media (max-width: 578px) {
     .navButton {
         font-size: 1.2em;

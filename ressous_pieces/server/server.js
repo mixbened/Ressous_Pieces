@@ -64,5 +64,9 @@ app.delete('/api/practices/:pid/:iid', c.deletePractice);
 app.delete('/api/articleis/:aid/:iid', c.deleteArticleIssue)
 app.post('/api/articleis', c.createArticleIssue)
 
+// Profile 
+app.get('/api/user/:id', c.getUserData)
+app.get('/api/issuesUser/:id', c.getIssuesUser)
+
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

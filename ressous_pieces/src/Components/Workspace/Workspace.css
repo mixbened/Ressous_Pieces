@@ -34,6 +34,11 @@ img {
     display: inline;
 }
 
+.deleteButton {
+    width: 5%;
+    float: right;
+}
+
 .list {
     margin: 2%;
 }

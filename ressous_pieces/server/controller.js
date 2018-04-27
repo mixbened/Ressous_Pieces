@@ -130,9 +130,7 @@ module.exports = {
         res.json(payload);
     },
     createArticle: (req, res) => {
-            console.log(req.body.issue_id)
             req.app.get('db').createArticle([req.body.title, req.body.link, origin(req.body.link), req.body.workspace_id,req.body.issue_id, req.session.user.user_id]).then(data => {
-                console.log(data)
                 res.status(200).send(data)
             })
     },
@@ -142,34 +140,26 @@ module.exports = {
         })
     },
     deleteArticle: (req, res) => {
-        console.log(req.params.aid)
-        console.log(req.params.wid)
         req.app.get('db').deleteArticle([req.params.aid, req.params.wid]).then(data => {
             res.status(200).send(data)
         })
     },
     getArticles: (req, res) => {
         req.app.get('db').getArticles([req.body.type, req.params.id]).then(data => {
-            console.log(data)
             res.status(200).send(data)
         })
     },
     getProjects: (req, res) => {
-        console.log(req.params.id)
         req.app.get('db').getProjects(req.params.id).then(data => {
-            console.log(data)
             res.status(200).send(data)
         })
     },
     createProject: (req, res) => {
-        console.log(origin(req.body.link))
         req.app.get('db').createProject([req.body.title, req.body.link, origin(req.body.link), req.body.workspace_id, req.session.user.user_id]).then( data => {
             res.status(200).send(data);
         })
     },
     deleteProject: (req, res) => {
-        console.log(req.params.pid);
-        console.log(req.params.wid);
         req.app.get('db').deleteProject([req.params.pid, req.params.wid]).then( data => {
             res.status(200).send(data)
         })
@@ -180,8 +170,6 @@ module.exports = {
         })
     },
     checkIssue: (req, res) => {
-        console.log(req.params.id)
-        console.log(req.params.check)
         req.app.get('db').checkIssue([req.params.id, req.params.check, req.params.wid]).then((data) => {
             console.log(data)
             res.status(200).send(data);
@@ -209,7 +197,6 @@ module.exports = {
     getUserData: (req, res) => {
         req.app.get('db').findUser(req.params.id).then( data => {
             res.status(200).send(data)
-            console.log(data)
         })
     },
     getIssuesUser: (req, res) => {
@@ -225,6 +212,11 @@ module.exports = {
     forkSpace: (req, res) => {
         req.app.get('db').forkSpace([req.params.id, req.session.user.user_id]).then(data => {
             res.status(200).send('Success')
+        })
+    },
+    getArticlesIssue: (req, res) => {
+        req.app.get('db').getArticlesIssue(req.params.id).then( data => {
+            res.status(200).send(data)
         })
     }
 }

@@ -63,6 +63,7 @@ app.delete('/api/practices/:pid/:iid', c.deletePractice);
 // Article - Issue
 app.delete('/api/articleis/:aid/:iid', c.deleteArticleIssue)
 app.post('/api/articleis', c.createArticleIssue)
+app.get('/api/articles/:id', c.getArticlesIssue)
 
 // Profile 
 app.get('/api/user/:id', c.getUserData)

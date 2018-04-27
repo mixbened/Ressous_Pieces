@@ -117,6 +117,11 @@ class Workspace extends Component {
                 <input className='link' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createArticle()}>Add</button>
             </div>
+        } else if (this.state.create ==='d'){
+            return <div className='creationContainer'>
+            <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
+            Delete Workspace:  <button onClick={() => this.deleteWorkspace()}>X</button>
+            </div> 
         } else {
             return <div className='creationContainer'>
             <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
@@ -125,6 +130,12 @@ class Workspace extends Component {
             <button className='btn' onClick={() => this.createProject()}>Add</button>
             </div> 
         }
+    }
+
+    deleteWorkspace(){
+        axios.delete(`/api/workspace/${this.state.workspace_id}`).then(data => {
+            window.location = '/dashboard'
+        })
     }
 
     deleteArticle(id){
@@ -147,7 +158,7 @@ class Workspace extends Component {
         const ProjectsList = this.state.projects.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteProject(el.projects_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
         return (
             <div>
-                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link></div>
+                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link><button className='deleteButton' onClick={() => this.setState({createMode: !this.state.createMode, create: 'd'})}>rm</button></div>
                     <h2>{wsTitle}</h2>
                 <div className='mainRow'>
                     <div className='description list'>

@@ -11,18 +11,28 @@ nav > h2 {
     padding: 0 1%;
 }
 
-ul {
-    display: flex;
+.navigation {
     list-style-type: none;
     margin: 0;
 }
 
-nav > div > ul > li {
-    padding: 15px;
+.navigation > ul {
+    display: flex;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
-nav > div > ul > div {
-    display: flex;
+.navLink {
+    color: white;
+}
+
+.navBox {
+    padding: 20px;
+}
+
+.navigation > ul > li {
+    padding: 10px;
 }
 
 nav > div > ul > div > li {
@@ -50,14 +60,20 @@ nav > div > ul > div > li {
     padding: 0;
 }
 
-@media (max-width: 578px) {
-    .navButton {
-        font-size: 1.2em;
+.smallLogo {
+    display: none;
+}
+
+@media (max-width: 460px) {
+    .navLink {
+        font-size: 1.3em;
     }
-    nav > div > ul > li {
-        padding: 30px 5px;
+    .smallLogo {
+        display: block;
+        padding: 20px;
+        margin: 0;
     }
-    nav > div > ul > div > li {
-        padding: 20px 5px;
+    .logo {
+        display: none;
     }
 }

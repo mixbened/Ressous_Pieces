@@ -30,12 +30,12 @@ class Nav extends Component {
     checkButton(){
         if(this.state.isLoggedIn){ 
             return  (
-            <div><li><Link className='btn navButton' to='/dashboard'>dashboard</Link></li>
-            <li><Link className='btn navButton' to='/browser'>browser</Link></li>
-            <li><a className='btn navButton' onClick={() => this.logout()}>logout</a></li></div>
+            <ul><Link className='navLink' to='/dashboard'><li className='navBox' >dashboard</li></Link>
+            <Link className='navLink' to='/browser'><li className='navBox' >browser</li></Link>
+            <a className='navLink' id='logout'onClick={() => this.logout()}><li className='navBox'>logout</li></a></ul>
             )
         } else {
-            return <li><Link className='btn navButton' to='/login'>login</Link></li>
+            return <Link className='navLink' to='/login'><li className='navBox' >login</li></Link>
         }
     }
 
@@ -43,9 +43,10 @@ class Nav extends Component {
         return (
             <div>
                 <nav>
-                    <h2>Ressous Pieces</h2>
+                    <h2 className='logo'>Ressous Pieces</h2>
+                    <h2 className='smallLogo'>RP</h2>
                     <div>
-                    <ul>{this.checkButton()}</ul>
+                    <div className='navigation'>{this.checkButton()}</div>
                     </div>
                 </nav>
             </div>

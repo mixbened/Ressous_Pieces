@@ -1,0 +1,1 @@
+SELECT * FROM articles_issues_rp WHERE issue_id = $1;

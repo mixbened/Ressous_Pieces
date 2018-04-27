@@ -6,7 +6,8 @@ class Profile extends Component {
         super();
         this.state = {
             userinfo: [],
-            issues: []
+            issues: [],
+            workspaces: []
         }
     }
 
@@ -17,13 +18,22 @@ class Profile extends Component {
             axios.get(`/api/issuesUser/${data.data[0].user_id}`).then(data => {
                 this.setState({issues: data.data})
             })
-            console.log(this.state.userinfo)
+            axios.get(`/api/workspacesUser/${data.data[0].user_id}`).then(data => {
+                this.setState({workspaces: data.data})
+            })
+        })
+    }
+
+    forkSpace(id){
+        axios.post(`/api/forkSpace/${id}`).then( data => {
+            window.location = '/dashboard';
         })
     }
 
     render() {
         console.log(this.state.issues)
         const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6></li>)
+        const workspaceList = this.state.workspaces.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6><button onClick={() => this.forkSpace(el.workspace_id)}>Fork</button></li>)
         return (
             <div>
                 <div className='infoContainer'>
@@ -36,6 +46,10 @@ class Profile extends Component {
                 <h5>{`${this.state.userinfo.username}'s Issues`}</h5>
                 <ul className='issueContainer'>
                     {issueList}
+                </ul>
+                <h5>{`${this.state.userinfo.username}'s Workspaces`}</h5>
+                <ul className='issueContainer'>
+                    {workspaceList}
                 </ul>
             </div>
         );

@@ -6,7 +6,8 @@ class Chart extends Component {
     constructor(){
         super();
         this.state = {
-            chartData: {}
+            chartData: {},
+            ratio: 0
         }
     }
 
@@ -24,8 +25,20 @@ class Chart extends Component {
                         '#36A2EB'
                         ]
                     }]
-                }})
+                },
+                    ratio:data.data.check/(data.data.unchecked+data.data.check),
             })
+            })
+    }
+
+    checkStats(){
+        if(this.state.ratio >= 0.9){
+            return 'a Rockstar!'
+        } else if (this.state.ratio >= 0.5){
+            return 'on Track'
+        } else {
+            return 'a little bit behind...'
+        }
     }
 
 
@@ -34,10 +47,8 @@ class Chart extends Component {
             <div>
                 <Doughnut
                     data={this.state.chartData}
-                    options={{
-                        maintainAspectRatio: false
-                    }}
                 />
+                <h5>{`You are ${this.checkStats()}`}</h5>
             </div>
         );
     }

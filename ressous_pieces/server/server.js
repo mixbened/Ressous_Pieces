@@ -67,6 +67,8 @@ app.post('/api/articleis', c.createArticleIssue)
 // Profile 
 app.get('/api/user/:id', c.getUserData)
 app.get('/api/issuesUser/:id', c.getIssuesUser)
+app.get('/api/workspacesUser/:id', c.getWorkspacesUser)
+app.post('/api/forkSpace/:id', c.forkSpace)
 
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

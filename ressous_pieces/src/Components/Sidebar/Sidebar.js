@@ -30,6 +30,7 @@ class Sidebar extends Component {
                     <div className='imageContainer'><img className='thumbnail profileImage' src={this.state.image} alt={`of ${this.state.username}`} /></div>  
                     <h2>Whats up {this.state.username}!</h2>
                     <Chart />
+                    <h4></h4>
                 </div>
             </div>
         );

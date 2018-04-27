@@ -1,0 +1,1 @@
+SELECT * FROM workspaces_rp WHERE user_id = $1;

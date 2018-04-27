@@ -202,6 +202,7 @@ module.exports = {
                 true: (parseInt(el.true, 10) || 0)
             }
         })
+            req.session.user.stats = reducer(newArr);
             res.status(200).send(reducer(newArr))
         })
     },
@@ -214,7 +215,16 @@ module.exports = {
     getIssuesUser: (req, res) => {
         req.app.get('db').getIssuesUser(req.params.id).then(data => {
             res.status(200).send(data)
-            console.log('answer')
+        })
+    },
+    getWorkspacesUser: (req, res) => {
+        req.app.get('db').getWorkspacesUser(req.params.id).then(data => {
+            res.status(200).send(data)
+        })
+    },
+    forkSpace: (req, res) => {
+        req.app.get('db').forkSpace([req.params.id, req.session.user.user_id]).then(data => {
+            res.status(200).send('Success')
         })
     }
 }

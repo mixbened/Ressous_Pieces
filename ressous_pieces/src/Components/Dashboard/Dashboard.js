@@ -54,6 +54,12 @@ class Dashboard extends Component {
     render() {
         const workspaceList = this.state.workspaces.map((el,i) => <Link key={i} className='wsPreview' to={`/workspace/${el.workspace_id}`}><div key={i} ><h2>{el.title}</h2><p>{el.description}</p></div></Link>)
         return (
+            <div>
+            <div className='heading'>
+                <h2 className='title'>Dashboard</h2>
+                <hr/>
+                <h4 className='subtitle'>Organize your Workspaces here</h4>
+            </div>
             <div className='mainContainer'>
                 <main>
                     <div>
@@ -66,6 +72,7 @@ class Dashboard extends Component {
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}
                 </div>
+            </div>
             </div>
         );
     }

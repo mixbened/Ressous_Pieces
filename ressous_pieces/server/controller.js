@@ -216,18 +216,26 @@ module.exports = {
     },
     forkIssue: (req, res) => {
         req.app.get('db').forkIssue([req.params.iid, req.params.wid, req.session.user.user_id]).then(data => {
+            // console.log(data)
             res.status(200).send('Success')
         })
     },
     getArticlesIssue: (req, res) => {
         req.app.get('db').getArticlesIssue(req.params.id).then( data => {
+            // console.log(data)
             res.status(200).send(data)
         })
     },
     updateEditorInput: (req, res) => {
-        console.log([req.params.id, req.body.newInput, req.body.editormode])
         req.app.get('db').updateEditorInput([req.body.newInput, req.body.editormode, req.params.id]).then( data => {
+            // console.log(data)
             res.status(200).send('Success')
+        })
+    },
+    getAllWorkspaces: (req, res) => {
+        req.app.get('db').getEveryWorkspace().then( data => {
+            // console.log(data)
+            res.status(200).send(data)
         })
     }
 }

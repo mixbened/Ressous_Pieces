@@ -1,0 +1,1 @@
+SELECT * FROM workspaces_rp JOIN users_rp ON users_rp.user_id = workspaces_rp.user_id ORDER BY workspace_id ASC;

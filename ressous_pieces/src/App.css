@@ -13,8 +13,36 @@
   background: #444;
 }
 
+.heading {
+  width: 80%;
+  margin: 2% auto;
+  text-align: center;
+}
+
+.heading > .title {
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  width: 2em;
+  border-color: #666;
+  margin: 1% auto;
+}
+
+.heading > .subtitle {
+  color: #777;
+  font-size: 1em;
+}
+
 @media (max-width: 768px){
   .side {
       display: none;
   }
 }
+@media (max-width: 420px){
+  .heading {
+      margin: 10% auto;
+  }
+}
+

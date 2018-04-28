@@ -16,6 +16,10 @@ nav > h2 {
     margin: 0;
 }
 
+.listContainer {
+    margin: 5%;
+}
+
 .navigation > ul {
     display: flex;
     margin: 0;
@@ -61,6 +65,10 @@ nav > div > ul > div > li {
 }
 
 .smallLogo {
+    display: none;
+}
+
+.notShow {
     display: none;
 }
 

@@ -129,7 +129,11 @@ class Issue extends Component {
                 this.updateEditorValue() ? 'You are leaving the Page' : ''
             }}/>
                     <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link> / <Link to={`/workspace/${this.state.workspace_id}`} className='breadcrump'>workspace</Link></div>
-                    <h2>{isTitle}</h2>
+                <div className='heading'>
+                    <h2 className='title'>{isTitle}</h2>
+                    <hr/>
+                    <h4 className='subtitle'>Issue</h4>
+                </div>
                 <div className='mainRow'>
                     <div className='description list'>
                         <h4>Description</h4>

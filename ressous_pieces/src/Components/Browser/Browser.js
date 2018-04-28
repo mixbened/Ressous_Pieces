@@ -8,7 +8,9 @@ class Browser extends Component {
         super();
         this.state = {
             issues: [],
-            searchVal: ''
+            workspaces: [],
+            searchVal: '',
+            showIssues: false
         }
     }
 
@@ -16,11 +18,18 @@ class Browser extends Component {
         axios.get('/api/issues/').then(data => {
             this.setState({issues: data.data})
         })
+        axios.get('/api/allWorkspaces/').then(data => {
+            this.setState({workspaces: data.data})
+        })
     }
     
 
     render() {
+
+        // get Search Value
         const searchVal = this.state.searchVal.toLowerCase();
+
+        // create filtered Issues
         const filteredIssues = this.state.issues.filter(el => { 
             if(searchVal === ''){
                 return el
@@ -28,6 +37,8 @@ class Browser extends Component {
                 return el.title.toLowerCase().includes(this.state.searchVal)
             }
          })
+
+        // create Issue JSX
         const issueList = filteredIssues.map( el => {
             return (
                 <li className='list-group-item issue'>
@@ -37,14 +48,62 @@ class Browser extends Component {
                 </li>
             )
         });
+
+        // created filtered Workspace List
+        const filteredWorkspaces = this.state.workspaces.filter(el => { 
+            if(searchVal === ''){
+                return el
+            } else {
+                return el.title.toLowerCase().includes(this.state.searchVal)
+            }
+         })
+
+        // create Workspace JSX
+        const workspaceList = filteredWorkspaces.map( el => {
+            return (
+                <li className='list-group-item issue'>
+                    <p>{el.title}</p>
+                    <h6>{el.description}</h6>
+                    <Link to={`/profile/${el.username}`}><h6>{el.username}</h6></Link>
+                </li>
+            )
+        });
+
+        // render JSX
         return (
             <div>
                 <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link></div>
+                <div className='heading'>
+                    <h2 className='title'>Browser</h2>
+                    <hr/>
+                    <h4 className='subtitle'>find Issues and Workspaces for your personal Development</h4>
+                </div>
                 <input onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
-                <h1>All Issues</h1>
-                <ul className='issueContainer'>
-                    {issueList}
-                </ul>
+                <button onClick={() => this.setState({showIssues: !this.state.showIssues})}>Toggle</button>
+                <div className={this.state.showIssues ? 'listContainer' : 'notShow listContainer'}>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col'>Issues</th>
+                            </tr>
+                        </thead>
+                        <ul className='issueContainer'>
+                            {issueList}
+                        </ul>
+                    </table>
+                </div>
+                <div className={this.state.showIssues ? 'notShow listContainer' : 'listContainer'}>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col'>Workspaces</th>
+                            </tr>
+                        </thead>
+                        <ul className='issueContainer'>
+                            {workspaceList}
+                        </ul>
+                    </table>
+                </div>
             </div>
         );
     }

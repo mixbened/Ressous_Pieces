@@ -9,7 +9,7 @@ ALTER TABLE temp_iss DROP COLUMN issue_id;
 UPDATE temp_iss SET workspace_id = (SELECT max(workspace_id) FROM workspaces_rp);
 UPDATE temp_iss SET user_id = $2;
 UPDATE temp_iss SET check_field = false;
-INSERT INTO issues_rp (title, description, workspace_id, user_id, check_field) SELECT * FROM temp_iss;
+INSERT INTO issues_rp (title, description, workspace_id, user_id, check_field, editor, editormode) SELECT * FROM temp_iss;
 DROP TABLE temp_iss;
 
 CREATE TABLE temp_art AS SELECT * FROM articles_rp WHERE workspace_id = $1;

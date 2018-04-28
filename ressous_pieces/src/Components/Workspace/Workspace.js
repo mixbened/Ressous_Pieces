@@ -159,7 +159,11 @@ class Workspace extends Component {
         return (
             <div>
                     <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link><button className='deleteButton' onClick={() => this.setState({createMode: !this.state.createMode, create: 'd'})}>rm</button></div>
-                    <h2>{wsTitle}</h2>
+                    <div className='heading'>
+                        <h2 className='title'>{wsTitle}</h2>
+                        <hr/>
+                        <h4 className='subtitle'>Workspace</h4>
+                    </div>
                 <div className='mainRow'>
                     <div className='description list'>
                         <h4>description</h4>

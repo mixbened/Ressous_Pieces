@@ -66,10 +66,11 @@ app.post('/api/articleis', c.createArticleIssue)
 app.get('/api/articles/:id', c.getArticlesIssue)
 
 // Profile 
-app.get('/api/user/:id', c.getUserData)
-app.get('/api/issuesUser/:id', c.getIssuesUser)
-app.get('/api/workspacesUser/:id', c.getWorkspacesUser)
-app.post('/api/forkSpace/:id', c.forkSpace)
+app.get('/api/user/:id', c.getUserData);
+app.get('/api/issuesUser/:id', c.getIssuesUser);
+app.get('/api/workspacesUser/:id', c.getWorkspacesUser);
+app.post('/api/forkSpace/:id', c.forkSpace);
+app.post('/api/forkIssue/:iid/:wid', c.forkIssue);
 
 
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))

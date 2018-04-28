@@ -21,7 +21,6 @@ class Browser extends Component {
 
     render() {
         const searchVal = this.state.searchVal.toLowerCase();
-        console.log(searchVal)
         const filteredIssues = this.state.issues.filter(el => { 
             if(searchVal === ''){
                 return el

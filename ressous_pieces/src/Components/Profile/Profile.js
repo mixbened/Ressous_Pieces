@@ -7,7 +7,9 @@ class Profile extends Component {
         this.state = {
             userinfo: [],
             issues: [],
-            workspaces: []
+            workspaces: [],
+            workspacesInput: [],
+            createMode: false
         }
     }
 
@@ -26,13 +28,33 @@ class Profile extends Component {
 
     forkSpace(id){
         axios.post(`/api/forkSpace/${id}`).then( data => {
+            alert('Forked')
             window.location = '/dashboard';
         })
     }
 
+    forkIssue(issueID, workspaceID){
+        console.log(issueID,workspaceID)
+        axios.post(`/api/forkIssue/${issueID}/${workspaceID}`).then( data => {
+            alert('Forked')
+            window.location = '/dashboard';
+        })
+        this.setState({createMode: false})
+    }
+
+    changeInput(){
+        axios.get('/api/dashboard/').then(data => {
+            this.setState({workspacesInput: data.data})
+        })
+        const workspaceList = this.state.workspacesInput.map(el => <button onClick={() => this.forkIssue(this.state.issueInput, el.workspace_id)}>{el.title}</button>)
+        return <div className='creationContainer'>
+            <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
+            {workspaceList}
+        </div>
+    }
+
     render() {
-        console.log(this.state.issues)
-        const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6></li>)
+        const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6><button onClick={() => this.setState({createMode: true, issueInput: el.issue_id})}>Fork</button></li>)
         const workspaceList = this.state.workspaces.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6><button onClick={() => this.forkSpace(el.workspace_id)}>Fork</button></li>)
         return (
             <div>
@@ -51,6 +73,9 @@ class Profile extends Component {
                 <ul className='issueContainer'>
                     {workspaceList}
                 </ul>
+                <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
+                    {this.changeInput()}
+                </div>
             </div>
         );
     }

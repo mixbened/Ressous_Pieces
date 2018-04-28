@@ -214,6 +214,11 @@ module.exports = {
             res.status(200).send('Success')
         })
     },
+    forkIssue: (req, res) => {
+        req.app.get('db').forkIssue([req.params.iid, req.params.wid, req.session.user.user_id]).then(data => {
+            res.status(200).send('Success')
+        })
+    },
     getArticlesIssue: (req, res) => {
         req.app.get('db').getArticlesIssue(req.params.id).then( data => {
             res.status(200).send(data)

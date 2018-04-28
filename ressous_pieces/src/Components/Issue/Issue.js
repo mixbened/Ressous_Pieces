@@ -6,6 +6,16 @@ import Remove from 'react-icons/lib/go/x';
 import Arrow from 'react-icons/lib/ti/arrow-left';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
+import AceEditor from 'react-ace';
+import brace from 'brace';
+import 'brace/mode/javascript';
+import 'brace/mode/java';
+import 'brace/mode/mysql';
+import 'brace/mode/css';
+import 'brace/mode/python';
+import 'brace/mode/html';
+import 'brace/theme/textmate';
+import { Prompt } from 'react-router';
 
 class Issue extends Component {
     constructor(){
@@ -19,7 +29,9 @@ class Issue extends Component {
             title: '',
             link: '',
             articles: [],
-            practices: []
+            practices: [],
+            editorMode: 'javascript',
+            editorValue: ''
         }
     }
 
@@ -28,7 +40,7 @@ class Issue extends Component {
         this.setState({issue_id: id})
         console.log(id)
         axios.get(`/api/issue/${id}`).then(data => {
-            this.setState({isTitle: data.data[0].title, isDescr: data.data[0].description, workspace_id: data.data[0].workspace_id})
+            this.setState({isTitle: data.data[0].title, isDescr: data.data[0].description, workspace_id: data.data[0].workspace_id, editorValue: data.data[0].editor, editorMode: data.data[0].editormode})
             console.log(this.state)
         })
         axios.get(`/api/practices/${id}`).then(data => {
@@ -101,12 +113,21 @@ class Issue extends Component {
         }
     }   
 
+    updateEditorValue(){
+        axios.post(`/api/issue/${this.state.issue_id}`, {newInput: this.state.editorValue, editormode: this.state.editorMode}).then( data => {
+            console.log('Updated the Input')
+        })
+    }
+
     render() {
         const { isTitle, isDescr } = this.state;
         const ArticleList = this.state.articles.map((el,i) =>  <li className='list-group-item' key={i}><h6>{el.title}</h6><a>{el.url}</a><Logo className='logo' origin={el.origin}/><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/></li> )
         const PracticeList = this.state.practices.map((el,i) =>  <li  className='list-group-item' key={i}><h6>{el.title}</h6><a>{el.url}</a><Logo className='logo' origin={el.origin}/><Remove className='iconSmall' onClick={() => this.deletePractice(el.practice_id)}/></li> )
         return (
             <div>
+            <Prompt message={e => {
+                this.updateEditorValue() ? 'You are leaving the Page' : ''
+            }}/>
                     <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link> / <Link to={`/workspace/${this.state.workspace_id}`} className='breadcrump'>workspace</Link></div>
                     <h2>{isTitle}</h2>
                 <div className='mainRow'>
@@ -132,6 +153,36 @@ class Issue extends Component {
                             {ArticleList}
                         </ul>
                     </div>
+                </div>
+                <div>
+                    <h3>Notepad</h3>
+                    <select value={this.state.editorMode} onChange={e => this.setState({editorMode: e.target.value})}>
+                        <option value="javascript">Javascript</option>
+                        <option value="java">Java</option>
+                        <option value="python">Python</option>
+                        <option value="mysql">MySQL</option>
+                        <option value="css">CSS</option>
+                        <option value="html">HTML</option>
+                    </select>
+                    <AceEditor
+                    mode={this.state.editorMode}
+                    theme="textmate"
+                    width='100%'
+                    height='300px'
+                    name="editor"
+                    fontSize={14}
+                    onChange={e => this.setState({editorValue: e})}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    value={this.state.editorValue || ''}
+                    setOptions={{
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: false,
+                    enableSnippets: false,
+                    showLineNumbers: true
+                    }}/>
+                    <button onClick={() => this.updateEditorValue()}>Save</button>
                 </div>
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}

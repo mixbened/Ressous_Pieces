@@ -1,0 +1,1 @@
+UPDATE issues_rp SET editor = $1, editormode = $2 WHERE issue_id = $3;

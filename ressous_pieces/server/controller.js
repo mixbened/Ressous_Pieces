@@ -223,5 +223,11 @@ module.exports = {
         req.app.get('db').getArticlesIssue(req.params.id).then( data => {
             res.status(200).send(data)
         })
+    },
+    updateEditorInput: (req, res) => {
+        console.log([req.params.id, req.body.newInput, req.body.editormode])
+        req.app.get('db').updateEditorInput([req.body.newInput, req.body.editormode, req.params.id]).then( data => {
+            res.status(200).send('Success')
+        })
     }
 }

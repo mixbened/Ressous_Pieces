@@ -78,6 +78,7 @@ h4 {
     background: #444;
     margin: 0;
     transition: 1s;
+    z-index: 5;
 }
 
 .slide {

@@ -20,6 +20,15 @@
         transform: scale(1.2);
 }
 
+.editorContainer {
+    margin: 5%;
+}
+
+.editor {
+    width: 100%;
+    font-family: monospace;
+}
+
 .icon:hover
 {
         -webkit-transform: scale(1.2);

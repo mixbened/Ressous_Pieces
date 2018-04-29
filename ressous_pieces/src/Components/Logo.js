@@ -51,7 +51,7 @@ class Logo extends Component {
 
     render() {
         return (
-            <span>
+            <span className='origin'>
                 {this.logo()}
             </span>
         );

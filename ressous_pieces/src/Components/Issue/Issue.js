@@ -16,6 +16,8 @@ import 'brace/mode/python';
 import 'brace/mode/html';
 import 'brace/theme/textmate';
 import { Prompt } from 'react-router';
+import Descr from 'react-icons/lib/go/book';
+import ArticleItem from '../Lists/ArticleItem';
 
 class Issue extends Component {
     constructor(){
@@ -31,7 +33,8 @@ class Issue extends Component {
             articles: [],
             practices: [],
             editorMode: 'javascript',
-            editorValue: ''
+            editorValue: '',
+            descrActive: false
         }
     }
 
@@ -121,22 +124,21 @@ class Issue extends Component {
 
     render() {
         const { isTitle, isDescr } = this.state;
-        const ArticleList = this.state.articles.map((el,i) =>  <li className='list-group-item' key={i}><h6>{el.title}</h6><a>{el.url}</a><Logo className='logo' origin={el.origin}/><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/></li> )
+        const ArticleList = this.state.articles.map((el,i) =>  <ArticleItem key={i} title={el.title} url={el.url} article_id={el.article_id} origin={el.origin} deleteArticleFn={this.deleteArticle}/> )
         const PracticeList = this.state.practices.map((el,i) =>  <li  className='list-group-item' key={i}><h6>{el.title}</h6><a>{el.url}</a><Logo className='logo' origin={el.origin}/><Remove className='iconSmall' onClick={() => this.deletePractice(el.practice_id)}/></li> )
         return (
             <div>
             <Prompt message={e => {
                 this.updateEditorValue() ? 'You are leaving the Page' : ''
             }}/>
-                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link> / <Link to={`/workspace/${this.state.workspace_id}`} className='breadcrump'>workspace</Link></div>
+                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link> / <Link to={`/workspace/${this.state.workspace_id}`} className='breadcrump'>workspace</Link><Descr className='deleteButton' onClick={() => this.setState({descrActive: !this.state.descrActive})}/></div>
                 <div className='heading'>
                     <h2 className='title'>{isTitle}</h2>
                     <hr/>
                     <h4 className='subtitle'>Issue</h4>
                 </div>
                 <div className='mainRow'>
-                    <div className='description list'>
-                        <h4>Description</h4>
+                    <div className={this.state.descrActive ? 'description' : 'description away'}>
                         <p>{isDescr}</p>
                     </div>
                     <div className='list practices list-group'>
@@ -158,7 +160,7 @@ class Issue extends Component {
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div className='editorContainer'>
                     <h3>Notepad</h3>
                     <select value={this.state.editorMode} onChange={e => this.setState({editorMode: e.target.value})}>
                         <option value="javascript">Javascript</option>
@@ -186,7 +188,6 @@ class Issue extends Component {
                     enableSnippets: false,
                     showLineNumbers: true
                     }}/>
-                    <button onClick={() => this.updateEditorValue()}>Save</button>
                 </div>
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}

@@ -7,6 +7,11 @@ import Plus from 'react-icons/lib/md/control-point';
 import Remove from 'react-icons/lib/go/x';
 import Arrow from 'react-icons/lib/ti/arrow-left';
 import Logo from '../Logo';
+import Delete from 'react-icons/lib/go/settings';
+import Descr from 'react-icons/lib/go/book';
+import IssueItem from '../Lists/IssueItem';
+import ArticleItem from '../Lists/ArticleItem';
+import ProjectItem from '../Lists/ProjectItem';
 
 
 
@@ -24,8 +29,13 @@ class Workspace extends Component {
             issues: [],
             link: '',
             articles: [],
-            projects: []
+            projects: [],
+            descrActive: false
         }
+        this.deleteProject = this.deleteProject.bind(this)
+        this.deleteIssue = this.deleteIssue.bind(this)
+        this.changeCheck = this.changeCheck.bind(this)
+        this.deleteArticle = this.deleteArticle.bind(this)
     }
 
     componentDidMount(){
@@ -97,6 +107,7 @@ class Workspace extends Component {
     }
 
     deleteProject(id){
+        console.log('Run function', id)
         axios.delete(`/api/project/${id}/${this.state.workspace_id}`).then(data => {
             this.setState({projects: data.data, title: '', link: ''})
         })
@@ -112,19 +123,18 @@ class Workspace extends Component {
             </div>
         } else if(this.state.create === 'a') {
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
                 <input className='title' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
                 <input className='link' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createArticle()}>Add</button>
             </div>
         } else if (this.state.create ==='d'){
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                Delete Workspace:  <button onClick={() => this.deleteWorkspace()}>X</button>
+                <div>Delete Workspace  <button className='btn' onClick={() => this.deleteWorkspace()}>Yes</button>  <button className='btn' onClick={() => this.setState({createMode: !this.state.createMode})}>No</button></div>
             </div> 
         } else {
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
                 <input className='title' placeholder='Project Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
             <input className='link' placeholder='Project Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
             <button className='btn' onClick={() => this.createProject()}>Add</button>
@@ -153,22 +163,22 @@ class Workspace extends Component {
 
     render() {
         const { wsTitle, wsDescr } = this.state;
-        const IssueList = this.state.issues.map((el,i) =>  <li className='list-group-item issue' key={i}><div className='infoBox'><Link to={`/issue/${el.issue_id}`}><p>{el.title}</p><p>{el.description}</p></Link></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteIssue(el.issue_id)}/><input value={el.check_field} onChange={() => this.changeCheck(el.issue_id, !el.check_field)} type='checkbox' className='checkbox'/></div></li> )
-        const ArticleList = this.state.articles.map((el,i) =>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteArticle(el.article_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
-        const ProjectsList = this.state.projects.map((el,i)=>  <li className='list-group-item' key={i}><div className='infoBox'><p>{el.title}</p><a>{el.url}</a></div><div className='boxBox'><Remove className='iconSmall' onClick={() => this.deleteProject(el.projects_id)}/><Logo className='logo' origin={el.origin}/></div></li> )
+        const IssueList = this.state.issues.map((el,i) =>  <IssueItem key={i} title={el.title} issue_id={el.issue_id} description={el.description} check_field={el.check_field} changeCheckFn={this.changeCheck} deleteIssueFn={this.deleteIssue} /> )
+        const ArticleList = this.state.articles.map((el,i) =>  <ArticleItem key={i} title={el.title} url={el.url} article_id={el.article_id} origin={el.origin} deleteArticleFn={this.deleteArticle}/> )
+        console.log(this.state.projects)
+        const ProjectsList = this.state.projects.map((el,i)=>  <ProjectItem key={i} title={el.title} url={el.url} project_id={el.projects_id} origin={el.origin} deleteProjectFn={this.deleteProject}/> )
         return (
             <div>
-                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link><button className='deleteButton' onClick={() => this.setState({createMode: !this.state.createMode, create: 'd'})}>rm</button></div>
+                    <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link><Delete className='deleteButton' onClick={() => this.setState({createMode: !this.state.createMode, create: 'd'})}/><Descr className='deleteButton' onClick={() => this.setState({descrActive: !this.state.descrActive})}/></div>
                     <div className='heading'>
                         <h2 className='title'>{wsTitle}</h2>
                         <hr/>
                         <h4 className='subtitle'>workspace</h4>
                     </div>
-                <div className='mainRow'>
-                    <div className='description list'>
-                        <h4>description</h4>
+                    <div className={this.state.descrActive ? 'description' : 'description away'}>
                         <p>{wsDescr}</p>
                     </div>
+                <div className='mainRow'>
                     <div className='list-group issues list'>
                     <div className='titleContainer'>
                         <h4>issues</h4>
@@ -196,7 +206,7 @@ class Workspace extends Component {
                         <ul>
                             {ProjectsList}
                         </ul>
-                    </div>
+                    </div>  
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}
                 </div>

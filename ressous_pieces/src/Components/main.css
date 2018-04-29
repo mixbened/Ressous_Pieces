@@ -9,9 +9,16 @@ nav {
 
 .logo {
     margin: 5px;
-    padding: 1%;
     font-size: 2em;
     color: #011936;
+}
+
+.origin {
+    font-size: 2em;
+}
+
+.boxBox {
+    text-align: center;
 }
 
 .smallLetters {
@@ -26,7 +33,6 @@ nav > h2 {
 .navigation {
     list-style-type: none;
     margin: 0;
-    padding: 5px;
 }
 
 .listContainer {
@@ -45,7 +51,7 @@ nav > h2 {
 }
 
 .navBox {
-    padding: 30px;
+    padding: 25px;
     font-size: 1.3em;
 }
 
@@ -86,8 +92,19 @@ nav > div > ul > div > li {
     .navLink {
         font-size: 1.3em;
     }
+    .logo {
+        margin: 0;
+        padding: 10px;
+        background: #247BA0;
+        color: white;
+    }
+    nav {
+        background: #247BA0;
+    }
     .navBox {
-        padding: 25px 5px;
-        font-size: 1em;
+        padding: 30px 15px;
+        font-size: 0.8em;
+        background: #247BA0;
+        color: white;
     }
 }

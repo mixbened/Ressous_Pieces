@@ -18,6 +18,12 @@
   box-shadow: -1px 2px 1px 1px #999;
 }
 
+.list-group-item {
+  background-color: #f4f4f4;
+  box-shadow: 1px 1px 1px 1px #999;
+  border: 0;
+}
+
 .heading {
   width: 80%;
   margin: 2% auto;
@@ -44,10 +50,17 @@ hr {
   .side {
       display: none;
   }
+  .deleteButton {
+    margin: 0 15px;
+  }
 }
 @media (max-width: 420px){
   .heading {
       margin: 10% auto;
+  }
+  .deleteButton {
+    margin: 0 15px;
+    width: 30px;
   }
 }
 

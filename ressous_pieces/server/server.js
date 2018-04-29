@@ -74,5 +74,10 @@ app.get('/api/workspacesUser/:id', c.getWorkspacesUser);
 app.post('/api/forkSpace/:id', c.forkSpace);
 app.post('/api/forkIssue/:iid/:wid', c.forkIssue);
 
-
+app.use( express.static( `${__dirname}/../build` ) );
 app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))
+
+
+const path = require('path')
+app.get('*', (req, res)=>{
+res.sendFile(path.join(__dirname, '../build/index.html')); })

@@ -74,9 +74,9 @@ class Browser extends Component {
             <div>
                 <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link></div>
                 <div className='heading'>
-                    <h2 className='title'>Browser</h2>
+                    <h2 className='title'>browser</h2>
                     <hr/>
-                    <h4 className='subtitle'>find Issues and Workspaces for your personal Development</h4>
+                    <h4 className='subtitle'>find issues and workspaces for your personal development</h4>
                 </div>
                 <input onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
                 <button onClick={() => this.setState({showIssues: !this.state.showIssues})}>Toggle</button>
@@ -84,7 +84,7 @@ class Browser extends Component {
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th scope='col'>Issues</th>
+                                <th scope='col'>issues</th>
                             </tr>
                         </thead>
                         <ul className='issueContainer'>
@@ -96,7 +96,7 @@ class Browser extends Component {
                     <table class='table'>
                         <thead>
                             <tr>
-                                <th scope='col'>Workspaces</th>
+                                <th scope='col'>workspaces</th>
                             </tr>
                         </thead>
                         <ul className='issueContainer'>

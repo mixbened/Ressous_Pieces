@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './main.css';
+import Logo from './dummy_logo.png';
 
 class Nav extends Component {
     constructor(){
@@ -43,8 +44,7 @@ class Nav extends Component {
         return (
             <div>
                 <nav>
-                    <h2 className='logo'>Ressous Pieces</h2>
-                    <h2 className='smallLogo'>RP</h2>
+                    <h2 className='logo'>R<span className='smallLetters'>essous</span><br/>P<span className='smallLetters'>ieces</span></h2>
                     <div>
                     <div className='navigation'>{this.checkButton()}</div>
                     </div>

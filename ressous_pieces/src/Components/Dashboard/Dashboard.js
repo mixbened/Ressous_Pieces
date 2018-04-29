@@ -4,6 +4,8 @@ import './Dashboard.css';
 import '../Workspace/Workspace.css';
 import { Link } from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
+import Add from 'react-icons/lib/md/add';
+import Remove from 'react-icons/lib/go/x';
 
 class Dashboard extends Component {
     constructor(){
@@ -42,7 +44,7 @@ class Dashboard extends Component {
 
     changeInput(){
             return <div className='creationContainer'>
-                <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
+                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
                 <input className='title' type="text" value={this.state.title} placeholder="title" onChange={e => this.setState({title: e.target.value})}/>
                 <input className='description' value={this.state.descr} rows='1' placeholder="description" onChange={e => this.setState({descr: e.target.value})}/>
                 <button className="btn btn-primary" onClick={() => this.createSpace()}>Create</button>
@@ -52,18 +54,18 @@ class Dashboard extends Component {
 
 
     render() {
-        const workspaceList = this.state.workspaces.map((el,i) => <Link key={i} className='wsPreview' to={`/workspace/${el.workspace_id}`}><div key={i} ><h2>{el.title}</h2><p>{el.description}</p></div></Link>)
+        const workspaceList = this.state.workspaces.map((el,i) => <Link key={i} className='wsPreview' to={`/workspace/${el.workspace_id}`}><div><h3>{el.title}</h3><p>{el.description}</p></div></Link>)
         return (
             <div>
             <div className='heading'>
-                <h2 className='title'>Dashboard</h2>
+                <h2 className='title'>dashboard</h2>
                 <hr/>
-                <h4 className='subtitle'>Organize your Workspaces here</h4>
+                <h4 className='subtitle'>organize your workspaces here</h4>
             </div>
             <div className='mainContainer'>
                 <main>
-                    <div>
-                        <button onClick={e => this.setState({createMode: !this.state.createMode})}>New</button>
+                    <div className='addButton'>
+                        <a onClick={e => this.setState({createMode: !this.state.createMode})}><Add className='centering'/></a>
                     </div>
                     <div className='wsContainer'>
                         {workspaceList}

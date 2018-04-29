@@ -105,27 +105,27 @@ class Workspace extends Component {
     changeInput(){
         if(this.state.create === 'i'){
             return <div className='creationContainer'>
-                <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
+                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
                 <input className='title' placeholder='Issue Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
                 <input className= 'description' placeholder='Issue Description'  value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
                 <button className='btn' onClick={() => this.createIssue()}>Add</button>
             </div>
         } else if(this.state.create === 'a') {
             return <div className='creationContainer'>
-                <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
+                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
                 <input className='title' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
                 <input className='link' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createArticle()}>Add</button>
             </div>
         } else if (this.state.create ==='d'){
             return <div className='creationContainer'>
-            <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
-            Delete Workspace:  <button onClick={() => this.deleteWorkspace()}>X</button>
+                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                Delete Workspace:  <button onClick={() => this.deleteWorkspace()}>X</button>
             </div> 
         } else {
             return <div className='creationContainer'>
-            <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
-            <input className='title' placeholder='Project Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <input className='title' placeholder='Project Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
             <input className='link' placeholder='Project Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
             <button className='btn' onClick={() => this.createProject()}>Add</button>
             </div> 
@@ -162,7 +162,7 @@ class Workspace extends Component {
                     <div className='heading'>
                         <h2 className='title'>{wsTitle}</h2>
                         <hr/>
-                        <h4 className='subtitle'>Workspace</h4>
+                        <h4 className='subtitle'>workspace</h4>
                     </div>
                 <div className='mainRow'>
                     <div className='description list'>

@@ -93,10 +93,11 @@ h4 {
     left: 0;
     width: 100%;
     padding: 2%;
-    background: #549F93;
+    background: #f2f2f2;
     margin: 0;
     transition: 1s;
     z-index: 5;
+    box-shadow: 1px 1px 1px 1px #247BA0;
 }
 
 .slide {

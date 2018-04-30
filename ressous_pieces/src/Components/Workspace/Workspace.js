@@ -116,16 +116,16 @@ class Workspace extends Component {
     changeInput(){
         if(this.state.create === 'i'){
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' placeholder='Issue Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                <input className= 'description' placeholder='Issue Description'  value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <input className='input title'  maxlength='30' placeholder='Issue Title' type='text' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className= 'input description' placeholder='Issue Description' type='text' value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
                 <button className='btn' onClick={() => this.createIssue()}>Add</button>
             </div>
         } else if(this.state.create === 'a') {
             return <div className='creationContainer'>
                 <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                <input className='link' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
+                <input className='input title' placeholder='Article Title' maxlength='30' type='text' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className='input link' placeholder='Article Link' type='url' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createArticle()}>Add</button>
             </div>
         } else if (this.state.create ==='d'){
@@ -135,9 +135,9 @@ class Workspace extends Component {
         } else {
             return <div className='creationContainer'>
                 <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' placeholder='Project Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-            <input className='link' placeholder='Project Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
-            <button className='btn' onClick={() => this.createProject()}>Add</button>
+                <input className='input title' maxlength='30' placeholder='Project Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className='input link' placeholder='Project Link' type='url' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
+                <button className='btn' onClick={() => this.createProject()}>Add</button>
             </div> 
         }
     }

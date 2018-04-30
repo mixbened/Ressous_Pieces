@@ -6,6 +6,20 @@ import { Link } from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
 import Add from 'react-icons/lib/md/add';
 import Remove from 'react-icons/lib/go/x';
+import { bounce, flip } from 'react-animations';
+import { StyleSheet, css } from 'aphrodite';
+import Motor from 'react-icons/lib/md/attach-file';
+
+const styles = StyleSheet.create({
+    bounce: {
+      animationName: flip,
+      animationDuration: '1s',
+      animationIterationCount: 'infinite',
+      textAlign: 'center',
+      fontSize: '2em',
+      marginTop: '1em'
+    }
+  })
 
 class Dashboard extends Component {
     constructor(){
@@ -14,13 +28,15 @@ class Dashboard extends Component {
             workspaces: [],
             title: '',
             descr: '',
-            createMode: false
+            createMode: false,
+            loading: true
         }
     }
 
+
     componentDidMount(){
         axios.get('/api/dashboard/').then(data => {
-            this.setState({workspaces: data.data})
+            this.setState({workspaces: data.data, loading: false})
         })
         // axios.get(`/api/workspaces/${id}`).then(data => {
         //     this.state.workspaces.forEach(el => {
@@ -45,8 +61,8 @@ class Dashboard extends Component {
     changeInput(){
             return <div className='creationContainer'>
                 <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' type="text" value={this.state.title} placeholder="title" onChange={e => this.setState({title: e.target.value})}/>
-                <input className='description' value={this.state.descr} rows='1' placeholder="description" onChange={e => this.setState({descr: e.target.value})}/>
+                <input className='input title' maxlength='30' type="text" value={this.state.title} placeholder="title" onChange={e => this.setState({title: e.target.value})}/>
+                <input className='input description' type='text' value={this.state.descr} rows='1' placeholder="description" onChange={e => this.setState({descr: e.target.value})}/>
                 <button className="btn btn-primary" onClick={() => this.createSpace()}>Create</button>
             </div>
     }
@@ -68,6 +84,7 @@ class Dashboard extends Component {
                         <a onClick={e => this.setState({createMode: !this.state.createMode})}><Add className='centering'/></a>
                     </div>
                     <div className='wsContainer'>
+                    <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                         {workspaceList}
                     </div>
                 </main>

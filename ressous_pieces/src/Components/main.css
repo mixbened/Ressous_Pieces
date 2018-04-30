@@ -17,6 +17,18 @@ nav {
     font-size: 2em;
 }
 
+.input {
+    text-align: left;
+    border-radius: 5px;
+    border-style: hidden;
+    padding: 5px;
+}
+
+.input:focus {
+    border:1px solid #247BA0;
+    outline: 0;
+}
+
 .boxBox {
     text-align: center;
 }

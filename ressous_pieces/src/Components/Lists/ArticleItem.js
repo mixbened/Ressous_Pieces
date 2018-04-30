@@ -34,7 +34,7 @@ class ArticleItem extends Component {
                         </div> 
                     </div>
                     <div className='boxBox'>
-                        <div><Remove className='iconSmall' onClick={() => this.deleteArticle(article_id)}/></div>
+                        <div><Remove className='iconSmall' onClick={() => this.deleteArticleFn(article_id)}/></div>
                         <div><Logo className='origin' origin={origin}/></div>
                     </div>
                 </li>

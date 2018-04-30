@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Arrow from 'react-icons/lib/ti/arrow-left';
+import { bounce, flip } from 'react-animations';
+import { StyleSheet, css } from 'aphrodite';
+import Motor from 'react-icons/lib/md/attach-file';
+
+const styles = StyleSheet.create({
+  bounce: {
+    animationName: flip,
+    animationDuration: '1s',
+    animationIterationCount: 'infinite',
+    textAlign: 'center',
+    fontSize: '2em',
+    marginTop: '1em'
+  }
+})
 
 class Browser extends Component {
     constructor(){
@@ -10,16 +24,17 @@ class Browser extends Component {
             issues: [],
             workspaces: [],
             searchVal: '',
-            showIssues: false
+            showIssues: false,
+            loading: true,
         }
     }
 
     componentDidMount(){
         axios.get('/api/issues/').then(data => {
-            this.setState({issues: data.data})
+            this.setState({issues: data.data, loading: false})
         })
         axios.get('/api/allWorkspaces/').then(data => {
-            this.setState({workspaces: data.data})
+            this.setState({workspaces: data.data, loading: false})
         })
     }
     
@@ -78,7 +93,7 @@ class Browser extends Component {
                     <hr/>
                     <h4 className='subtitle'>find issues and workspaces for your personal development</h4>
                 </div>
-                <input onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
+                <input className='input' type='text' onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
                 <button onClick={() => this.setState({showIssues: !this.state.showIssues})}>Toggle</button>
                 <div className={this.state.showIssues ? 'listContainer' : 'notShow listContainer'}>
                     <table class='table'>
@@ -88,6 +103,7 @@ class Browser extends Component {
                             </tr>
                         </thead>
                         <ul className='issueContainer'>
+                        <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                             {issueList}
                         </ul>
                     </table>
@@ -100,6 +116,7 @@ class Browser extends Component {
                             </tr>
                         </thead>
                         <ul className='issueContainer'>
+                        <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                             {workspaceList}
                         </ul>
                     </table>

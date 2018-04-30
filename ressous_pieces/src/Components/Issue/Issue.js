@@ -101,16 +101,16 @@ class Issue extends Component {
     changeInput(){
         if(this.state.create === 'p'){
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' placeholder='Practice Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                <input className= 'description' placeholder='Practice Link'  value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <input className='input title' placeholder='Practice Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className= 'description input' placeholder='Practice Link'  value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createIssue()}>Add</button>
             </div>
         } else if(this.state.create === 'a') {
             return <div className='creationContainer'>
-                <Remove className='iconSmall' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='title' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                <input className='link' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                <input className='title input' placeholder='Article Title' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className='link input' placeholder='Article Link' value={this.state.link} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({link: e.target.value})}/>
                 <button className='btn' onClick={() => this.createArticle()}>Add</button>
             </div>
         }

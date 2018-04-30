@@ -81,15 +81,15 @@ class Register extends Component {
                         <h1 className='header'>register</h1>
                         <div className="form-group">
                             <label>username</label>
-                            <input type="text" className="form-control authInput" placeholder="username" onChange={e => this.setState({username: e.target.value})}/>
+                            <input type="text" maxlength='30' className="form-control authInput" placeholder="username" onChange={e => this.setState({username: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>password</label>
-                            <input type="text" className="form-control authInput" placeholder="password" onChange={e => this.setState({password: e.target.value})}/>
+                            <input type="password" className="form-control authInput" placeholder="password" onChange={e => this.setState({password: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>email</label>
-                            <input type="text" className="form-control authInput" placeholder="email" onChange={e => this.setState({email: e.target.value})}/>
+                            <input type="email" className="form-control authInput" placeholder="email" onChange={e => this.setState({email: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>image Upload</label>

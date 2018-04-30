@@ -11,6 +11,10 @@
     opacity: 0.1;
 }
 
+.dontShow {
+    display: none;
+}
+
 .inputContainer {
     transition: 1s;
     position: fixed;

@@ -103,11 +103,11 @@ class Login extends Component {
                         <h1>login</h1>
                         <div className="form-group">
                             <label>username</label>
-                            <input type="text" className="form-control authInput" placeholder="username" onChange={e => this.setState({username: e.target.value})}/>
+                            <input type="text" maxlength='30' className="form-control authInput" placeholder="username" onChange={e => this.setState({username: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>password</label>
-                            <input type="text" className="form-control authInput" placeholder="password" onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({password: e.target.value})}/>
+                            <input type="password" className="form-control authInput" placeholder="password" onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({password: e.target.value})}/>
                         </div>
                             {this.state.failMessage ? <div className='alert alert-warning'>{this.state.failMessage}</div> : <div></div>}
                         <div className='signButton'><button className="btn btn-primary" onClick={() => this.login()}>sign in</button></div>

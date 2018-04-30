@@ -9,6 +9,8 @@ import Home from './Components/Home';
 import Browser from './Components/Browser/Browser';
 import Chart from './Components/Profile/Chart';
 import Profile from './Components/Profile/Profile';
+import DataPrivacy from './Components/DataPrivacy';
+import Impressum from './Components/Impressum';
 
 const routes = 
 <div>
@@ -21,6 +23,8 @@ const routes =
         <Route path='/browser' component={ Browser } />
         <Route path='/chart' component={ Chart } />
         <Route path='/profile/:id' component={ Profile } />
+        <Route path='/privacy' component={ DataPrivacy } />
+        <Route path='/impressum' component={ Impressum } />
         <Route path='/' component={ Home } />
     </Switch>
 </div>

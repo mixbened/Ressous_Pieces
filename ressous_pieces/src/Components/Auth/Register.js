@@ -73,6 +73,29 @@ class Register extends Component {
         })
     }
 
+    register(){
+        const user = {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+            }
+        axios.post('/api/register', user).then(data => {
+            if(data.data === 'registered'){
+                window.location = '/login'
+            } else {
+                window.location = '/'
+            }
+        })
+    }
+
+    handler(){
+        if(this.state.imageFile){
+            this.uploadImage(this.state.imageFile);
+        } else {
+            this.register();
+        }
+    }
+
     render() {
     
         return (
@@ -96,7 +119,7 @@ class Register extends Component {
                             <input type="file" onChange={e => this.setState({imageFile: e.target.files})} className="form-control-file fileInput"/>
                         </div>
                         {this.state.failMessage}
-                        <button className="btn btn-primary" onClick={() => this.uploadImage(this.state.imageFile)}>sign up</button>
+                        <button className="btn btn-primary" onClick={() => this.handler()}>sign up</button>
                 </div>
                 <div className='backContainer'>
                 <Link to='/login'><button className='btn backButton'>login</button></Link>

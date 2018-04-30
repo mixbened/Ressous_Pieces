@@ -47,11 +47,20 @@ module.exports = {
         const { username, email, imageUrl, password } = req.body;
         console.log(imageUrl);
         const dbInstance = req.app.get('db');
-        bcrypt.hash( password, saltRounds).then( hashedPassword => {
-            dbInstance.createUser([username, email, imageUrl, hashedPassword]).then( data => {
-                console.log('Created User')
-                res.status(200).send('registered');
-            })
+        dbInstance.findUser(username).then(data => {
+            console.log(data)
+            if(data[0]){
+                console.log('existing')
+                res.status(200).send('This User already exists!')
+            } else {
+                console.log('not existing')
+                bcrypt.hash( password, saltRounds).then( hashedPassword => {
+                    dbInstance.createUser([username, email, imageUrl, hashedPassword]).then( data => {
+                        console.log('Created User')
+                        res.status(200).send('registered');
+                    })
+                })
+            }
         })
     },
     logout: (req, res) => {

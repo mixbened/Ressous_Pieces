@@ -94,7 +94,7 @@ class Browser extends Component {
                     <h4 className='subtitle'>find issues and workspaces for your personal development</h4>
                 </div>
                 <input className='input' type='text' onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
-                <button onClick={() => this.setState({showIssues: !this.state.showIssues})}>Toggle</button>
+                <div className='btn-group' role='group'><div><button type='button' className={this.state.showIssues ? 'button border-right' : 'active button border-right'} onClick={() => this.setState({showIssues: false})}>Workspaces</button><button type='button' onClick={() => this.setState({showIssues: true})} className={this.state.showIssues ? 'active button border-left' : 'button border-left'}>Topics</button></div></div>
                 <div className={this.state.showIssues ? 'listContainer' : 'notShow listContainer'}>
                     <table class='table'>
                         <thead>

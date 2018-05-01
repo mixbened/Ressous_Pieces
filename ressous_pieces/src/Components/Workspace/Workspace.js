@@ -12,8 +12,20 @@ import Descr from 'react-icons/lib/go/book';
 import IssueItem from '../Lists/IssueItem';
 import ArticleItem from '../Lists/ArticleItem';
 import ProjectItem from '../Lists/ProjectItem';
+import { bounce, flip } from 'react-animations';
+import { StyleSheet, css } from 'aphrodite';
+import Motor from 'react-icons/lib/md/attach-file';
 
-
+const styles = StyleSheet.create({
+    bounce: {
+      animationName: flip,
+      animationDuration: '1s',
+      animationIterationCount: 'infinite',
+      textAlign: 'center',
+      fontSize: '2em',
+      marginTop: '1em',
+    }
+  })
 
 
 class Workspace extends Component {
@@ -31,6 +43,7 @@ class Workspace extends Component {
             articles: [],
             projects: [],
             descrActive: false,
+            loading: true,
             empty: false,
         }
         this.deleteProject = this.deleteProject.bind(this)
@@ -43,7 +56,7 @@ class Workspace extends Component {
         const { id } = this.props.match.params;
         this.setState({workspace_id: id})
         axios.get(`/api/workspace/${id}`).then(data => {
-            this.setState({wsTitle: data.data[0].title, wsDescr: data.data[0].description})
+            this.setState({wsTitle: data.data[0].title, wsDescr: data.data[0].description, loading:false})
         })
         axios.get(`/api/issues/${id}`).then(data => {
             this.setState({issues: data.data})
@@ -206,6 +219,7 @@ class Workspace extends Component {
                         </ul>
                     </div>
                 </div>
+                    <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                     <div className='projects list-group list'>
                         <div className='titleContainer'>
                             <h4>projects</h4>

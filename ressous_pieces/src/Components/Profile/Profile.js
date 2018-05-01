@@ -60,16 +60,19 @@ class Profile extends Component {
             <div>
                 <div className='infoContainer'>
                     <div className='profileContainer'>
+                    <div className='profileheading'>
                         <h1>{this.state.userinfo.username}</h1>
-                        <h3>{`Status: Rockstar`}</h3>
+                        <hr/>
+                        <h4 className='subtitle'>Workspaces and Topics</h4>
+                    </div>
                     </div>
                     <img className='img-thumbnail profileImage' src={this.state.userinfo.imageurl} alt={`of ${this.state.username}`} />
                 </div>
-                <h5>{`${this.state.userinfo.username}'s Issues`}</h5>
+                <h5>Topics</h5>
                 <ul className='issueContainer'>
                     {issueList}
                 </ul>
-                <h5>{`${this.state.userinfo.username}'s Workspaces`}</h5>
+                <h5>Workspaces</h5>
                 <ul className='issueContainer'>
                     {workspaceList}
                 </ul>

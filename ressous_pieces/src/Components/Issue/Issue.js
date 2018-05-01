@@ -5,7 +5,6 @@ import Plus from 'react-icons/lib/md/control-point';
 import Remove from 'react-icons/lib/go/x';
 import Arrow from 'react-icons/lib/ti/arrow-left';
 import { Link } from 'react-router-dom';
-import Logo from '../Logo';
 import AceEditor from 'react-ace';
 import brace from 'brace';
 import 'brace/mode/javascript';
@@ -18,6 +17,7 @@ import 'brace/theme/textmate';
 import { Prompt } from 'react-router';
 import Descr from 'react-icons/lib/go/book';
 import ArticleItem from '../Lists/ArticleItem';
+import PracticeItem from '../Lists/PracticeItem';
 
 class Issue extends Component {
     constructor(){
@@ -125,7 +125,7 @@ class Issue extends Component {
     render() {
         const { isTitle, isDescr } = this.state;
         const ArticleList = this.state.articles.map((el,i) =>  <ArticleItem key={i} title={el.title} url={el.url} article_id={el.article_id} origin={el.origin} deleteArticleFn={this.deleteArticle}/> )
-        const PracticeList = this.state.practices.map((el,i) =>  <li  className='list-group-item' key={i}><h6>{el.title}</h6><a>{el.url}</a><Logo className='logo' origin={el.origin}/><Remove className='iconSmall' onClick={() => this.deletePractice(el.practice_id)}/></li> )
+        const PracticeList = this.state.practices.map((el,i) =>  <PracticeItem key={i} title={el.title} practice_id={el.practice_id} url={el.url} origin={el.origin} deletePracticeFn={this.deletePractice} />  )
         return (
             <div>
             <Prompt message={e => {

@@ -43,11 +43,6 @@ class Dashboard extends Component {
                 this.setState({workspaces: data.data, loading: false, empty: true})
             }
         })
-        // axios.get(`/api/workspaces/${id}`).then(data => {
-        //     this.state.workspaces.forEach(el => {
-
-        //     })
-        // })
     }
 
     createSpace(){

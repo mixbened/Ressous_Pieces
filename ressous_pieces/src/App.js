@@ -3,7 +3,6 @@ import './App.css';
 import routes from './routes.js';
 import Nav from './Components/Nav';
 import Sidebar from './Components/Sidebar/Sidebar';
-import Router from './Router';
 
 class App extends Component {
   constructor(){

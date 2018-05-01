@@ -27,12 +27,16 @@ class ProjectItem extends Component {
             <div>
                 <li className='list-group-item'>
                     <div className='infoBox'>
-                        <p>{title}</p>
-                        <a>{url}</a>
+                        <div className='titleBox'>
+                            <p>{title}</p>
+                        </div>
+                        <div className='descrBox'>
+                            <a href={url}><p>{url}</p></a>
+                        </div>
                     </div>
                     <div className='boxBox'>
-                        <Remove className='iconSmall' onClick={() => this.deleteProjectFn(project_id)}/>
-                        <Logo className='logo' origin={origin}/>
+                        <div><Remove className='iconSmall' onClick={() => this.deleteProjectFn(project_id)}/></div>
+                        <div><Logo className='origin' origin={origin}/></div>
                     </div>
                 </li>
             </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Remove from 'react-icons/lib/go/x';
 import Logo from '../Logo';
 
@@ -22,6 +21,7 @@ class ArticleItem extends Component {
 
     render() {
         const { title, url, article_id, origin } = this.props
+        console.log(url)
         return (
             <div>
                 <li className='list-group-item'>
@@ -30,7 +30,7 @@ class ArticleItem extends Component {
                             <p>{title}</p>
                         </div>
                         <div className='descrBox'>
-                            <Link to={url}><p>{url}</p></Link>
+                            <a href={url}><p>{url}</p></a>
                         </div> 
                     </div>
                     <div className='boxBox'>

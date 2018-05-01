@@ -7,7 +7,8 @@ class Chart extends Component {
         super();
         this.state = {
             chartData: {},
-            ratio: 0
+            ratio: 0,
+            load: false
         }
     }
 
@@ -27,8 +28,9 @@ class Chart extends Component {
                     }]
                 },
                     ratio:data.data.check/(data.data.unchecked+data.data.check),
+                    load: true
             })
-            })
+        })
     }
 
     checkStats(){
@@ -41,14 +43,33 @@ class Chart extends Component {
         }
     }
 
-
-    render() {
-        return (
-            <div>
+    serveDoughnut(){
+        console.log('serve Dough')
+        console.log(this.state.chartData.datasets[0].data)
+        if(this.state.chartData.datasets[0].data[0] == 0 && this.state.chartData.datasets[0].data[1] == 0) {
+            console.log('no Stats')
+            return (
+                <div>
+                    <p>create and check off topics to see your stats</p>
+                </div>
+            )
+        } else {
+            console.log('stats')
+            return (<div>
                 <Doughnut
                     data={this.state.chartData}
                 />
                 <h5>{`You are ${this.checkStats()}`}</h5>
+            </div>
+    )
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <h5>Your RP Stats</h5>
+                {this.state.load ? this.serveDoughnut() : ''}
             </div>
         );
     }

@@ -30,7 +30,8 @@ class Workspace extends Component {
             link: '',
             articles: [],
             projects: [],
-            descrActive: false
+            descrActive: false,
+            empty: false,
         }
         this.deleteProject = this.deleteProject.bind(this)
         this.deleteIssue = this.deleteIssue.bind(this)
@@ -52,7 +53,6 @@ class Workspace extends Component {
         })
         axios.get(`/api/projects/${id}`).then(data => {
             this.setState({projects: data.data})
-            console.log(this.state.projects)
         })
     }
 
@@ -153,7 +153,7 @@ class Workspace extends Component {
             this.setState({articles: data.data, title: '', link: ''})
         })
     }
-
+// a handler for sending the Database the Value of the Checkbox
     changeCheck(id, cf){
         console.log(cf)
         axios.put(`/api/issues/${id}/${cf}/${this.state.workspace_id}`).then(data => {
@@ -161,11 +161,19 @@ class Workspace extends Component {
         })
     }
 
+// a handler that is checking if every Category is empty
+    emptyCheck(){
+        if(this.state.articles.length || this.state.projects.length || this.state.issues.length){
+        return 'dontShow'
+        } else {
+        return 'alert alert-warning'
+        }
+    }
+
     render() {
         const { wsTitle, wsDescr } = this.state;
         const IssueList = this.state.issues.map((el,i) =>  <IssueItem key={i} title={el.title} issue_id={el.issue_id} description={el.description} check_field={el.check_field} changeCheckFn={this.changeCheck} deleteIssueFn={this.deleteIssue} /> )
         const ArticleList = this.state.articles.map((el,i) =>  <ArticleItem key={i} title={el.title} url={el.url} article_id={el.article_id} origin={el.origin} deleteArticleFn={this.deleteArticle}/> )
-        console.log(this.state.projects)
         const ProjectsList = this.state.projects.map((el,i)=>  <ProjectItem key={i} title={el.title} url={el.url} project_id={el.projects_id} origin={el.origin} deleteProjectFn={this.deleteProject}/> )
         return (
             <div>
@@ -206,7 +214,10 @@ class Workspace extends Component {
                         <ul>
                             {ProjectsList}
                         </ul>
-                    </div>  
+                    </div> 
+                    <div className={this.emptyCheck()}>
+                        <p>Looks like an empty Space...Use it and create somenthing!</p>
+                    </div> 
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
                     {this.changeInput()}
                 </div>

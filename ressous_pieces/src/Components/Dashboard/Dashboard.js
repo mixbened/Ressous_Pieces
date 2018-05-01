@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
       animationIterationCount: 'infinite',
       textAlign: 'center',
       fontSize: '2em',
-      marginTop: '1em'
+      marginTop: '1em',
     }
   })
 
@@ -29,14 +29,19 @@ class Dashboard extends Component {
             title: '',
             descr: '',
             createMode: false,
-            loading: true
+            loading: true,
+            empty: false
         }
     }
 
 
     componentDidMount(){
         axios.get('/api/dashboard/').then(data => {
-            this.setState({workspaces: data.data, loading: false})
+            if(data.data[0]) {
+                this.setState({workspaces: data.data, loading: false})
+            } else {
+                this.setState({workspaces: data.data, loading: false, empty: true})
+            }
         })
         // axios.get(`/api/workspaces/${id}`).then(data => {
         //     this.state.workspaces.forEach(el => {
@@ -54,7 +59,7 @@ class Dashboard extends Component {
         console.log(workspace);
         axios.post('/api/workspace', workspace).then(data => {
             console.log(data)
-            this.setState({workspaces: data.data, title: '', descr: '', createMode: false})
+            this.setState({workspaces: data.data, title: '', descr: '', createMode: false, empty: false})
         })
     }
 
@@ -84,6 +89,9 @@ class Dashboard extends Component {
                         <a onClick={e => this.setState({createMode: !this.state.createMode})}><Add className='centering'/></a>
                     </div>
                     <div className='wsContainer'>
+                    <div className={this.state.empty ? 'alert alert-warning' : 'dontShow'}>
+                        <p>Looks like an empty Space...Use it and create somenthing!</p>
+                    </div>
                     <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                         {workspaceList}
                     </div>

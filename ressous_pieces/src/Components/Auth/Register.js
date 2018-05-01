@@ -66,7 +66,7 @@ class Register extends Component {
                 if(data.data === 'registered'){
                     window.location = '/dashboard'
                 } else {
-                    window.location = '/'
+                    window.location = '/login'
                 }
             })
             })

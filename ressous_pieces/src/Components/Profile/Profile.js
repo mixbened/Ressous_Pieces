@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { bounce, flip } from 'react-animations';
+import { StyleSheet, css } from 'aphrodite';
+import Motor from 'react-icons/lib/md/attach-file';
+
+const styles = StyleSheet.create({
+    bounce: {
+      animationName: flip,
+      animationDuration: '1s',
+      animationIterationCount: 'infinite',
+      textAlign: 'center',
+      fontSize: '2em',
+      marginTop: '1em',
+    }
+  })
 
 class Profile extends Component {
     constructor(){
@@ -9,7 +23,8 @@ class Profile extends Component {
             issues: [],
             workspaces: [],
             workspacesInput: [],
-            createMode: false
+            createMode: false,
+            loading: true,
         }
     }
 
@@ -18,10 +33,10 @@ class Profile extends Component {
         axios.get(`/api/user/${id}`).then(data => {
             this.setState({userinfo: data.data[0]})
             axios.get(`/api/issuesUser/${data.data[0].user_id}`).then(data => {
-                this.setState({issues: data.data})
+                this.setState({issues: data.data, loading: false})
             })
             axios.get(`/api/workspacesUser/${data.data[0].user_id}`).then(data => {
-                this.setState({workspaces: data.data})
+                this.setState({workspaces: data.data, loading: false})
             })
         })
     }
@@ -68,6 +83,7 @@ class Profile extends Component {
                     </div>
                     <img className='img-thumbnail profileImage' src={this.state.userinfo.imageurl} alt={`of ${this.state.username}`} />
                 </div>
+                <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                 <h5>Topics</h5>
                 <ul className='issueContainer'>
                     {issueList}

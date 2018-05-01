@@ -100,6 +100,17 @@ h4 {
     box-shadow: 1px 1px 1px 1px #247BA0;
 }
 
+.browserHeading {
+    display: flex;
+    justify-content: space-between;
+}
+
+hr {
+    width: 100%;
+    border-color: #247BA0;
+    margin: 1% 0;
+}
+
 .top-line {
     width: 70%;
     border-color: rgb(36, 123, 160, .3);

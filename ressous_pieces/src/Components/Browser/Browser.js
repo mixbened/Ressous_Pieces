@@ -5,6 +5,9 @@ import Arrow from 'react-icons/lib/ti/arrow-left';
 import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
+import BrowseItem from '../Lists/BrowseItem';
+import Search from 'react-icons/lib/fa/search';
+
 
 const styles = StyleSheet.create({
   bounce: {
@@ -56,11 +59,7 @@ class Browser extends Component {
         // create Issue JSX
         const issueList = filteredIssues.map( el => {
             return (
-                <li className='list-group-item issue'>
-                    <p>{el.title}</p>
-                    <h6>{el.description}</h6>
-                    <Link to={`/profile/${el.username}`}><h6>{el.username}</h6></Link>
-                </li>
+                <BrowseItem title={el.title} description={el.description} username={el.username} imageurl={el.imageurl}/>
             )
         });
 
@@ -76,11 +75,7 @@ class Browser extends Component {
         // create Workspace JSX
         const workspaceList = filteredWorkspaces.map( el => {
             return (
-                <li className='list-group-item issue'>
-                    <p>{el.title}</p>
-                    <h6>{el.description}</h6>
-                    <Link to={`/profile/${el.username}`}><h6>{el.username}</h6></Link>
-                </li>
+                <BrowseItem title={el.title} description={el.description} username={el.username} imageurl={el.imageurl}/>
             )
         });
 
@@ -93,33 +88,34 @@ class Browser extends Component {
                     <hr/>
                     <h4 className='subtitle'>find issues and workspaces for your personal development</h4>
                 </div>
-                <input className='input' type='text' onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/> 
                 <div className='btn-group' role='group'><div><button type='button' className={this.state.showIssues ? 'button border-right' : 'active button border-right'} onClick={() => this.setState({showIssues: false})}>Workspaces</button><button type='button' onClick={() => this.setState({showIssues: true})} className={this.state.showIssues ? 'active button border-left' : 'button border-left'}>Topics</button></div></div>
                 <div className={this.state.showIssues ? 'listContainer' : 'notShow listContainer'}>
-                    <table class='table'>
-                        <thead>
-                            <tr>
-                                <th scope='col'>issues</th>
-                            </tr>
-                        </thead>
+                <div className='browserHeading'>
+                        <h3>Topics</h3>
+                        <div className='inputWithIcon'>
+                            <input placeholder='Search' className='input' type='text' onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/>
+                            <Search className='iconElement' />
+                        </div>
+                        </div>
+                        <hr />
                         <ul className='issueContainer'>
                         <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                             {issueList}
                         </ul>
-                    </table>
                 </div>
                 <div className={this.state.showIssues ? 'notShow listContainer' : 'listContainer'}>
-                    <table class='table'>
-                        <thead>
-                            <tr>
-                                <th scope='col'>workspaces</th>
-                            </tr>
-                        </thead>
+                    <div className='browserHeading'>
+                        <h3>Workspaces</h3>
+                        <div className='inputWithIcon'>
+                            <input placeholder='Search' className='input' type='text' onChange={el => this.setState({searchVal: el.target.value})} value={this.state.searchVal}/>
+                            <Search className='iconElement' />
+                        </div>
+                    </div>
+                        <hr />
                         <ul className='issueContainer'>
                         <div className={this.state.loading ? css(styles.bounce) : 'dontShow'}><Motor /></div>
                             {workspaceList}
                         </ul>
-                    </table>
                 </div>
             </div>
         );

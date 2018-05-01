@@ -54,9 +54,38 @@ nav {
 }
 
 .btn-group {
-    margin: 0 auto;
+    margin: 2% auto;
     width: 100%;
     text-align: center;
+}
+
+.imagePreview {
+    width: 40px;
+    border-radius: 100%;
+    margin: 0 20%;
+}
+
+.profilePreview {
+    flex: 1;
+}
+
+.smallText {
+    font-size: 0.8em;
+    font-weight: 800;
+}
+
+.inputWithIcon input[type=text] {
+    padding-left: 30px;
+}
+
+.inputWithIcon {
+    position: relative;
+}
+
+.iconElement {
+    position: absolute;
+    top: 7px;
+    left: 8px;
 }
 
 .input:focus {
@@ -153,5 +182,8 @@ nav > div > ul > div > li {
         font-size: 0.8em;
         background: #247BA0;
         color: white;
+    }
+    .button {
+        width: 50%;
     }
 }

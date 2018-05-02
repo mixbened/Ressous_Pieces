@@ -1,5 +1,5 @@
 nav {
-    background: #f2f2f2;
+    background: #247BA0;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -10,7 +10,7 @@ nav {
 .logo {
     margin: 5px;
     font-size: 2em;
-    color: #011936;
+    color: #f2f2f2;
 }
 
 .origin {
@@ -123,7 +123,22 @@ nav > h2 {
 }
 
 .navLink {
-    color: #011936;
+    color: #f2f2f2;
+}
+
+.navigation > a:hover {
+    color: white;
+}
+.navigation > ul > a:hover {
+    color: white;
+}
+.navigation > a:focus {
+    color: white;
+    text-decoration: none;
+}
+.navigation > ul > a:focus {
+    color: white;
+    text-decoration: none;
 }
 
 .navBox {

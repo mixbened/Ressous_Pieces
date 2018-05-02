@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
+import { updateStats } from '../../ducks/reducer';
+import { connect } from 'react-redux';  
+import { withRouter } from 'react-router-dom';
 
 class Chart extends Component {
     constructor(){
@@ -13,7 +16,9 @@ class Chart extends Component {
     }
 
     componentDidMount(){
+        const { updateStats } = this.props
         axios.get(`/api/workspaces/`).then(data => {
+                updateStats([data.data.unchecked, data.data.check]);
                 this.setState({chartData: {
                     datasets: [{
                         data: [data.data.unchecked, data.data.check],
@@ -75,4 +80,10 @@ class Chart extends Component {
     }
 }
 
-export default Chart;
+function mapStateToProps(state){
+    return {
+        checked: state.checked,
+        unchecked: state.unchecked
+    }
+}
+export default withRouter(connect(mapStateToProps, {updateStats})(Chart));

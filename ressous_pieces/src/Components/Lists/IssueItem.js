@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Remove from 'react-icons/lib/go/x';
+import Check from 'react-icons/lib/fa/check-circle';
+import Unchecked from 'react-icons/lib/io/android-radio-button-off';
+
 
 class IssueItem extends Component {
     constructor(props){
@@ -38,7 +41,8 @@ class IssueItem extends Component {
                         </Link>
                     <div className='boxBox'>
                         <Remove className='iconSmall' onClick={() => this.deleteIssueFn(issue_id)}/>
-                        <input value={check_field} onChange={() => this.changeCheckFn(issue_id, !check_field)} type='checkbox' className='checkbox'/>
+                        <div onClick={() => this.changeCheckFn(issue_id, !check_field)} className={check_field ? 'check' : 'dontShow'}><Check /></div>
+                        <div onClick={() => this.changeCheckFn(issue_id, !check_field)} className={check_field ? 'dontShow' : 'check'}><Unchecked /></div>
                     </div>
                 </li>
             </div>

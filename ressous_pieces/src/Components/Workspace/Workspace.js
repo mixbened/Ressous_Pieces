@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Workspace.css';
 import { create } from 'domain';
 import Plus from 'react-icons/lib/md/control-point';
@@ -15,6 +15,8 @@ import ProjectItem from '../Lists/ProjectItem';
 import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
+import { updateStats } from '../../ducks/reducer';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -27,6 +29,18 @@ const styles = StyleSheet.create({
     }
   })
 
+
+  function ratio(cf, a, b) {
+    if(cf){
+        let newUnchecked = a;
+        let newChecked = b++;
+        return [newUnchecked,newChecked]
+    } else {
+        let newUnchecked = a++;
+        let newChecked = b;
+        return [newUnchecked,newChecked]
+    }
+  }
 
 class Workspace extends Component {
     constructor(){
@@ -168,9 +182,10 @@ class Workspace extends Component {
     }
 // a handler for sending the Database the Value of the Checkbox
     changeCheck(id, cf){
-        console.log(cf)
+        const { updateStats } = this.props
         axios.put(`/api/issues/${id}/${cf}/${this.state.workspace_id}`).then(data => {
             this.setState({issues: data.data})
+            updateStats(ratio(cf, this.props.unchecked, this.props.checked))
         })
     }
 
@@ -240,4 +255,10 @@ class Workspace extends Component {
     }
 }
 
-export default Workspace;
+function mapStateToProps(state){
+    return {
+        userStats: state.userStats
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {updateStats})(Workspace));

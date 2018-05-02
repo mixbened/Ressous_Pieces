@@ -36,6 +36,11 @@
     width: 15%
 }
 
+.check {
+    font-size: 2em;
+    cursor: pointer;
+}
+
 .descrBox {
     padding: 1%;
     flex: 2;
@@ -55,7 +60,7 @@ div > h4 {
     padding: 0;
 }
 
-@media (max-width: 578px){
+@media (max-width: 1200px){
     .titleBox {
         flex: 1;
     }

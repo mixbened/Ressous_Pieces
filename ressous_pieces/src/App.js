@@ -3,6 +3,8 @@ import './App.css';
 import routes from './routes.js';
 import Nav from './Components/Nav';
 import Sidebar from './Components/Sidebar/Sidebar';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
   constructor(){
@@ -41,4 +43,10 @@ activateSidebar(){
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return state;
+}
+
+
+
+export default withRouter(connect(mapStateToProps)(App));

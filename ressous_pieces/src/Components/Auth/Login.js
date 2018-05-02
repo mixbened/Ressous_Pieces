@@ -98,7 +98,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className='width'>
                 <div className='container loginContainer'>
                         <h1>login</h1>
                         <div className="form-group">

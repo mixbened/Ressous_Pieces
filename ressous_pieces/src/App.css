@@ -12,9 +12,13 @@
   margin: 3%;
 }
 
+.width {
+  width: 100%;
+}
+
 .side {
   width: 200px;
-  background: #247BA0;
+  background: rgb(36, 123, 160);
   box-shadow: -1px 2px 1px 1px #999;
 }
 

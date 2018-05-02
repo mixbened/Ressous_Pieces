@@ -1,0 +1,44 @@
+
+
+.heroSection {
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.9),
+        rgb(36, 123, 160, 0.4)
+      );
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.titleSection {
+    flex: 1;
+}
+
+.mockupSection {
+    flex: 1;
+}
+
+.mockup {
+    float: none;
+    width: 90%;
+}
+
+.headingSection {
+    margin: 30% 10%;
+    width: 100%;
+}
+
+.tutorialSection {
+    width: 100%;
+    background: #A30000;
+}
+
+.section {
+
+}
+
+.clip {
+    width: 50%;
+    margin: 0 auto;
+}

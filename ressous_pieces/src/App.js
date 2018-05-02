@@ -10,13 +10,16 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      sidebar: false
+      sidebar: false,
+      home: false
     }
   }
 
 componentDidMount(){
   console.log(window.location.pathname)
-  if(window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/'){
+  if(window.location.pathname === '/login' || window.location.pathname === '/register'){
+  } else if (window.location.pathname === '/') {
+    this.setState({home: true})
   } else {
     this.setState({sidebar: true})
   }
@@ -31,7 +34,7 @@ activateSidebar(){
       <div className='app'>
         <Nav />
         <div className='main'>
-          <div className='content container'>
+          <div className={this.state.home ? '' : 'content container'}>
           {routes}
           </div>
           <div className={this.state.sidebar ? 'side' : ''}>

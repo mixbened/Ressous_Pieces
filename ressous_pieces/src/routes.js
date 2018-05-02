@@ -5,7 +5,7 @@ import Register from './Components/Auth/Register';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Workspace from './Components/Workspace/Workspace';
 import Issue from './Components/Issue/Issue';
-import Home from './Components/Home';
+import Home from './Components/Home/Home';
 import Browser from './Components/Browser/Browser';
 import Chart from './Components/Profile/Chart';
 import Profile from './Components/Profile/Profile';

@@ -1,10 +1,11 @@
-
-
-.heroSection {
+.appHome {
     background: linear-gradient(
         rgba(255, 255, 255, 0.9),
         rgb(36, 123, 160, 0.4)
       );
+}
+
+.heroSection {
     background-size: cover;
     width: 100vw;
     height: 100vh;
@@ -31,7 +32,6 @@
 
 .tutorialSection {
     width: 100%;
-    background: #A30000;
 }
 
 .section {

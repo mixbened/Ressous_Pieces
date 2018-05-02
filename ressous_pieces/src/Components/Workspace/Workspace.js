@@ -185,7 +185,7 @@ class Workspace extends Component {
         const { updateStats } = this.props
         axios.put(`/api/issues/${id}/${cf}/${this.state.workspace_id}`).then(data => {
             this.setState({issues: data.data})
-            updateStats(ratio(cf, this.props.unchecked, this.props.checked))
+            updateStats()
         })
     }
 

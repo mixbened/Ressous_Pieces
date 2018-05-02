@@ -12,7 +12,7 @@ import "../../../node_modules/video-react/dist/video-react.css"; // import css
 class Home extends Component {
     render() {
         return (
-            <div>
+            <div className='appHome'>
                 <div className='heroSection'>
                     <div className='titleSection'>
                         <div className='headingSection'>
@@ -25,6 +25,22 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className='tutorialSection'>
+                    <div className='section'>
+                        <div className='step'>
+                            <div className='number'>
+                                <span>1</span>
+                            </div>
+                            <div>
+                                <h6>create a Workspace</h6>
+                            </div>
+                        </div>
+                        <div className='clip'>
+                            <Player loop='true' ref="player" fluid='false' width='100px' autoPlay='true' muted='true'>
+                                <source src={Record1} />
+                                <ControlBar disabled />
+                            </Player>
+                        </div>
+                    </div>
                     <div className='section'>
                         <div className='step'>
                             <div className='number'>

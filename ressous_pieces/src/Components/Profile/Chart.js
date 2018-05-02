@@ -11,31 +11,14 @@ class Chart extends Component {
         this.state = {
             chartData: {},
             ratio: 0,
-            load: false
+            load: true
         }
     }
 
     componentDidMount(){
         const { updateStats } = this.props
-        axios.get(`/api/workspaces/`).then(data => {
-                updateStats([data.data.unchecked, data.data.check]);
-                this.setState({chartData: {
-                    datasets: [{
-                        data: [data.data.unchecked, data.data.check],
-                        backgroundColor: [
-                        '#FF6384',
-                        '#36A2EB'
-                        ],
-                        hoverBackgroundColor: [
-                        '#FF6384',
-                        '#36A2EB'
-                        ]
-                    }]
-                },
-                    ratio:data.data.check/(data.data.unchecked+data.data.check),
-                    load: true
-            })
-        })
+        updateStats();
+        this.setState({load: false});
     }
 
     checkStats(){
@@ -50,8 +33,7 @@ class Chart extends Component {
 
     serveDoughnut(){
         console.log('serve Dough')
-        console.log(this.state.chartData.datasets[0].data)
-        if(this.state.chartData.datasets[0].data[0] == 0 && this.state.chartData.datasets[0].data[1] == 0) {
+        if(this.props.stats[0] == 0 && this.props.stats[1] == 0) {
             console.log('no Stats')
             return (
                 <div>
@@ -62,7 +44,19 @@ class Chart extends Component {
             console.log('stats')
             return (<div>
                 <Doughnut
-                    data={this.state.chartData}
+                    data={{
+                        datasets: [{
+                            data: [this.props.stats[0], this.props.stats[1]],
+                            backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB'
+                            ],
+                            hoverBackgroundColor: [
+                            '#FF6384',
+                            '#36A2EB'
+                            ]
+                        }]
+                    }}
                 />
                 <h5>{`You are ${this.checkStats()}`}</h5>
             </div>
@@ -73,8 +67,7 @@ class Chart extends Component {
     render() {
         return (
             <div>
-                <h5>Your RP Stats</h5>
-                {this.state.load ? this.serveDoughnut() : ''}
+            {this.state.load ? '' : this.serveDoughnut()}
             </div>
         );
     }
@@ -82,8 +75,7 @@ class Chart extends Component {
 
 function mapStateToProps(state){
     return {
-        checked: state.checked,
-        unchecked: state.unchecked
+        stats: state.userStats
     }
 }
 export default withRouter(connect(mapStateToProps, {updateStats})(Chart));

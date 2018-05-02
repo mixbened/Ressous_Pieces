@@ -26,6 +26,14 @@ class Home extends Component {
                 </div>
                 <div className='tutorialSection'>
                     <div className='section'>
+                        <div className='step'>
+                            <div className='number'>
+                                <span>1</span>
+                            </div>
+                            <div>
+                                <h6>create a Workspace</h6>
+                            </div>
+                        </div>
                         <div className='clip'>
                             <Player loop='true' ref="player" fluid='false' width='100px' autoPlay='true' muted='true'>
                                 <source src={Record1} />

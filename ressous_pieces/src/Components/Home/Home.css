@@ -35,10 +35,33 @@
 }
 
 .section {
+    display: flex;
+}
 
+.step {
+    flex: 1;
+    padding: 6% 0;
 }
 
 .clip {
+    padding: 2%;
     width: 50%;
     margin: 0 auto;
+    flex: 1;
+}
+
+.step > div > h6 {
+    text-align: center;
+}
+
+.number {
+    border: 1px solid white;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    width: 80px;
+    height: 80px;
+    margin: 40px auto 0 auto;
+    color: #f2f2f2;
 }

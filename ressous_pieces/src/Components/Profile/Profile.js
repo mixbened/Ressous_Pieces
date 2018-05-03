@@ -66,6 +66,7 @@ class Profile extends Component {
         axios.get('/api/dashboard/').then(data => {
             this.setState({workspacesInput: data.data})
         })
+        console.log('change Input func',this.state.issueInput)
         const workspaceList = this.state.workspacesInput.map(el => <button onClick={() => this.forkIssue(this.state.issueInput, el.workspace_id)}>{el.title}</button>)
         return <div className='creationContainer'>
             <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
@@ -102,7 +103,7 @@ class Profile extends Component {
                     {workspaceList}
                 </ul>
                 <div className={this.state.createMode ? 'creationBar slide' : 'creationBar'}>
-                    {this.changeInput()}
+                    {this.state.issueInput ? this.changeInput() : ''}
                 </div>
             </div>
         );

@@ -30,7 +30,7 @@ class BrowseItem extends Component {
                 <div className='descrBox'>
                     <p>{description}</p>
                 </div>
-                <button onClick={() => this.fork()}className='btn'>
+                <button onClick={() => this.fork()} className='btn'>
                    <Fork /> 
                 </button>
             </li>

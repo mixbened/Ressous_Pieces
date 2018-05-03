@@ -25,11 +25,6 @@
     width: 90%;
 }
 
-.titleContainer {
-    text-align: center;
-    margin: 0 0 10% 0;
-}
-
 .titleContainer > hr {
     width: 20%;
     margin: 1% auto;

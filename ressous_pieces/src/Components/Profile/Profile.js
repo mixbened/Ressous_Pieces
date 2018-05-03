@@ -4,6 +4,8 @@ import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
 import ProfileItem from '../Lists/ProfileItem';
+import { Link } from 'react-router-dom';
+import Arrow from 'react-icons/lib/ti/arrow-left';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -84,6 +86,7 @@ class Profile extends Component {
         return (
             <div>
                 <div className='infoContainer'>
+                <div className='breadcrump'><Link to='/browser'><Arrow />browser</Link></div>
                     <div className='profileContainer'>
                     <div className='profileheading'>
                         <h1>{this.state.userinfo.username}</h1>

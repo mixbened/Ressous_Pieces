@@ -9,6 +9,7 @@ import Remove from 'react-icons/lib/go/x';
 import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
+import WorkspacePreview from '../Workspace/WorkspacePreview';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -78,7 +79,7 @@ class Dashboard extends Component {
                             <h3>{el.title}</h3>
                         </div>
                         <div className='descriptionPreview'>
-                        <p>{el.description}</p>
+                            <p>{el.description}</p>
                         </div>
                     </div>
                 </Link>

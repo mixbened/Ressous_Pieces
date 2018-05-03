@@ -23,10 +23,9 @@ class Login extends Component {
                 xfbml      : true,
                 version    : 'v2.10'
             });
-            
+        // Facebook Login Logic - This function runs, when Facebook sees change in Authentication 
         window.FB.Event.subscribe('auth.statusChange', (response) => {
             if(response.authResponse){
-                console.log(response.authResponse.userID)
                 window.FB.api('/me?fields=picture,name', function(response) {
                         console.log(response)
                         if(!response.error){
@@ -90,7 +89,7 @@ class Login extends Component {
     showFail(val){
         console.log('show Fail')
         if(val === 'p'){
-        this.setState({failMessage: <div>Wrong Password Dude. Try again!</div>});
+        this.setState({failMessage: <div>Wrong Password. Try again!</div>});
         } else if (val === 'u') {
         this.setState({failMessage: <div>This User does not exist. Try again!</div>});
         }
@@ -99,7 +98,7 @@ class Login extends Component {
     render() {
         return (
             <div className='width'>
-                <div className='container loginContainer'>
+                <div className='loginContainer'>
                         <h1>login</h1>
                         <div className="form-group">
                             <label>username</label>

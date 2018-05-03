@@ -28,6 +28,10 @@
     color: rgb(36, 123, 160)
 }
 
+.profileheading > h1,h4 {
+    text-align: center;
+}
+
 .descriptionPreview {
     padding: 1em;
 }

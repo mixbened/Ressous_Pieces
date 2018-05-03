@@ -4,10 +4,12 @@ import axios from 'axios';
 import { updateStats } from '../../ducks/reducer';
 import { connect } from 'react-redux';  
 import { withRouter } from 'react-router-dom';
+import RecentItem from '../Lists/RecentItem';
+
 
 class Chart extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             chartData: {},
             ratio: 0,
@@ -18,7 +20,7 @@ class Chart extends Component {
     componentDidMount(){
         const { updateStats } = this.props
         updateStats();
-        this.setState({load: false});
+        this.setState({load: false})
     }
 
 //creating a ratio of the Stats and returning a motivational banner
@@ -73,9 +75,23 @@ class Chart extends Component {
     }
 
     render() {
+        const recentIssues = this.props.ressents.map( (el, i) => {
+            return <RecentItem keyId={i+1} wsTitle={el.wstitle} title={el.title} description={el.description} id={el.issue_id}/>
+        })
         return (
             <div>
-            {this.state.load ? '' : this.serveDoughnut()}
+                <div>
+                {this.state.load ? '' : this.serveDoughnut()}
+                </div>
+                <div className='ressentTitle'>
+                    ressents
+                    <hr />
+                </div>
+                <div className='recentContainer'>
+                    <ul>
+                    {recentIssues}
+                    </ul>
+                </div>
             </div>
         );
     }

@@ -32,6 +32,7 @@ module.exports = {
             } else {
                 req.app.get('db').createFBUser(req.body.name, req.body.fb_id, req.body.imageUrl).then(data => {
                 req.session.user = data[0];
+                res.redirect(200, 'http://localhost:3000/dashboard')
                 })
             }
         })
@@ -244,6 +245,12 @@ module.exports = {
     getAllWorkspaces: (req, res) => {
         req.app.get('db').getEveryWorkspace().then( data => {
             // console.log(data)
+            res.status(200).send(data)
+        })
+    },
+    getRessents: (req, res) => {
+        req.app.get('db').getRessents(req.params.username).then(data => {
+            console.log(data)
             res.status(200).send(data)
         })
     }

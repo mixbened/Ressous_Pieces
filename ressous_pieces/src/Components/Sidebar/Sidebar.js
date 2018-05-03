@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Sidebar.css';
 import Chart from '../Profile/Chart';
+import RecentItem from '../Lists/RecentItem';
 
 class Sidebar extends Component {
     constructor(){
@@ -9,7 +10,8 @@ class Sidebar extends Component {
         this.state = {
             username: '',
             image: '',
-            recents: []
+            ressents: [],
+            loading: true
         }
     }
 
@@ -20,6 +22,10 @@ class Sidebar extends Component {
                 username: data.data.username,
                 image: data.data.imageurl,
             })
+            axios.get(`/api/ressents/${data.data.username}`).then(response => {
+                this.setState({ressents: response.data, loading: false})
+                console.log(this.state.ressents)
+            })
         })
     }
 
@@ -28,9 +34,12 @@ class Sidebar extends Component {
             <div className='sidebar'>
                 <div className='personalInfo'>
                     <div className='imageContainer'><img className='thumbnail profileImage' src={this.state.image} alt={`of ${this.state.username}`} /></div>  
-                    <h2>Whats up {this.state.username}!</h2>
-                    <Chart />
-                    <h4></h4>
+                    <h4>What's up {this.state.username}!</h4>
+                        <div className='ressentTitle'>
+                        your stats
+                        <hr />
+                        </div>
+                        <Chart ressents={this.state.ressents}/>
                 </div>
             </div>
         );

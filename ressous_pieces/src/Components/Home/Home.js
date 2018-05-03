@@ -7,9 +7,7 @@ import { Player, ControlBar, ReplayControl,
     TimeDivider, PlaybackRateMenuButton, VolumeMenuButton
   } from 'video-react';
 import "../../../node_modules/video-react/dist/video-react.css"; // import css
-import ReallySmoothScroll from 'really-smooth-scroll';
 
-ReallySmoothScroll.shim();
 
 var durationFn = function(deltaTop) {
     return deltaTop;

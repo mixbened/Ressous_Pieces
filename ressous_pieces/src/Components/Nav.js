@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './main.css';
-import Logo from './dummy_logo.png';
 
 class Nav extends Component {
     constructor(){

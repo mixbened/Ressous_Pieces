@@ -10,23 +10,15 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      sidebar: false,
-      home: false
     }
   }
 
+// checks if User is Logged in and sidebar should be rendered
 componentDidMount(){
-  console.log(window.location.pathname)
   if(window.location.pathname === '/login' || window.location.pathname === '/register'){
-  } else if (window.location.pathname === '/') {
-    this.setState({home: true})
   } else {
     this.setState({sidebar: true})
   }
-}
-
-activateSidebar(){
-  this.setState({sidebar: true})
 }
 
   render() {
@@ -34,11 +26,11 @@ activateSidebar(){
       <div className='app'>
         <Nav />
         <div className='main'>
-          <div className={this.state.home ? '' : 'content container'}>
+          <div className={window.location.pathname === '/' ? '' : 'content'}>
           {routes}
           </div>
-          <div className={this.state.sidebar ? 'side' : ''}>
-          {this.state.sidebar ? <Sidebar /> : <div></div> }
+          <div className={window.location.pathname === '/login' || window.location.pathname === '/register' ? '' : 'side'}>
+            {window.location.pathname === '/login' || window.location.pathname === '/register' ?  <div></div> : <Sidebar /> }
           </div>
         </div>
       </div>

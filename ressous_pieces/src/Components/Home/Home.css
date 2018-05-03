@@ -25,6 +25,10 @@
     width: 90%;
 }
 
+.main {
+    min-height: 100vh;
+}
+
 .titleContainer > hr {
     width: 20%;
     margin: 1% auto;

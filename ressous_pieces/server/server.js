@@ -55,7 +55,8 @@ app.get('/api/issues/:id', c.getIssues);
 app.get('/api/issue/:id', c.getIssue);
 app.delete('/api/issue/:iid/:wid', c.deleteIssue);
 app.get('/api/issues', c.getAllIssues);
-app.post('/api/issue/:id', c.updateEditorInput)
+app.post('/api/issue/:id', c.updateEditorInput);
+app.get('/api/ressents/:username', c.getRessents)
 
 // Practices - Issue
 app.get('/api/practices/:id', c.getPractices);

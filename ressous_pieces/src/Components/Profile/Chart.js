@@ -21,10 +21,11 @@ class Chart extends Component {
         this.setState({load: false});
     }
 
+//creating a ratio of the Stats and returning a motivational banner
     checkStats(){
-        if(this.state.ratio >= 0.9){
+        if(this.props.stats[1]/(this.props.stats[0]+this.props.stats[0]) >= 0.9){
             return 'a Rockstar!'
-        } else if (this.state.ratio >= 0.5){
+        } else if (this.props.stats[1]/(this.props.stats[0]+this.props.stats[0])  >= 0.5){
             return 'on Track'
         } else {
             return 'a little bit behind...'
@@ -37,7 +38,7 @@ class Chart extends Component {
             console.log('no Stats')
             return (
                 <div>
-                    <p>create and check off topics to see your stats</p>
+                    <p className='cursive'>create and check off topics to see your stats</p>
                 </div>
             )
         } else {
@@ -45,20 +46,27 @@ class Chart extends Component {
             return (<div>
                 <Doughnut
                     data={{
+                        labels: ['open issues','completed Issues'],
                         datasets: [{
                             data: [this.props.stats[0], this.props.stats[1]],
+                            borderWidth: [0,0],
                             backgroundColor: [
-                            '#FF6384',
-                            '#36A2EB'
+                            '#90BE6D',
+                            '#A4243B'
                             ],
                             hoverBackgroundColor: [
-                            '#FF6384',
-                            '#36A2EB'
+                            '#90BE6D',
+                            '#A4243B'
                             ]
                         }]
                     }}
+                    options={{
+                        legend: {
+                            display: false,
+                        }
+                    }}
                 />
-                <h5>{`You are ${this.checkStats()}`}</h5>
+                <h5 className='cursive'>{`You are ${this.checkStats()}`}</h5>
             </div>
     )
         }

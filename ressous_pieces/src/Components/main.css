@@ -141,6 +141,10 @@ nav > h2 {
     text-decoration: none;
 }
 
+.cursive {
+    font-style: italic;
+}
+
 .navBox {
     padding: 25px;
     font-size: 1.3em;

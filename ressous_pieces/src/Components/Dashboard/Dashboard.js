@@ -70,7 +70,20 @@ class Dashboard extends Component {
 
 
     render() {
-        const workspaceList = this.state.workspaces.map((el,i) => <Link key={i} className='wsPreview' to={`/workspace/${el.workspace_id}`}><div><h3>{el.title}</h3><p>{el.description}</p></div></Link>)
+        const workspaceList = this.state.workspaces.map((el,i) => {
+            return (
+                <Link key={i} className='wsPreview' to={`/workspace/${el.workspace_id}`}>
+                    <div>
+                        <div className='titlePreview'>
+                            <h3>{el.title}</h3>
+                        </div>
+                        <div className='descriptionPreview'>
+                        <p>{el.description}</p>
+                        </div>
+                    </div>
+                </Link>
+                )}
+            )
         return (
             <div>
             <div className='heading'>

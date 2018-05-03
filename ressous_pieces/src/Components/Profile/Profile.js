@@ -3,6 +3,7 @@ import axios from 'axios';
 import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
+import ProfileItem from '../Lists/ProfileItem';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -12,6 +13,9 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: '2em',
       marginTop: '1em',
+    },
+    smallText: {
+        fontSize: '1.5em'
     }
   })
 
@@ -26,6 +30,7 @@ class Profile extends Component {
             createMode: false,
             loading: true,
         }
+        this.setCreate = this.setCreate.bind(this);
     }
 
     componentDidMount(){
@@ -68,9 +73,13 @@ class Profile extends Component {
         </div>
     }
 
+    setCreate(id){
+        this.setState({createMode: true, issueInput: id})
+    }
+
     render() {
-        const issueList = this.state.issues.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6><button onClick={() => this.setState({createMode: true, issueInput: el.issue_id})}>Fork</button></li>)
-        const workspaceList = this.state.workspaces.map( el => <li className='list-group-item issue'><p>{el.title}</p><h6>{el.description}</h6><h6>{el.username}</h6><button onClick={() => this.forkSpace(el.workspace_id)}>Fork</button></li>)
+        const issueList = this.state.issues.map( el => <ProfileItem forkIssue={this.setCreate} title={el.title} description={el.description} username={el.username} issue_id={el.issue_id} workspace_id={el.workspace_id}/>)
+        const workspaceList = this.state.workspaces.map( el => <ProfileItem forkSpace={this.forkSpace} title={el.title} description={el.description} username={el.username} workspace_id={el.workspace_id} />)
         return (
             <div>
                 <div className='infoContainer'>

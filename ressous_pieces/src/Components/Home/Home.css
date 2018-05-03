@@ -25,6 +25,16 @@
     width: 90%;
 }
 
+.titleContainer {
+    text-align: center;
+    margin: 0 0 10% 0;
+}
+
+.titleContainer > hr {
+    width: 20%;
+    margin: 1% auto;
+}
+
 .headingSection {
     margin: 30% 10%;
     width: 100%;
@@ -46,8 +56,8 @@
 .clip {
     padding: 2%;
     width: 50%;
-    margin: 0 auto;
-    flex: 1;
+    margin: 10% auto;
+    flex: 2;
 }
 
 .step > div > h6 {
@@ -55,7 +65,7 @@
 }
 
 .number {
-    border: 1px solid white;
+    border: 3px solid white;
     border-radius: 100%;
     text-align: center;
     font-size: 2em;
@@ -63,5 +73,47 @@
     width: 80px;
     height: 80px;
     margin: 40px auto 0 auto;
-    color: #f2f2f2;
+    color: white;
+}
+
+.scrollButton {
+    margin: 2%;
+    background: #E28413;
+    color: #eee;
+}
+
+.scrollButton:hover {
+    color: white;
+}
+
+.scrollButton:focus {
+    color: white;
+    outline: none;
+}
+.scrollButton:active {
+    color: white;
+    outline: none;
+}
+
+@media (max-width: 768px){
+    .heroSection {
+        display: block;
+    }
+    .headingSection {
+        margin: 0;
+        padding: 15%;
+        text-align: center;
+    }
+    .mockup {
+        width: 100%;
+    }
+    .section {
+        display: block;
+    }
+    .clip {
+        width: 90%
+    }
+    .tutorialSection {
+        margin: 15% 0 5% 0;
+    }
 }

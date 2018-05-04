@@ -1,0 +1,1 @@
+SELECT check_field FROM issues_rp WHERE workspace_id = $1;

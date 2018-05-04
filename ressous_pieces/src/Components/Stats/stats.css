@@ -1,0 +1,7 @@
+.progressBar {
+    position: absolute;
+    bottom: 0px;
+    height: 3px;
+    overflow: hidden;
+    box-sizing: border-box;
+}

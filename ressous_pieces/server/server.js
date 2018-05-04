@@ -38,6 +38,7 @@ app.delete('/api/workspace/:id', c.deleteWorkspace);
 app.put('/api/issues/:id/:check/:wid', c.checkIssue);
 app.get('/api/workspaces/', c.getWorkspaceStats);
 app.get('/api/allWorkspaces/', c.getAllWorkspaces);
+app.get('/api/stats/:id', c.getStatsforWorkspace);
 
 // Articles - Workspaces
 app.post('/api/articles/:id', c.getArticles);

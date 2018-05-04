@@ -10,6 +10,7 @@ import { bounce, flip } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
 import WorkspacePreview from '../Workspace/WorkspacePreview';
+import ProgressBar from '../Stats/ProgressBar';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -81,6 +82,7 @@ class Dashboard extends Component {
                         <div className='descriptionPreview'>
                             <p>{el.description}</p>
                         </div>
+                        <ProgressBar workspace_id={el.workspace_id}/>
                     </div>
                 </Link>
                 )}

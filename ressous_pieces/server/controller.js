@@ -200,8 +200,8 @@ module.exports = {
                 true: (parseInt(el.true, 10) || 0)
             }
         })
-            req.session.user.stats = reducer(newArr);
-            res.status(200).send(reducer(newArr))
+            req.session.user.stats = reducer.total(newArr);
+            res.status(200).send(reducer.total(newArr))
         })
     },
     getUserData: (req, res) => {
@@ -252,6 +252,12 @@ module.exports = {
         req.app.get('db').getRessents(req.params.username).then(data => {
             console.log(data)
             res.status(200).send(data)
+        })
+    },
+    getStatsforWorkspace: (req, res) => {
+        req.app.get('db').getStatsForWorkspace(req.params.id).then(data => {
+            console.log(data)
+            res.status(200).send(reducer.count(data))
         })
     }
 }

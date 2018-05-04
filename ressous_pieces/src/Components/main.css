@@ -5,6 +5,10 @@ nav {
     justify-content: space-between;
     width: 100%;
     box-shadow: 1px 2px 2px #999;
+    animation-name: pulse;
+    animation-duration: 10s; 
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .logo {
@@ -195,6 +199,7 @@ nav > div > ul > div > li {
     }
     nav {
         background: #247BA0;
+        animation: none;
     }
     .navBox {
         padding: 30px 15px;

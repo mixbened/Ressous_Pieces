@@ -82,3 +82,21 @@ h1 {
         padding: 1%;
     }
 }
+
+@keyframes pulse {
+    0% {
+      background-color: #247BA0;
+    }
+    100% {
+      background-color: #92AD94;
+    }
+  }
+  
+@keyframes pulse {
+    0% {
+      background-color: #247BA0;
+    }
+    100% {
+      background-color: #92AD94;
+    }
+  }

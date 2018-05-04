@@ -7,6 +7,8 @@ import { Player, ControlBar, ReplayControl,
     TimeDivider, PlaybackRateMenuButton, VolumeMenuButton
   } from 'video-react';
 import "../../../node_modules/video-react/dist/video-react.css"; // import css
+import { Link } from 'react-router-dom';
+import Login from 'react-icons/lib/md/account-circle';
 
 
 var durationFn = function(deltaTop) {
@@ -23,12 +25,13 @@ scrollFunc(val){
     render() {
         return (
             <div className='appHome'>
+            <Link to='/login' className='loginButton'>Login<Login /></Link>
                 <div className='heroSection'>
                     <div className='titleSection'>
                         <div className='headingSection'>
                             <h1>manage your professional development</h1>
                             <h4>Ressous Pieces  </h4>
-                            <button className='btn scrollButton' onClick={() => this.scrollFunc(800)}>Get Started</button>
+                            <button className='btn scrollButton' onClick={() => this.scrollFunc(900)}>Get Started</button>
                         </div>
                     </div>
                     <div className='mockupSection'>
@@ -106,6 +109,13 @@ scrollFunc(val){
                         </div>
                     </div>
                 </div>
+                <footer>
+                    <ul>
+                        <li><Link to='/impressum'>Impressum</Link></li>
+                        <li><Link to='/privacy'>Data Privacy</Link></li>
+                        <li>All rights reserved.</li>
+                    </ul>
+                </footer>
             </div>
         );
     }

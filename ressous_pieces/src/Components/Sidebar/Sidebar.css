@@ -36,10 +36,6 @@
     font-style: italic;
 }
 
-.recentContainer {
-    background: rgb(36, 123, 160);
-}
-
 .recentContainer > ul {
     list-style-type: none;
     margin: 0;

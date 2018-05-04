@@ -5,6 +5,9 @@ import Nav from './Components/Nav';
 import Sidebar from './Components/Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import ReallySmoothScroll from 'really-smooth-scroll';
+
+ReallySmoothScroll.shim();
 
 class App extends Component {
   constructor(){

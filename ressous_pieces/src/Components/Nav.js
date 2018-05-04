@@ -42,7 +42,7 @@ class Nav extends Component {
     render() {
         return (
             <div>
-                <nav>
+                <nav className={window.location.pathname === '/' ? 'notShow' : ''} >
                     <h2 className='logo'>R<span className='smallLetters'>essous</span><br/>P<span className='smallLetters'>ieces</span></h2>
                     <div>
                     <div className='navigation'>{this.checkButton()}</div>

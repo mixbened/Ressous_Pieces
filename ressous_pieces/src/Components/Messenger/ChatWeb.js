@@ -9,11 +9,12 @@ class Messenger extends Component {
     constructor(){
         super();
         this.state = {
-            messages: [],
+            messagesDB: [],
             room: 1,
             messageInput: '',
             username: '',
             typers: [],
+            messagesSocket: []
         }
         
         this.socket = io();
@@ -33,13 +34,13 @@ class Messenger extends Component {
         }
         
         this.socket.on('RECEIVE_MESSAGE', data => {
-            console.log('Hey', data);
+            console.log('received from Backend, pass to add', data);
             addMessage(data);
         })
         
         const addMessage = data => {
-            console.log('add', data);
-            this.setState({messages: this.state.messages.concat(data)})
+            console.log('add to State', data);
+            this.setState({messagesSocket: data})
         }
         
         this.disconnect = () => {
@@ -47,7 +48,7 @@ class Messenger extends Component {
             this.socket.disconnect()
         }
         
-        this.isTyping = () => {
+       /* this.isTyping = () => {
             this.typing = true;
             this.socket.emit('isTyping', this.state.username);
             
@@ -79,7 +80,7 @@ class Messenger extends Component {
             this.setState({
                 typers: previousTypers
             })
-        })
+        })*/
     }
     componentDidMount(){
         axios.get('/api/checkSession').then(response => {
@@ -88,12 +89,14 @@ class Messenger extends Component {
             } 
         })
         axios.get(`/api/chatroom/${this.state.room}`).then(response => {
-            this.setState({messages: response.data})
+            console.log('coming from DB', response.data)
+            this.setState({messagesDB: response.data})
         })
     }
     
     
     render(){
+        const messages = this.state.messagesDB.concat(this.state.messagesSocket)
         return (
             <div className='chatRoom'>
             <Prompt message={e => {
@@ -101,7 +104,7 @@ class Messenger extends Component {
             }}/>
             <h1>Chatrom Web</h1>
             <div className='messages'>
-                {this.state.messages.length ? this.state.messages.map((message,i) => {
+                {messages.length ? messages.map((message,i) => {
                     // console.log(message.username, message.messageBody)
                     return (
                         <span key={i}>
@@ -122,7 +125,7 @@ class Messenger extends Component {
                 <br/>
                 <br/>
             Message: <br/>
-            <input className='input' placeholder='Enter message here' type="text" value={this.state.messageInput} onKeyPress={() => this.isTyping()} onChange={e => this.setState({messageInput: e.target.value})}/><br/>
+            <input className='input' placeholder='Enter message here' type="text" value={this.state.messageInput} /*onKeyPress={() => this.isTyping()}*/ onChange={e => this.setState({messageInput: e.target.value})}/><br/>
             <button className='btn' onClick={this.sendMessage}>Send Message</button>
             </div>
         )

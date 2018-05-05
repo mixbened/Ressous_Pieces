@@ -37,26 +37,27 @@ let messages = [];
             console.log('User disconnected');
             console.log(messages)
                 db.room_web_dev.insert(messages).then(data => {
-                    console.log('Success', data)
+                    console.log('Data Transportation', data)
                     if(data){
-                        messages = [];
+                        messages = []
                     }
                 })
               })
           
         socket.on('SEND_MESSAGE', function(data){
-              console.log('new Message', data)
+              console.log('Send Message Event', data)
               messages.push(data)
+              console.log('New Messages Array', messages)
               io.emit('RECEIVE_MESSAGE', messages);
         })
-        socket.on('isTyping', name => {
+       /* socket.on('isTyping', name => {
               console.log(name)
               io.emit('currentTyper', name)
         })
         socket.on('stopTyping', name => {
               console.log('stop', name)
               io.emit('previousTyper', name)
-        })
+        })*/
     });
 
 // App Endpoints

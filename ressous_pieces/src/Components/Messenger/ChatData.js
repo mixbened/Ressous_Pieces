@@ -3,16 +3,18 @@ import './messenger.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { setTimeout } from 'timers';
+import { Prompt } from 'react-router-dom';
 
 class ChatData extends Component {
     constructor(){
         super();
         this.state = {
-            messages: [],
+            messagesDB: [],
             room: 2,
             messageInput: '',
             username: '',
             typers: [],
+            messagesSocket: []
         }
 
     this.socket = io();
@@ -38,7 +40,12 @@ class ChatData extends Component {
 
     const addMessage = data => {
         console.log('add', data);
-        this.setState({messages: this.state.messages.concat(data)})
+        this.setState({messagesSocket: data})
+    }
+
+    this.disconnect = () => {
+        console.log('runs disconnect')
+        this.socket.disconnect()
     }
 
     this.isTyping = () => {
@@ -83,16 +90,20 @@ class ChatData extends Component {
             } 
         })
         axios.get(`/api/chatroom/${this.state.room}`).then(response => {
-            this.setState({messages: response.data})
+            this.setState({messagesDB: response.data})
         })
     }
 
     render(){
+        const messages = this.state.messagesDB.concat(this.state.messagesSocket)
         return (
             <div className='chatRoom'>
+            <Prompt message={e => {
+                this.disconnect() ? 'You are leaving the Page' : ''
+            }}/>
             <h1>Chatrom Data Science</h1>
             <div className='messages'>
-                {this.state.messages.length ? this.state.messages.map((message,i) => {
+                {messages.length ? messages.map((message,i) => {
                     // console.log(message.username, message.messageBody)
                     return (
                         <span key={i}>

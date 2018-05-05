@@ -11,6 +11,9 @@ import Chart from './Components/Profile/Chart';
 import Profile from './Components/Profile/Profile';
 import DataPrivacy from './Components/DataPrivacy';
 import Impressum from './Components/Impressum';
+import Messenger from './Components/Messenger/ChatWeb';
+import ChatHome from './Components/Messenger/ChatHome';
+import ChatData from './Components/Messenger/ChatData';
 
 const routes = 
 <div>
@@ -25,6 +28,9 @@ const routes =
         <Route path='/profile/:id' component={ Profile } />
         <Route path='/privacy' component={ DataPrivacy } />
         <Route path='/impressum' component={ Impressum } />
+        <Route path='/chat' component={ ChatHome } />
+        <Route path='/messenger' component={ Messenger } />
+        <Route path='/chatdata' component={ ChatData } />
         <Route path='/' component={ Home } />
     </Switch>
 </div>

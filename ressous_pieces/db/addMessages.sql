@@ -1,0 +1,1 @@
+INSERT INTO $1 (messageBody, username) VALUES($1, $2);

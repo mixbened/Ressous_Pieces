@@ -250,13 +250,13 @@ module.exports = {
     },
     getRessents: (req, res) => {
         req.app.get('db').getRessents(req.params.username).then(data => {
-            console.log(data)
+           // console.log(data)
             res.status(200).send(data)
         })
     },
     getStatsforWorkspace: (req, res) => {
         req.app.get('db').getStatsForWorkspace(req.params.id).then(data => {
-            console.log(data)
+           // console.log(data)
             res.status(200).send(reducer.count(data))
         })
     }

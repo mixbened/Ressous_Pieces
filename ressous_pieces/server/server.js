@@ -6,18 +6,58 @@ const PORT = 3050;
 const session = require('express-session');
 const c = require('./controller');
 const app = express();
+const socket = require('socket.io');
+const cors = require('cors');
+const chat = require('./chatController');
 
 // Middleware
 app.use(bodyParser.json());
+let db = null
 massive(process.env.CONNECTION_STRING).then(database => {
     app.set('db', database)
+    db = database
 })
 app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
   }));
+app.use(cors())
 
+let messages = [];
+
+  const io = socket(
+    app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`)));
+
+    io.on('connection', (socket) => {
+        console.log('User connected');
+  
+        //Create and monitor Disconnect
+        socket.on('disconnect', (req, res) => {
+            console.log('User disconnected');
+            console.log(messages)
+                db.room_web_dev.insert(messages).then(data => {
+                    console.log('Success', data)
+                    if(data){
+                        messages = [];
+                    }
+                })
+              })
+          
+        socket.on('SEND_MESSAGE', function(data){
+              console.log('new Message', data)
+              messages.push(data)
+              io.emit('RECEIVE_MESSAGE', messages);
+        })
+        socket.on('isTyping', name => {
+              console.log(name)
+              io.emit('currentTyper', name)
+        })
+        socket.on('stopTyping', name => {
+              console.log('stop', name)
+              io.emit('previousTyper', name)
+        })
+    });
 
 // App Endpoints
 
@@ -76,8 +116,10 @@ app.get('/api/workspacesUser/:id', c.getWorkspacesUser);
 app.post('/api/forkSpace/:id', c.forkSpace);
 app.post('/api/forkIssue/:iid/:wid', c.forkIssue);
 
+// Chat
+app.get('/api/chatroom/:id', chat.getMessages)
+
 app.use( express.static( `${__dirname}/../build` ) );
-app.listen(PORT, () => console.log('Server is listening on Port ' + PORT))
 
 
 const path = require('path')

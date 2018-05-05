@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Sidebar.css';
 import Chart from '../Profile/Chart';
 import RecentItem from '../Lists/RecentItem';
+import { Link } from 'react-router-dom';
 
 class Sidebar extends Component {
     constructor(){
@@ -40,6 +41,7 @@ class Sidebar extends Component {
                         <hr />
                         </div>
                         <Chart ressents={this.state.ressents}/>
+                        <Link to={'/chat'}>Chatroom</Link>
                 </div>
             </div>
         );

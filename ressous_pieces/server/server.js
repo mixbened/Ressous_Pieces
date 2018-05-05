@@ -24,7 +24,8 @@ app.use(session({
   }));
 app.use(cors())
 
-let messages = [];
+let messagesWeb = [];
+let messagesData = [];
 
   const io = socket(
     app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`)));
@@ -34,21 +35,29 @@ let messages = [];
   
         //Create and monitor Disconnect
         socket.on('disconnect', (req, res) => {
+            const messages = messagesData.concat(messagesWeb);
             console.log('User disconnected');
             console.log(messages)
                 db.room_web_dev.insert(messages).then(data => {
                     console.log('Data Transportation', data)
                     if(data){
-                        messages = []
+                        messagesData = [],
+                        messagesWeb = []
                     }
                 })
               })
           
         socket.on('SEND_MESSAGE', function(data){
               console.log('Send Message Event', data)
-              messages.push(data)
-              console.log('New Messages Array', messages)
-              io.emit('RECEIVE_MESSAGE', messages);
+              if(data.room === 1) {
+                  messagesWeb.push(data)
+                  io.emit('RECEIVE_MESSAGE', messagesWeb);
+                  console.log('send Back to Web', messagesWeb)
+              } else if (data.room === 2) {
+                  messagesData.push(data)
+                  io.emit('RECEIVE_MESSAGE', messagesData);
+                  console.log('send Back to Data', messagesData)
+              }
         })
        /* socket.on('isTyping', name => {
               console.log(name)

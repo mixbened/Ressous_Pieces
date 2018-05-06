@@ -3,21 +3,24 @@ import './messenger.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { setTimeout } from 'timers';
-import { Prompt } from 'react-router-dom';
+import { Prompt, withRouter } from 'react-router-dom';
+import updateUser from '../../ducks/reducer';
+import { connect } from 'react-redux';
 
 class Messenger extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             messagesDB: [],
             room: 1,
             messageInput: '',
             username: '',
             typers: [],
+            users: [],
             messagesSocket: []
         }
         
-        this.socket = io('/web');
+        this.socket = io('/web', { query: `username=${this.props.username}`});
         this.typing = false;
         
         
@@ -37,6 +40,24 @@ class Messenger extends Component {
             console.log('received from Backend, pass to add', data);
             addMessage(data);
         })
+
+        this.socket.on('SEND_USER', data => {
+            this.setState({users: data})
+        })
+
+        // this.socket.on('RECEIVE_USER', data => {
+        //     console.log('received User from Backend, add to State')
+        //     this.setState({users: []})
+        // })
+
+        // this.socket.on('connect', data => {
+        //     this.socket.emit('SET_USER', {username: this.state.username})
+        // })
+
+        /*this.socket.on('disconnect', data => {
+            console.log('disconnetion runs')
+            this.socket.emit('REMOVE_USER', {username: this.state.username})
+        })*/
         
         const addMessage = data => {
             console.log('add to State', data);
@@ -134,4 +155,10 @@ class Messenger extends Component {
     }
 }
 
-export default Messenger;
+function mapStateToProps(state){
+    return {
+        username: state.username
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {updateUser})(Messenger));

@@ -26,8 +26,10 @@ app.use(cors())
 
 let messagesWeb = [];
 let connectionsWeb = 0;
+let userWeb = [];
 let messagesData = [];
 let connectionsData = 0;
+let userData = [];
 
   const io = socket(
     app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`)));
@@ -35,6 +37,8 @@ let connectionsData = 0;
     // Socket Namespace for Web 
     const web = io.of('/web')
     web.on('connection', (socket) => {
+        userWeb.push(socket.handshake.query.username);
+        web.emit('SEND_USER', userWeb)
         connectionsWeb++;
         console.log('User connected', connectionsWeb);
         web.emit('RECEIVE_MESSAGE', messagesWeb);
@@ -42,7 +46,8 @@ let connectionsData = 0;
         //Create and monitor Disconnect
         socket.on('disconnect', (req, res) => {
             connectionsWeb--;
-            console.log('User disconnected Web', connectionsWeb);
+            userWeb.splice(userWeb.indexOf(socket.handshake.query.username), 1);
+            web.emit('SEND_USER', userWeb )
             if(connectionsWeb === 0){
                 db.room_web_dev.insert(messagesWeb).then(data => {
                     console.log('Data Transportation', data)
@@ -51,6 +56,12 @@ let connectionsData = 0;
                     }
                 })
             }
+        })
+
+        socket.on('SET_USER', function(data){
+            userWeb.push(data.username)
+            console.log('webuser', userWeb)
+            web.emit('RECEIVE_USER', userWeb)
         })
           
         socket.on('SEND_MESSAGE', function(data){
@@ -89,6 +100,17 @@ let connectionsData = 0;
                     })
                 }
                 })
+
+            socket.on('SET_USER', function(data){
+                console.log(data)
+                userData.push(data.username)
+                d.emit('RECEIVE_USER', userData)
+            })
+
+            socket.on('REMOVE_USER', function(data){
+                userData.splice(userData.indexOf(data.username), 1)
+                console.log('removed',userData)
+            })
             
             socket.on('SEND_MESSAGE', function(data){
                 console.log('Send Message Event', data)

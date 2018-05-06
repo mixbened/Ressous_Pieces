@@ -3,7 +3,9 @@ import './messenger.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { setTimeout } from 'timers';
-import { Prompt } from 'react-router-dom';
+import { Prompt, withRouter } from 'react-router-dom';
+import updateUser from '../../ducks/reducer';
+import { connect } from 'react-redux';
 
 class ChatData extends Component {
     constructor(){
@@ -14,10 +16,11 @@ class ChatData extends Component {
             messageInput: '',
             username: '',
             typers: [],
+            users: [],
             messagesSocket: []
         }
 
-    this.socket = io('/data');
+    this.socket = io('/data', { query: `username=${this.props.username}`});
     this.typing = false;
 
 
@@ -38,12 +41,21 @@ class ChatData extends Component {
         addMessage(data);
     })
 
+    this.socket.on('RECEIVE_USER', data => {
+        console.log('received User from Backend, add to State')
+        this.setState({users: []})
+    })
+
     const addMessage = data => {
         console.log('add', data);
         const filteredData = data.filter(e => e.room === 2)
         console.log(filteredData)
         this.setState({messagesSocket: data})
     }
+
+    this.socket.on('connect', data => {
+        this.socket.emit('SET_USER', {username: this.state.username})
+    })
 
     this.disconnect = () => {
         console.log('runs disconnect')
@@ -133,4 +145,10 @@ class ChatData extends Component {
     }
 }
 
-export default ChatData;
+function mapStateToProps(state){
+    return {
+        username: state.username
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {updateUser})(ChatData));

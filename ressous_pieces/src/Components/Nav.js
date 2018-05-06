@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './main.css';
+import { updateUser } from '../ducks/reducer';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';  
 
 class Nav extends Component {
     constructor(){
@@ -12,10 +15,12 @@ class Nav extends Component {
     }
 
     componentDidMount(){
+        const { updateUser } = this.props
         axios.get('/api/checkSession').then(response => {
             console.log(response)
             if(response.data.user_id){
                 this.setState({isLoggedIn: true})
+                updateUser(response.data.username)
             } 
         })
     }
@@ -53,4 +58,10 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+function mapStateToProps(state){
+    return {
+        username: state.username
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {updateUser})(Nav));

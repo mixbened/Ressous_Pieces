@@ -25,39 +25,39 @@ app.use(session({
 app.use(cors())
 
 let messagesWeb = [];
+let connectionsWeb = 0;
 let messagesData = [];
+let connectionsData = 0;
 
   const io = socket(
     app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`)));
 
-    io.on('connection', (socket) => {
-        console.log('User connected');
+    // Socket Namespace for Web 
+    const web = io.of('/web')
+    web.on('connection', (socket) => {
+        connectionsWeb++;
+        console.log('User connected', connectionsWeb);
+        web.emit('RECEIVE_MESSAGE', messagesWeb);
   
         //Create and monitor Disconnect
         socket.on('disconnect', (req, res) => {
-            const messages = messagesData.concat(messagesWeb);
-            console.log('User disconnected');
-            console.log(messages)
-                db.room_web_dev.insert(messages).then(data => {
+            connectionsWeb--;
+            console.log('User disconnected Web', connectionsWeb);
+            if(connectionsWeb === 0){
+                db.room_web_dev.insert(messagesWeb).then(data => {
                     console.log('Data Transportation', data)
                     if(data){
-                        messagesData = [],
                         messagesWeb = []
                     }
                 })
-              })
+            }
+        })
           
         socket.on('SEND_MESSAGE', function(data){
               console.log('Send Message Event', data)
-              if(data.room === 1) {
                   messagesWeb.push(data)
-                  io.emit('RECEIVE_MESSAGE', messagesWeb);
+                  web.emit('RECEIVE_MESSAGE', messagesWeb);
                   console.log('send Back to Web', messagesWeb)
-              } else if (data.room === 2) {
-                  messagesData.push(data)
-                  io.emit('RECEIVE_MESSAGE', messagesData);
-                  console.log('send Back to Data', messagesData)
-              }
         })
        /* socket.on('isTyping', name => {
               console.log(name)
@@ -68,6 +68,36 @@ let messagesData = [];
               io.emit('previousTyper', name)
         })*/
     });
+
+// Socket Namespace for Data
+    const d = io.of('/data')
+        d.on('connection', (socket) => {
+            connectionsData++;
+            console.log('User connected Data', connectionsData);
+            d.emit('RECEIVE_MESSAGE', messagesData);
+    
+            //Create and monitor Disconnect
+            socket.on('disconnect', (req, res) => {
+                connectionsData--;
+                console.log('User disconnected Data', connectionsData);
+                if(connectionsData === 0){
+                    db.room_web_dev.insert(messagesData).then(data => {
+                        console.log('Data Transportation', data)
+                        if(data){
+                            messagesData = []
+                        }
+                    })
+                }
+                })
+            
+            socket.on('SEND_MESSAGE', function(data){
+                console.log('Send Message Event', data)
+                    messagesData.push(data)
+                    d.emit('RECEIVE_MESSAGE', messagesData);
+                    console.log('send Back to Web', messagesData)
+            })
+        })
+
 
 // App Endpoints
 

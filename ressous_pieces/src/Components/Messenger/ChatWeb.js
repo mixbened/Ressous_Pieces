@@ -17,7 +17,7 @@ class Messenger extends Component {
             messagesSocket: []
         }
         
-        this.socket = io();
+        this.socket = io('/web');
         this.typing = false;
         
         
@@ -40,6 +40,8 @@ class Messenger extends Component {
         
         const addMessage = data => {
             console.log('add to State', data);
+            const filteredData = data.filter(e => e.room === 1)
+            console.log(filteredData)
             this.setState({messagesSocket: data})
         }
         

@@ -17,7 +17,7 @@ class ChatData extends Component {
             messagesSocket: []
         }
 
-    this.socket = io();
+    this.socket = io('/data');
     this.typing = false;
 
 
@@ -40,6 +40,8 @@ class ChatData extends Component {
 
     const addMessage = data => {
         console.log('add', data);
+        const filteredData = data.filter(e => e.room === 2)
+        console.log(filteredData)
         this.setState({messagesSocket: data})
     }
 

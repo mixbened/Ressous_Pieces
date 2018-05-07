@@ -6,6 +6,7 @@ import Motor from 'react-icons/lib/md/attach-file';
 import ProfileItem from '../Lists/ProfileItem';
 import { Link } from 'react-router-dom';
 import Arrow from 'react-icons/lib/ti/arrow-left';
+import Remove from 'react-icons/lib/go/x';
 
 const styles = StyleSheet.create({
     bounce: {
@@ -69,10 +70,10 @@ class Profile extends Component {
             this.setState({workspacesInput: data.data})
         })
         console.log('change Input func',this.state.issueInput)
-        const workspaceList = this.state.workspacesInput.map(el => <button onClick={() => this.forkIssue(this.state.issueInput, el.workspace_id)}>{el.title}</button>)
+        const workspaceList = this.state.workspacesInput.map(el => <button style={{margin: '1px'}}className='btn' onClick={() => this.forkIssue(this.state.issueInput, el.workspace_id)}>{el.title}</button>)
         return <div className='creationContainer'>
-            <button onClick={e => this.setState({createMode: !this.state.createMode})}>X</button>
-            {workspaceList}
+                <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
+                {workspaceList}
         </div>
     }
 
@@ -81,7 +82,7 @@ class Profile extends Component {
     }
 
     render() {
-        const issueList = this.state.issues.map( el => <ProfileItem forkIssue={this.setCreate} title={el.title} description={el.description} username={el.username} issue_id={el.issue_id} workspace_id={el.workspace_id}/>)
+        const issueList = this.state.issues.map( el => <ProfileItem forkIssue={this.setCreate} title={el.title} description={el.description} username={el.username} issuetitle={el.issuetitle} issue_id={el.issue_id} workspace_id={el.workspace_id}/>)
         const workspaceList = this.state.workspaces.map( el => <ProfileItem forkSpace={this.forkSpace} title={el.title} description={el.description} username={el.username} workspace_id={el.workspace_id} />)
         return (
             <div>

@@ -10,13 +10,22 @@ class BrowseItem extends Component {
         }
     }
 
+    title(){
+        const { issuetitle, title } = this.props;
+        if(issuetitle){
+            return issuetitle
+        } else {
+            return title;
+        }
+    }
+
 
     render() {
         const { username, title, description, imageurl } = this.props
         return (
             <li className='list-group-item issue'>
                 <div className='titleBox'>
-                    <p>{title}</p>
+                    <p>{this.title()}</p>
                 </div>
                 <div className='descrBox'>
                     <p>{description}</p>

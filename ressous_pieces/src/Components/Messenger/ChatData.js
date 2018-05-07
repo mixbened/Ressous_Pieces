@@ -134,8 +134,14 @@ class ChatData extends Component {
     render(){
         const messages = this.state.messagesDB.concat(this.state.messagesSocket);
         const userList = this.state.users.map(el => <li className='userItem'>{el}</li>)
-        const issueList = this.state.topics.map(el => <li onClick={() => this.setState({issueInput: el.issue_id, topicActive: false})}>{el.title}</li>)
-        return (
+        const issueList = this.state.topics.map(el => {
+            return <li className='issueList' onClick={() => this.setState({issueInput: el.issue_id, topicActive: false})}>
+                        <div className='issue'>
+                            <div>{el.issuetitle}</div>
+                            <div>/  {el.title}</div>
+                        </div>
+                    </li>})
+            return (
             <div>
                 <div className='breadcrump'><Link to='/chat'><Arrow />back</Link></div>
                 <h1>Chatroom Data</h1>

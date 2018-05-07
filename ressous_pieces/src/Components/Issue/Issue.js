@@ -35,7 +35,7 @@ class Issue extends Component {
             editorMode: 'javascript',
             editorValue: '',
             descrActive: false,
-            waiting: false
+            timer: null
         }
         this.deleteArticle = this.deleteArticle.bind(this);
         this.deletePractice = this.deletePractice.bind(this);
@@ -121,14 +121,15 @@ class Issue extends Component {
 
     updateEditorValue(){
         axios.post(`/api/issue/${this.state.issue_id}`, {newInput: this.state.editorValue, editormode: this.state.editorMode}).then( data => {
-            console.log('Updated the Input')
         })
     }
 
     isTyping(e){
-        console.log(e)
-        console.log('runs function')
-        //this.setState({waiting: false})
+        clearTimeout(this.state.timer)
+        this.setState({timer: setTimeout(() => {
+            console.log('db call')
+            this.updateEditorValue()
+        }, 2000)})
     }
 
     render() {
@@ -137,9 +138,9 @@ class Issue extends Component {
         const PracticeList = this.state.practices.map((el,i) =>  <PracticeItem key={i} title={el.title} practice_id={el.practice_id} url={el.url} origin={el.origin} deletePracticeFn={this.deletePractice} />  )
         return (
             <div>
-            <Prompt message={e => {
+            {<Prompt message={e => {
                 this.updateEditorValue() ? 'You are leaving the Page' : ''
-            }}/>
+            }}/>}
                     <div className='breadcrump'><Link to='/dashboard'><Arrow />dashboard</Link> / <Link to={`/workspace/${this.state.workspace_id}`} className='breadcrump'>workspace</Link><Descr className='deleteButton' onClick={() => this.setState({descrActive: !this.state.descrActive})}/></div>
                 <div className='heading'>
                     <h2 className='title'>{isTitle}</h2>
@@ -180,14 +181,16 @@ class Issue extends Component {
                         <option value="html">HTML</option>
                     </select>
                     <AceEditor
-                    onKeyPress={(e) => this.isTyping(e)}
                     mode={this.state.editorMode}
                     theme="textmate"
                     width='100%'
                     height='300px'
                     name="editor"
                     fontSize={14}
-                    onChange={e => this.setState({editorValue: e})}
+                    onChange={e => {
+                        this.isTyping()
+                        this.setState({editorValue: e})
+                    }}
                     showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}

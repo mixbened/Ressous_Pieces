@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const initialState = {
     userStats: [],
-    username: ''
+    username: '',
+    user_id: ''
 }
 
 const UPDATE_STATS = 'UPDATE_STATS';
@@ -30,7 +31,7 @@ function reducer(state= initialState, action){
         case UPDATE_STATS:
         return {...state, userStats: action.payload}
         case UPDATE_USER:
-        return {...state, username: action.payload}
+        return {...state, username: action.payload.username, user_id: action.payload.user_id}
         default:
         return state;
     }

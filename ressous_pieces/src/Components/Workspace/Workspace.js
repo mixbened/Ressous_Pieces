@@ -217,7 +217,7 @@ class Workspace extends Component {
                 <div className='mainRow'>
                     <div className='list-group issues list'>
                     <div className='titleContainer'>
-                        <h4>issues</h4>
+                        <h4>topics</h4>
                         <Plus className='icon' onClick={() => this.setState({createMode: !this.state.createMode, create: 'i'})}/>
                     </div>
                         <ul>

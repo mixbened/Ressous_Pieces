@@ -29,7 +29,7 @@ const routes =
         <Route path='/privacy' component={ DataPrivacy } />
         <Route path='/impressum' component={ Impressum } />
         <Route path='/chat' component={ ChatHome } />
-        <Route path='/messenger' component={ Messenger } />
+        <Route path='/chatweb' component={ Messenger } />
         <Route path='/chatdata' component={ ChatData } />
         <Route path='/' component={ Home } />
     </Switch>

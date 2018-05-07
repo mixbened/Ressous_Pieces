@@ -41,7 +41,6 @@ class Sidebar extends Component {
                         <hr />
                         </div>
                         <Chart ressents={this.state.ressents}/>
-                        <Link to={'/chat'}>Chatroom</Link>
                 </div>
             </div>
         );

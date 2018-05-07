@@ -67,7 +67,7 @@
 }
 
 .number {
-    border: 3px solid white;
+    border: 3px solid rgb(36, 123, 160);
     border-radius: 100%;
     text-align: center;
     font-size: 2em;
@@ -75,7 +75,7 @@
     width: 80px;
     height: 80px;
     margin: 40px auto 0 auto;
-    color: white;
+    color: #2;
 }
 
 .scrollButton {

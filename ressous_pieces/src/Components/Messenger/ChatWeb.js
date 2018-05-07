@@ -6,6 +6,10 @@ import { setTimeout } from 'timers';
 import { Prompt, withRouter } from 'react-router-dom';
 import updateUser from '../../ducks/reducer';
 import { connect } from 'react-redux';
+import Message from './Message';
+import Topic from 'react-icons/lib/md/assignment';
+import { Link } from 'react-router-dom';
+import Arrow from 'react-icons/lib/ti/arrow-left';
 
 class Messenger extends Component {
     constructor(props){
@@ -14,10 +18,13 @@ class Messenger extends Component {
             messagesDB: [],
             room: 1,
             messageInput: '',
+            issueInput: null,
             username: '',
             typers: [],
             users: [],
-            messagesSocket: []
+            messagesSocket: [],
+            topicActive: false,
+            topics: []
         }
         
         this.socket = io('/web', { query: `username=${this.props.username}`});
@@ -25,15 +32,15 @@ class Messenger extends Component {
         
         
         this.sendMessage = e => {
-            e.preventDefault();
             this.state.username === '' ? alert('Please enter your username') : 
             this.state.messageInput === '' ? alert('Please enter a message') :
             this.socket.emit('SEND_MESSAGE', {
                 messagebody: this.state.messageInput,
                 username: this.state.username,
-                room: this.state.room
+                room: this.state.room,
+                issue_id: this.state.issueInput
             });
-            this.setState({messageInput: ''})
+            this.setState({messageInput: '', issueInput: ''})
         }
         
         this.socket.on('RECEIVE_MESSAGE', data => {
@@ -116,40 +123,69 @@ class Messenger extends Component {
             this.setState({messagesDB: response.data})
         })
     }
+
+    handleKeyPress(event) {
+        if(event.key === 'Enter'){
+            this.sendMessage();
+        } 
+    }
     
     
     render(){
-        const messages = this.state.messagesDB.concat(this.state.messagesSocket)
+        const messages = this.state.messagesDB.concat(this.state.messagesSocket);
+        const userList = this.state.users.map(el => <li className='userItem'>{el}</li>)
+        const issueList = this.state.topics.map(el => <li onClick={() => this.setState({issueInput: el.issue_id, topicActive: false})}>{el.title}</li>)
         return (
-            <div className='chatRoom'>
-            <Prompt message={e => {
-                this.disconnect() ? 'You are leaving the Page' : ''
-            }}/>
-            <h1>Chatrom Web</h1>
-            <div className='messages'>
-                {messages.length ? messages.map((message,i) => {
-                    // console.log(message.username, message.messageBody)
-                    return (
-                        <span key={i}>
-                        <strong style={{color: 'purple', marginLeft: '0', textAlign: 'left'}}>{message.username}:</strong>
-                        {' '}{message.messagebody}<br/>
-                        </span>
-                    )
-                }) : null}
-            </div>
-            {this.state.typers.length < 4? this.state.typers.map((typer, i) => {
-                if(typer === this.state.username){
-                    return null
-                } else {
-                    return (
-                        <span key={i} style={{color: 'black', marginRight: '10px'}}>{typer + ' is typing...'}</span>
-                    )
-                }}) : this.state.typers.length >=4 ? <p>There are multiple users typing...</p> : null}
-                <br/>
-                <br/>
-            Message: <br/>
-            <input className='input' placeholder='Enter message here' type="text" value={this.state.messageInput} /*onKeyPress={() => this.isTyping()}*/ onChange={e => this.setState({messageInput: e.target.value})}/><br/>
-            <button className='btn' onClick={this.sendMessage}>Send Message</button>
+            <div>
+                <div className='breadcrump'><Link to='/chat'><Arrow />back</Link></div>
+                <h1>Chatrom Web</h1>
+                <div className='chatRoom'>
+                <Prompt message={e => {
+                    this.disconnect() ? 'You are leaving the Page' : ''
+                }}/>
+                <div className='infoBar'>
+                    <h6>Who's on the line?</h6>
+                    <ul className='userList'>
+                        {userList}
+                    </ul>
+                </div>
+                <div className='chatContent'>
+                    <div className='messages'>
+                        {messages.length ? messages.map((message,i) => {
+                            // console.log(message.username, message.messageBody)
+                            return (
+                                <Message key={i} issue_id={message.issue_id} username={message.username} messagebody={message.messagebody}/>
+                            )
+                        }) : null}
+                    </div>
+                    {this.state.typers.length < 4? this.state.typers.map((typer, i) => {
+                        if(typer === this.state.username){
+                            return null
+                        } else {
+                            return (
+                                <span key={i} style={{color: 'black', marginRight: '10px'}}>{typer + ' is typing...'}</span>
+                            )
+                        }}) : this.state.typers.length >=4 ? <p>There are multiple users typing...</p> : null}
+                        <br/>
+                        <br/>
+                    Message: <br/>
+                    <div className='inputWithIcon'>
+                        <input className='input messageInput' onKeyPress={e => this.handleKeyPress(e)} placeholder='Enter message here' type="text" value={this.state.messageInput} /*onKeyPress={() => this.isTyping()}*/ onChange={e => this.setState({messageInput: e.target.value})}/>
+                        <Topic className={this.state.issueInput ? 'iconElement' : 'dontShow'}/>
+                    <button style={{display: 'inline-block'}}className='btn'onClick={() => {
+                        axios.get(`/api/issuesUser/${this.props.user_id}`).then( data => {
+                        this.setState({topicActive: !this.state.topicActive, topics: data.data})
+                        })
+                    }
+                    }>Attach Topic</button>
+                    </div>
+                    <div className={this.state.topicActive ? 'issuesList' : 'dontShow'}>
+                        <ul>
+                            {issueList}
+                        </ul>
+                    </div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -157,7 +193,8 @@ class Messenger extends Component {
 
 function mapStateToProps(state){
     return {
-        username: state.username
+        username: state.username,
+        user_id: state.user_id
     }
 }
 

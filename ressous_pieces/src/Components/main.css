@@ -84,6 +84,7 @@ nav {
 
 .inputWithIcon {
     position: relative;
+    display: flex;
 }
 
 .iconElement {
@@ -150,8 +151,14 @@ nav > h2 {
 }
 
 .navBox {
-    padding: 25px;
+    margin: 20px;
+    padding: 5px 15px;;
     font-size: 1.3em;
+}
+
+.navActive {
+    border: 0.5px solid #f5f5f5;
+    border-radius: 5px;
 }
 
 .navigation > ul > li {
@@ -187,6 +194,10 @@ nav > div > ul > div > li {
     display: none;
 }
 
+ul {
+    list-style-type: none;
+}
+
 @media (max-width: 460px) {
     .navLink {
         font-size: 1.3em;
@@ -202,12 +213,19 @@ nav > div > ul > div > li {
         animation: none;
     }
     .navBox {
-        padding: 30px 15px;
+        padding: 10px;
+        margin: 15px 5px;
         font-size: 0.8em;
         background: #247BA0;
         color: white;
     }
     .button {
         width: 50%;
+    }
+}
+
+@media (max-width: 600px){
+    #logout {
+        display: none;
     }
 }

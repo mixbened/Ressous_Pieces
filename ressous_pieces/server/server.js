@@ -81,44 +81,50 @@ let userData = [];
     });
 
 // Socket Namespace for Data
-    const d = io.of('/data')
-        d.on('connection', (socket) => {
-            connectionsData++;
-            console.log('User connected Data', connectionsData);
-            d.emit('RECEIVE_MESSAGE', messagesData);
-    
-            //Create and monitor Disconnect
-            socket.on('disconnect', (req, res) => {
-                connectionsData--;
-                console.log('User disconnected Data', connectionsData);
-                if(connectionsData === 0){
-                    db.room_web_dev.insert(messagesData).then(data => {
-                        console.log('Data Transportation', data)
-                        if(data){
-                            messagesData = []
-                        }
-                    })
+const d = io.of('/data')
+d.on('connection', (socket) => {
+    userData.push(socket.handshake.query.username);
+    d.emit('SEND_USER', userData)
+    connectionsData++;
+    console.log('User connected', connectionsData);
+    d.emit('RECEIVE_MESSAGE', messagesData);
+
+    //Create and monitor Disconnect
+    socket.on('disconnect', (req, res) => {
+        connectionsData--;
+        userData.splice(userWeb.indexOf(socket.handshake.query.username), 1);
+        d.emit('SEND_USER', userWeb )
+        if(connectionsData === 0){
+            db.room_web_dev.insert(messagesData).then(data => {
+                console.log('Data Transportation', data)
+                if(data){
+                    messagesData = []
                 }
-                })
+            })
+        }
+    })
 
-            socket.on('SET_USER', function(data){
-                console.log(data)
-                userData.push(data.username)
-                d.emit('RECEIVE_USER', userData)
-            })
-
-            socket.on('REMOVE_USER', function(data){
-                userData.splice(userData.indexOf(data.username), 1)
-                console.log('removed',userData)
-            })
-            
-            socket.on('SEND_MESSAGE', function(data){
-                console.log('Send Message Event', data)
-                    messagesData.push(data)
-                    d.emit('RECEIVE_MESSAGE', messagesData);
-                    console.log('send Back to Web', messagesData)
-            })
-        })
+    socket.on('SET_USER', function(data){
+        userData.push(data.username)
+        console.log('datauser', userData)
+        d.emit('RECEIVE_USER', userData)
+    })
+      
+    socket.on('SEND_MESSAGE', function(data){
+          console.log('Send Message Event', data)
+              messagesData.push(data)
+              d.emit('RECEIVE_MESSAGE', messagesData);
+              console.log('send Back to Data', messagesData)
+    })
+   /* socket.on('isTyping', name => {
+          console.log(name)
+          io.emit('currentTyper', name)
+    })
+    socket.on('stopTyping', name => {
+          console.log('stop', name)
+          io.emit('previousTyper', name)
+    })*/
+});
 
 
 // App Endpoints

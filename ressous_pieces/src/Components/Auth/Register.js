@@ -64,7 +64,7 @@ class Register extends Component {
             console.log(user)
             axios.post('/api/register', user).then(data => {
                 if(data.data === 'registered'){
-                    window.location = '/dashboard'
+                    window.location = '/login'
                 } else {
                     window.location = '/login'
                 }

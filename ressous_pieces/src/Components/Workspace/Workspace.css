@@ -126,11 +126,6 @@ hr {
     height: 100%;
 }
 
-.previewContainer {
-    overflow: hidden;
-    height: 100px;
-}
-
 input.title {
     width: 20%;
 }

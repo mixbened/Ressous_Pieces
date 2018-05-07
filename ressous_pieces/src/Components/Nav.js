@@ -20,7 +20,7 @@ class Nav extends Component {
             console.log(response)
             if(response.data.user_id){
                 this.setState({isLoggedIn: true})
-                updateUser(response.data.username)
+                updateUser({username: response.data.username, user_id: response.data.user_id})
             } 
         })
     }
@@ -32,11 +32,20 @@ class Nav extends Component {
         })
     }
 
+    checkActive(val){
+        if(window.location.pathname === val){
+            return 'navActive navBox'
+        } else {
+            return 'navBox'
+        }
+    }
+
     checkButton(){
         if(this.state.isLoggedIn){ 
             return  (
-            <ul><Link className='navLink' to='/dashboard'><li className='navBox' >dashboard</li></Link>
-            <Link className='navLink' to='/browser'><li className='navBox' >browser</li></Link>
+            <ul><Link className='navLink' to='/dashboard'><li className={this.checkActive('/dashboard')} >dashboard</li></Link>
+            <Link className='navLink' to='/browser'><li className={this.checkActive('/browser')} >browser</li></Link>
+            <Link className='navLink' to='/chat'><li className={this.checkActive('/chat')} >chat</li></Link>
             <a className='navLink' id='logout'onClick={() => this.logout()}><li className='navBox'>logout</li></a></ul>
             )
         } else {

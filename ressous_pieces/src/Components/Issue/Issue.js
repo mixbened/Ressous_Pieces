@@ -34,8 +34,11 @@ class Issue extends Component {
             practices: [],
             editorMode: 'javascript',
             editorValue: '',
-            descrActive: false
+            descrActive: false,
+            waiting: false
         }
+        this.deleteArticle = this.deleteArticle.bind(this);
+        this.deletePractice = this.deletePractice.bind(this);
     }
 
     componentDidMount(){
@@ -122,6 +125,12 @@ class Issue extends Component {
         })
     }
 
+    isTyping(e){
+        console.log(e)
+        console.log('runs function')
+        //this.setState({waiting: false})
+    }
+
     render() {
         const { isTitle, isDescr } = this.state;
         const ArticleList = this.state.articles.map((el,i) =>  <ArticleItem key={i} title={el.title} url={el.url} article_id={el.article_id} origin={el.origin} deleteArticleFn={this.deleteArticle}/> )
@@ -171,6 +180,7 @@ class Issue extends Component {
                         <option value="html">HTML</option>
                     </select>
                     <AceEditor
+                    onKeyPress={(e) => this.isTyping(e)}
                     mode={this.state.editorMode}
                     theme="textmate"
                     width='100%'

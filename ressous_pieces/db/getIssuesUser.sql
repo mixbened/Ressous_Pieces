@@ -1,1 +1,1 @@
-SELECT * FROM issues_rp WHERE user_id = $1;
+SELECT *, issues_rp.title as issueTitle FROM issues_rp LEFT JOIN workspaces_rp ON issues_rp.workspace_id = workspaces_rp.workspace_id WHERE issues_rp.user_id = $1;

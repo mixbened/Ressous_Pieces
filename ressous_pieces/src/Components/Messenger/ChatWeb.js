@@ -10,6 +10,16 @@ import Message from './Message';
 import Topic from 'react-icons/lib/md/assignment';
 import { Link } from 'react-router-dom';
 import Arrow from 'react-icons/lib/ti/arrow-left';
+import { StyleSheet, css } from 'aphrodite';
+import { bounce, fadeInLeft } from 'react-animations';
+
+
+const styles = StyleSheet.create({
+    fadeInLeft: {
+      animationName: fadeInLeft,
+      animationDuration: '1s',
+    },
+  })
 
 class Messenger extends Component {
     constructor(props){
@@ -134,7 +144,13 @@ class Messenger extends Component {
     render(){
         const messages = this.state.messagesDB.concat(this.state.messagesSocket);
         const userList = this.state.users.map(el => <li className='userItem'>{el}</li>)
-        const issueList = this.state.topics.map(el => <li onClick={() => this.setState({issueInput: el.issue_id, topicActive: false})}>{el.title}</li>)
+        const issueList = this.state.topics.map(el => {
+            return <li className='issueList' onClick={() => this.setState({issueInput: el.issue_id, topicActive: false})}>
+                        <div className='issue'>
+                            <div>{el.issuetitle}</div>
+                            <div>/  {el.title}</div>
+                        </div>
+                    </li>})
         return (
             <div>
                 <div className='breadcrump'><Link to='/chat'><Arrow />back</Link></div>
@@ -171,7 +187,7 @@ class Messenger extends Component {
                     Message: <br/>
                     <div className='inputWithIcon'>
                         <input className='input messageInput' onKeyPress={e => this.handleKeyPress(e)} placeholder='Enter message here' type="text" value={this.state.messageInput} /*onKeyPress={() => this.isTyping()}*/ onChange={e => this.setState({messageInput: e.target.value})}/>
-                        <Topic className={this.state.issueInput ? 'iconElement' : 'dontShow'}/>
+                        <Topic onClick={() => this.setState({issueInput: null})} className={this.state.issueInput ? 'iconElement' : 'dontShow'}/>
                     <button style={{display: 'inline-block'}}className='btn'onClick={() => {
                         axios.get(`/api/issuesUser/${this.props.user_id}`).then( data => {
                         this.setState({topicActive: !this.state.topicActive, topics: data.data})

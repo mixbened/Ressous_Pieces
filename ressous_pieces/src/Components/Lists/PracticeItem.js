@@ -12,7 +12,7 @@ class PracticeItem extends Component {
             id: '',
             check_field: false,
         }
-    }
+     }
 
     deletePracticeFn(id){
         this.props.deletePracticeFn(id);
@@ -24,12 +24,16 @@ class PracticeItem extends Component {
         return (
             <div>
                 <li className='list-group-item'>
-                    <div className='infoBox'>
+                <div className='infoBox'>
+                    <div className='titleBox'>
                         <p>{title}</p>
-                        <a>{url}</a>
                     </div>
+                    <div className='descrBox'>
+                        <a href={url}><p>{url}</p></a>
+                    </div> 
+                </div>
                     <div className='boxBox'>
-                        <Remove className='iconSmall' onClick={() => this.deleteProjectFn(practice_id)}/>
+                        <Remove className='iconSmall' onClick={() => this.deletePracticeFn(practice_id)}/>
                         <Logo className='logo' origin={origin}/>
                     </div>
                 </li>

@@ -18,7 +18,7 @@ class Chart extends Component {
     }
 
     componentDidMount(){
-        const { updateStats } = this.props
+        const { updateStats, ressents } = this.props
         updateStats();
         this.setState({load: false})
     }
@@ -102,4 +102,5 @@ function mapStateToProps(state){
         stats: state.userStats
     }
 }
+
 export default withRouter(connect(mapStateToProps, {updateStats})(Chart));

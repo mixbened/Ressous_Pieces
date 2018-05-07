@@ -17,6 +17,8 @@ import { StyleSheet, css } from 'aphrodite';
 import Motor from 'react-icons/lib/md/attach-file';
 import { updateStats } from '../../ducks/reducer';
 import { connect } from 'react-redux';
+import { updateRessents } from '../../ducks/reducer';
+
 
 const styles = StyleSheet.create({
     bounce: {
@@ -94,6 +96,7 @@ class Workspace extends Component {
       }
 
     createIssue(){
+        const { updateRessents } = this.props
         const issue = {
             title: this.state.title,
             description: this.state.descr,
@@ -101,6 +104,7 @@ class Workspace extends Component {
         }
         axios.post('/api/issue', issue).then( data => {
             this.setState({issues: data.data, title: '', descr: '', createMode: false})
+            updateRessents(this.props.username)
         })
     }
 
@@ -127,8 +131,10 @@ class Workspace extends Component {
     }
 
     deleteIssue(id){
+        const { updateRessents } = this.props;  
         axios.delete(`/api/issue/${id}/${this.state.workspace_id}`).then(data => {
             console.log(data)
+            updateRessents(this.props.username)
             this.setState({issues: data.data, title: '', description: ''})
         })
     }
@@ -144,8 +150,8 @@ class Workspace extends Component {
         if(this.state.create === 'i'){
             return <div className='creationContainer'>
                 <Remove className='icon' onClick={e => this.setState({createMode: !this.state.createMode})}/>
-                <input className='input title'  maxlength='30' placeholder='Issue Title' type='text' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
-                <input className= 'input description' placeholder='Issue Description' type='text' value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
+                <input className='input title'  maxlength='30' placeholder='Topic Title' type='text' value={this.state.title} onChange={e => this.setState({title: e.target.value})} />
+                <input className= 'input description' placeholder='Topic Description' type='text' value={this.state.descr} onKeyPress={e => this.handleKeyPress(e)} onChange={e => this.setState({descr: e.target.value})}/>
                 <button className='btn' onClick={() => this.createIssue()}>Add</button>
             </div>
         } else if(this.state.create === 'a') {
@@ -257,8 +263,10 @@ class Workspace extends Component {
 
 function mapStateToProps(state){
     return {
-        userStats: state.userStats
+        userStats: state.userStats,
+        username: state.username,
+        ressents: state.ressents
     }
 }
 
-export default withRouter(connect(mapStateToProps, {updateStats})(Workspace));
+export default withRouter(connect(mapStateToProps, {updateStats, updateRessents})(Workspace));

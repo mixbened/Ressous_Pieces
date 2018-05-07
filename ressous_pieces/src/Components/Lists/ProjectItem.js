@@ -32,7 +32,7 @@ class ProjectItem extends Component {
                         </div>
                         <div className='descrBox'>
                             <a href={url}><p>{url}</p></a>
-                        </div>
+                        </div> 
                     </div>
                     <div className='boxBox'>
                         <div><Remove className='iconSmall' onClick={() => this.deleteProjectFn(project_id)}/></div>

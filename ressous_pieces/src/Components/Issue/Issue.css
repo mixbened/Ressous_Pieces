@@ -33,7 +33,7 @@
 .titleBox {
     padding: 1%;
     text-transform: uppercase;
-    width: 15%
+    width: 25%
 }
 
 .check {
@@ -42,6 +42,7 @@
 }
 
 .descrBox {
+    overflow: hidden;
     padding: 1%;
     flex: 2;
     margin: 0 2%;

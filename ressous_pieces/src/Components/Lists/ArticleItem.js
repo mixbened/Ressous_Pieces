@@ -21,7 +21,6 @@ class ArticleItem extends Component {
 
     render() {
         const { title, url, article_id, origin } = this.props
-        console.log(url)
         return (
             <div>
                 <li className='list-group-item'>

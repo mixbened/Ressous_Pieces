@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Topic from 'react-icons/lib/md/assignment';
+import { StyleSheet, css } from 'aphrodite';
+import { bounce, fadeInRight } from 'react-animations';
+
+
+const styles = StyleSheet.create({
+    fadeInRight: {
+      animationName: fadeInRight,
+      animationDuration: '1s',
+    },
+  })
 
 class Message extends Component {
     constructor(props){
@@ -19,7 +29,7 @@ class Message extends Component {
     render() {
         const { key, messagebody, username, issue_id } = this.props
         return (
-            <div className='messageContainer' key={key}>
+            <div className={css(styles.fadeInRight)} key={key}>
                 <div>{username}:</div> 
                 <div className='messageBody'>{messagebody}</div>
                 {this.topic()}

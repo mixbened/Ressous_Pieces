@@ -3,7 +3,9 @@ import axios from 'axios';
 import './Sidebar.css';
 import Chart from '../Profile/Chart';
 import RecentItem from '../Lists/RecentItem';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { updateRessents } from '../../ducks/reducer';
+import {connect} from 'react-redux';
 
 class Sidebar extends Component {
     constructor(){
@@ -17,16 +19,14 @@ class Sidebar extends Component {
     }
 
     componentDidMount(){
+        const { updateRessents } = this.props;
         axios.get('/api/checkSession').then((data) => {
             console.log(data.data.imageurl)
             this.setState({
                 username: data.data.username,
                 image: data.data.imageurl,
             })
-            axios.get(`/api/ressents/${data.data.username}`).then(response => {
-                this.setState({ressents: response.data, loading: false})
-                console.log(this.state.ressents)
-            })
+            updateRessents(this.state.username)
         })
     }
 
@@ -40,11 +40,18 @@ class Sidebar extends Component {
                         your stats
                         <hr />
                         </div>
-                        <Chart ressents={this.state.ressents}/>
+                        <Chart ressents={this.props.ressents}/>
                 </div>
             </div>
         );
     }
 }
 
-export default Sidebar;
+function mapStateToProps(state){
+    return {
+        stats: state.userStats,
+        ressents: state.ressents
+    }
+}
+
+export default withRouter(connect(mapStateToProps, {updateRessents})(Sidebar));

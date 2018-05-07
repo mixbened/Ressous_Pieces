@@ -211,6 +211,7 @@ module.exports = {
     },
     getIssuesUser: (req, res) => {
         req.app.get('db').getIssuesUser(req.params.id).then(data => {
+            console.log('DB Data', data)
             res.status(200).send(data)
         })
     },
